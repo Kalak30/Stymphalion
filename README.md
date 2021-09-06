@@ -1,18 +1,18 @@
-#Stymphalion
+# Stymphalion
 
-###Greek Mythology Adventure
+### Greek Mythology Adventure
 
-##Company Name: 
+#### Company Name: 
 Cafes
 
-##Game Name: 
+#### Game Name: 
 Stymphalion
 
-##Logo:
+#### Logo:
 
-##Gantt Chart
+#### Gantt Chart
 
-##Team Leads
+#### Team Leads
 
 1. Jon
 2. Ross
