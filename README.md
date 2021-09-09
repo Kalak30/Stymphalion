@@ -9,6 +9,7 @@ Cafes
 Stymphalion
 
 ### Logo:
+![Logo](https://github.com/Kalak30/Stymphalion/blob/main/doc/CS383logo02.png)
 
 ### Gantt Chart
 
