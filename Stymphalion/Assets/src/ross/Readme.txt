@@ -1,1 +1,3 @@
-Hello There!
+My (Ross) portion of the source code for out project
+
+Mostly open world sutff for now...
