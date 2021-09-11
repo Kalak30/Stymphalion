@@ -13,7 +13,7 @@ Stymphalion
 
 ### Gantt Chart
 
-[Gantt Chart](https://trello.com/invite/b/JXJJxaMY/46fc985ab356fd2ae60894631d89e26d/cafes)
+[Gantt Chart](https://docs.google.com/spreadsheets/d/1b0zSXoiD8BN8in2A2UPuGblmR1sVOjThWgHrNgWjNc8/edit#gid=0)
 ### Team Leads
 
 1. Jon
