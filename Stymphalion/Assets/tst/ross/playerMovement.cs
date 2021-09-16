@@ -12,7 +12,8 @@ public class playerMovement : MonoBehaviour
 
     private Vector2 forceDirection = Vector2.zero;
     
-    private test Tesst; // change name later if works
+    private Test Tesst; // change name later if works
+    private InputAction movement;
     private Rigidbody2D playRigidbody;
 
     // Start is called before the first frame update
@@ -22,13 +23,16 @@ public class playerMovement : MonoBehaviour
     }
 
     private void Awake(){
-        test = new Test();
-        playRigidbody = GetComponent<Rigidbody2d>();
+        Debug.Log("awake\n");
+        Tesst = new Test();
+        playRigidbody = GetComponent<Rigidbody2D>();
+        onEnable();
     }
 
     private void onEnable(){
-        movement = test.Player.Movement;
-        movementSpeed.Enable();
+        Debug.Log("endable\n");
+        movement = Tesst.Player.Movement;
+        movement.Enable();
     }
 
     // Update is called once per frame
@@ -38,11 +42,11 @@ public class playerMovement : MonoBehaviour
     }
 
     void FixedUpdate(){
-
-        forceDirection += movementSpeed.ReadValue<Vector2>() * movementSpeed;
-
-        playRigidbody.AddForce(forceDirection, ForceMode2D.Impulse);
-        forceDirection = Vector2.zero;
+        Debug.Log("gang gnag \n");
+        Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
+       // forceDirection += movement.ReadValue<Vector2>() * movementSpeed;
+        playRigidbody.velocity = movement.ReadValue<Vector2>() * movementSpeed ;
+        //forceDirection = Vector2.zero;
 
     }
 }
