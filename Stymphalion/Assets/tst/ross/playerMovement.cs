@@ -12,7 +12,7 @@ public class playerMovement : MonoBehaviour
 
     private Vector2 forceDirection = Vector2.zero;
     
-    private Test Tesst; // change name later if works
+    private PlayerActionMap ActionMap; // change name later if works
     private InputAction movement;
     private Rigidbody2D playRigidbody;
 
@@ -24,14 +24,14 @@ public class playerMovement : MonoBehaviour
 
     private void Awake(){
         Debug.Log("awake\n");
-        Tesst = new Test();
+        ActionMap = new PlayerActionMap();
         playRigidbody = GetComponent<Rigidbody2D>();
         onEnable();
     }
 
     private void onEnable(){
         Debug.Log("endable\n");
-        movement = Tesst.Player.Movement;
+        movement = ActionMap.Player.Movement;
         movement.Enable();
     }
 
