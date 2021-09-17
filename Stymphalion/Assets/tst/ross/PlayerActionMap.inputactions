@@ -1,5 +1,5 @@
 {
-    "name": "test",
+    "name": "PlayerActionMap",
     "maps": [
         {
             "name": "Player",
@@ -9,6 +9,14 @@
                     "name": "Movement",
                     "type": "Button",
                     "id": "363b6735-529b-4225-baf3-035b71e215c2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "92db19e5-4cad-49d6-a481-a6490c1159e7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -69,6 +77,17 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f288aabd-b985-4112-9508-186d0d458d42",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

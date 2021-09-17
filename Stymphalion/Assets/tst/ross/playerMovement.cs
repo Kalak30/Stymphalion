@@ -33,6 +33,17 @@ public class playerMovement : MonoBehaviour
         Debug.Log("endable\n");
         movement = ActionMap.Player.Movement;
         movement.Enable();
+
+        ActionMap.Player.Interact.performed += interactFunc;
+        ActionMap.Player.Interact.Enable();
+
+        Debug.Log("endable part 2: battle tendencies");
+
+    }
+
+    private void interactFunc(InputAction.CallbackContext obj){
+        Debug.Log("Interact Code Runs I guess lmao\n");
+
     }
 
     // Update is called once per frame
@@ -42,8 +53,8 @@ public class playerMovement : MonoBehaviour
     }
 
     void FixedUpdate(){
-        Debug.Log("gang gnag \n");
-        Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
+        //Debug.Log("gang gnag \n");
+        //Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
        // forceDirection += movement.ReadValue<Vector2>() * movementSpeed;
         playRigidbody.velocity = movement.ReadValue<Vector2>() * movementSpeed ;
         //forceDirection = Vector2.zero;
