@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +32,7 @@ public class playerMovement : MonoBehaviour
     private void onEnable(){
         Debug.Log("endable\n");
         movement = ActionMap.Player.Movement;
-        movement.Enable();
+      //  movement.Enable();
 
         ActionMap.Player.Interact.performed += interactFunc;
         ActionMap.Player.Interact.Enable();
@@ -61,3 +61,4 @@ public class playerMovement : MonoBehaviour
 
     }
 }
+*/
