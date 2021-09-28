@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerClass : MonoBehaviour
 {
@@ -13,9 +14,23 @@ public class PlayerClass : MonoBehaviour
 
     private Rigidbody2D player;
 
+    private PlayerInputActionMap playerActions;
+    private InputAction movement;
+
+    private void Awake(){
+        playerActions = new PlayerInputActionMap();
+        player = GetComponent<Rigidbody2D>();
+        Debug.Log("awake");
+       // OnEnable();
+    }
+    private void OnEnable(){
+        movement = playerActions.PlayerActionMap.Movement;
+        Debug.Log("Enabled");
+
+    }
     private void Movement(){
         //change player location lmao
-
+        player.velocity = movement.ReadValue<Vector2>();
         
 
     }
@@ -28,8 +43,9 @@ public class PlayerClass : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        Debug.Log("Mvement values::: " + playerActions.PlayerActionMap.Movement.ReadValue<Vector2>() );
+        player.velocity = playerActions.PlayerActionMap.Movement.ReadValue<Vector2>();
     }
 }
