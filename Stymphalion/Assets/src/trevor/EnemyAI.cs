@@ -12,6 +12,17 @@ public class EnemyAI : MonoBehaviour
     {
         playerHealth = Random.Range(1, 100);
         playerHealthPercentage = playerHealth / 100;
+       
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    void EnemyMove()
+    {
         //For minimum viable product, a simple hypothetical method for determining what move the enemy should use, using only player health.
         if (playerHealthPercentage >= .75)
         {
@@ -29,11 +40,5 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.Log("If player health is " + playerHealth + "then I'll use the quickest attack that will defeat the player");
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
