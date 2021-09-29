@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/src/hunter/Menus Assets/Main Menu.unity
     guid: 73f1a23aa1c38f24a92504f0ae0ee1e1
+  - enabled: 1
+    path: Assets/tst/ross/Main Island.unity
+    guid: 8b96776bcdbc8334398687a16e21d005
   m_configObjects: {}
