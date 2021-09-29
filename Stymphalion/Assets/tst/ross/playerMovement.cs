@@ -32,7 +32,7 @@ public class playerMovement : MonoBehaviour
     private void onEnable(){
         Debug.Log("endable\n");
         movement = ActionMap.Player.Movement;
-      //  movement.Enable();
+         movement.Enable();
 
         ActionMap.Player.Interact.performed += interactFunc;
         ActionMap.Player.Interact.Enable();
@@ -53,9 +53,9 @@ public class playerMovement : MonoBehaviour
     }
 
     void FixedUpdate(){
-        //Debug.Log("gang gnag \n");
-        //Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
-       // forceDirection += movement.ReadValue<Vector2>() * movementSpeed;
+        Debug.Log("gang gnag \n");
+        Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
+        forceDirection += movement.ReadValue<Vector2>() * movementSpeed;
         playRigidbody.velocity = movement.ReadValue<Vector2>() * movementSpeed ;
         //forceDirection = Vector2.zero;
 

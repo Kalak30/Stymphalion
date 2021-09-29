@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerClass : MonoBehaviour
 {
     // public variables
+    
+    public int movementSpeed = 5;
     public Vector2 location;
     public int level = 0; 
     //public inventorySystem;
@@ -16,21 +18,33 @@ public class PlayerClass : MonoBehaviour
 
     private PlayerInputActionMap playerActions;
     private InputAction movement;
+    
 
-    private void Awake(){
+    
+    private void OnCollisionStay2D(Collision2D collisionInfo){
+        // Debug.Log("Trash");
+        EnvirmentObjectSuperClass otherScript = collisionInfo.gameObject.GetComponent<EnvirmentObjectSuperClass>();
+
+        if(true){
+            otherScript.interact();
+        }
+    }
+  private void Awake(){
+        Debug.Log("awake\n");
         playerActions = new PlayerInputActionMap();
         player = GetComponent<Rigidbody2D>();
-        Debug.Log("awake");
-       // OnEnable();
+        OnEnable();
     }
     private void OnEnable(){
         movement = playerActions.PlayerActionMap.Movement;
+        movement.Enable();
         Debug.Log("Enabled");
 
     }
     private void Movement(){
-        //change player location lmao
-        player.velocity = movement.ReadValue<Vector2>();
+      //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
+        player.velocity = movement.ReadValue<Vector2>() * 5;
+        location = player.position;
         
 
     }
@@ -45,7 +59,6 @@ public class PlayerClass : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log("Mvement values::: " + playerActions.PlayerActionMap.Movement.ReadValue<Vector2>() );
-        player.velocity = playerActions.PlayerActionMap.Movement.ReadValue<Vector2>();
+        Movement();
     }
 }
