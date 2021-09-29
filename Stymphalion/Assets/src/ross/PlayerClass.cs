@@ -20,7 +20,7 @@ public class PlayerClass : MonoBehaviour
     private InputAction movement;
     
 
-    
+    /*
     private void OnCollisionStay2D(Collision2D collisionInfo){
         // Debug.Log("Trash");
         EnvirmentObjectSuperClass otherScript = collisionInfo.gameObject.GetComponent<EnvirmentObjectSuperClass>();
@@ -29,6 +29,7 @@ public class PlayerClass : MonoBehaviour
             otherScript.interact();
         }
     }
+    */
   private void Awake(){
         Debug.Log("awake\n");
         playerActions = new PlayerInputActionMap();
