@@ -33,6 +33,14 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""28439d01-b5b9-4f18-966f-bf9f2861ba56"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -101,6 +109,17 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""45566b49-be1f-40b4-91e2-e386b857f99f"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -111,6 +130,7 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
         m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
         m_PlayerActionMap_Movement = m_PlayerActionMap.FindAction("Movement", throwIfNotFound: true);
         m_PlayerActionMap_Interact = m_PlayerActionMap.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerActionMap_Inventory = m_PlayerActionMap.FindAction("Inventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -162,12 +182,14 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
     private IPlayerActionMapActions m_PlayerActionMapActionsCallbackInterface;
     private readonly InputAction m_PlayerActionMap_Movement;
     private readonly InputAction m_PlayerActionMap_Interact;
+    private readonly InputAction m_PlayerActionMap_Inventory;
     public struct PlayerActionMapActions
     {
         private @PlayerInputActionMap m_Wrapper;
         public PlayerActionMapActions(@PlayerInputActionMap wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerActionMap_Movement;
         public InputAction @Interact => m_Wrapper.m_PlayerActionMap_Interact;
+        public InputAction @Inventory => m_Wrapper.m_PlayerActionMap_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -183,6 +205,9 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInteract;
+                @Inventory.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInventory;
             }
             m_Wrapper.m_PlayerActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -193,6 +218,9 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
             }
         }
     }
@@ -201,5 +229,6 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
 }

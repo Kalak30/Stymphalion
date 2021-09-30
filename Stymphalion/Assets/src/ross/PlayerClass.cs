@@ -18,7 +18,7 @@ public class PlayerClass : MonoBehaviour
 
     private PlayerInputActionMap playerActions;
     private InputAction movement;
-    
+    private Inventory playerInventory;
 
     /*
     private void OnCollisionStay2D(Collision2D collisionInfo){
@@ -39,9 +39,20 @@ public class PlayerClass : MonoBehaviour
     private void OnEnable(){
         movement = playerActions.PlayerActionMap.Movement;
         movement.Enable();
+
+        playerActions.PlayerActionMap.Inventory.performed += inventoryX; 
+        playerActions.PlayerActionMap.Inventory.Enable();
+
+
         Debug.Log("Enabled");
 
+    }//
+
+    private void inventoryX(InputAction.CallbackContext obj){
+        playerInventory.InventoryCreation();
+      //  Debug.Log("Test");
     }
+////
     private void Movement(){
       //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
         player.velocity = movement.ReadValue<Vector2>() * 5;
@@ -54,7 +65,8 @@ public class PlayerClass : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerInventory = gameObject.AddComponent<Inventory>() as Inventory;
+
     }
 
     // Update is called once per frame
