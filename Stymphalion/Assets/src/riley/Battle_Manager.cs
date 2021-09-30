@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 //using trevor
 
-EnemyAI enemyAction;
 
 public class Battle_Manager : MonoBehaviour
 {
+    private EnemyAI enemyAction;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +19,7 @@ public class Battle_Manager : MonoBehaviour
         
     }
 
-    void initializeBattle(){
+    public void initializeBattle(){
 
         Debug.Log("Battle Manager not yet set up");
         Debug.Log("Battle Manager will call function from AI shown below");
