@@ -21,7 +21,7 @@ public class EnemyAI : MonoBehaviour
         
     }
 
-    void EnemyMove()
+    public void EnemyMove()
     {
         //For minimum viable product, a simple hypothetical method for determining what move the enemy should use, using only player health.
         if (playerHealthPercentage >= .75)
