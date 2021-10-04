@@ -7,7 +7,7 @@ using UnityEngine;
 /// See also: <seealso cref="Quest_Manager"/>
 /// </summary>
 ///
-public class Quest : MonoBehaviour
+public class Quest
 {
     /// <summary>
     /// Status of a <see cref="Quest"/>
@@ -41,13 +41,16 @@ public class Quest : MonoBehaviour
 
     private Status quest_status;
     private Quest_Step active_step;
-    private Quest_Step.Step_List step_list;
+    private int active_step_pos;
+    private Dictionary<int, Quest_Step> step_list;
 
     public Quest(string quest_name, string quest_description, string quest_reward)
     {
+        step_list = new Dictionary<int, Quest_Step>();
         this.quest_name = quest_name;
         this.quest_description = quest_description;
         this.quest_reward = quest_reward;
+        active_step_pos = -1;
     }
 
     /// <summary>
@@ -56,20 +59,18 @@ public class Quest : MonoBehaviour
     /// <returns>
     /// <list type="bullet">
     ///     <item><see langword="true"/> if there is a new step</item>
-    ///     <item><see langword="false"/> if the FINISH step has been reached</item>
+    ///     <item><see langword="false"/> if the last step has been reached. Also sets status to finished.</item>
     /// </list>
     /// </returns>
     public bool NextStep()
     {
-        Quest_Step temp = step_list.next();
-        if (temp.step_name == "Finish")
+        bool success = step_list.TryGetValue(active_step_pos + 1, out active_step);
+        if (!success)
         {
             quest_status = Status.finished;
-            return false;
         }
 
-        active_step = temp;
-        return true;
+        return success;
     }
 
     /// <summary>
@@ -80,7 +81,7 @@ public class Quest : MonoBehaviour
         Debug.Log("Quest Name: " + quest_name);
         Debug.Log("Quest Description: " + quest_description);
         Debug.Log("Quest Reward: " + quest_reward);
-        foreach (Quest_Step step in step_list)
+        foreach (Quest_Step step in step_list.Values)
         {
             step.DisplayStep();
         }
@@ -100,9 +101,10 @@ public class Quest : MonoBehaviour
         return quest_status;
     }
 
-    public void AddStep(string step_name, string step_description)
+    public void AddStep(int step_position, string step_name, string step_description)
     {
-        step_list.AddStep(new Quest_Step(step_name, step_description, this));
+        Quest_Step s = new Quest_Step(step_name, step_description, this);
+        step_list.Add(step_position, s);
     }
 
     public void UpdateStatus(Status status)

@@ -5,47 +5,32 @@ using UnityEngine;
 
 public class Quest_Manager : MonoBehaviour
 {
-    private struct Quest_List : IEnumerable<Quest>
-    {
-        public List<Quest> quests;
-
-        public Quest_List(Quest first)
-        {
-            quests = new List<Quest>();
-            quests.Add(first);
-        }
-
-        public void AddQuest(Quest quest)
-        {
-            quests.Add(quest);
-        }
-
-        public bool RemoveQuest(Quest quest)
-        {
-            return quests.Remove(quest);
-        }
-
-        public IEnumerator<Quest> GetEnumerator()
-        {
-            return quests.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-    }
-
-    private Quest_List quests;
+    private Dictionary<int, Quest> quests;
 
     public Quest_Manager()
     {
-        quests = new Quest_List();
+        quests = new Dictionary<int, Quest>();
+    }
+
+    public void AddQuest(int position, Quest quest)
+    {
+        quests.Add(position, quest);
+    }
+
+    public Quest GetQuest(int position)
+    {
+        return quests[position];
+    }
+
+    public void AddQuest(int position, string quest_name, string quest_description, string quest_reward)
+    {
+        Quest q = new Quest(quest_name, quest_description, quest_reward);
+        quests.Add(position, q);
     }
 
     public void DisplayQuests()
     {
-        foreach (Quest quest in quests)
+        foreach (Quest quest in quests.Values)
         {
             quest.DisplayQuest();
         }

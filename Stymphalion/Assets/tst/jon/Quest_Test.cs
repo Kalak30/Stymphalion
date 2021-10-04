@@ -10,6 +10,19 @@ public class Quest_Test : MonoBehaviour
     private void Start()
     {
         qm = gameObject.AddComponent<Quest_Manager>();
+
+        for (int i = 0; i < 200; i++)
+        {
+            Quest q = new Quest(i.ToString(), i.ToString(), "money!!!");
+
+            for (int j = 0; j < 5; j++)
+            {
+                q.AddStep(j, (i + j).ToString(), (i - j).ToString());
+            }
+            qm.AddQuest(i, q);
+        }
+
+        qm.DisplayQuests();
     }
 
     // Update is called once per frame
