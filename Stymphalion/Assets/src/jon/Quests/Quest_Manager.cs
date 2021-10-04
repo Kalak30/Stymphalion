@@ -3,29 +3,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Quest_Manager : MonoBehaviour {
-    struct Quest_List{
+public class Quest_Manager : MonoBehaviour
+{
+    private struct Quest_List : IEnumerable<Quest>
+    {
         public List<Quest> quests;
-        public Quest_List(){
+
+        public Quest_List(Quest first)
+        {
             quests = new List<Quest>();
+            quests.Add(first);
         }
 
-        
-        public void addQuest(Quest quest){
+        public void AddQuest(Quest quest)
+        {
             quests.Add(quest);
         }
-        
-        public bool removeQuest(Quest quest){
+
+        public bool RemoveQuest(Quest quest)
+        {
             return quests.Remove(quest);
         }
-        
-        public Quest getQuest();
 
+        public IEnumerator<Quest> GetEnumerator()
+        {
+            return quests.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
-  
-    public void displayQuests(){
-        Quest_List q; 
-        q.addQuest();
-        Debug.Log("=======================\n   ---- Quest_Manager ----\n displayQuests()\n =======================\n");
+
+    private Quest_List quests;
+
+    public Quest_Manager()
+    {
+        quests = new Quest_List();
+    }
+
+    public void DisplayQuests()
+    {
+        foreach (Quest quest in quests)
+        {
+            quest.DisplayQuest();
+        }
     }
 }
