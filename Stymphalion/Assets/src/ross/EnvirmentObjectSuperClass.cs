@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class EnvirmentObjectSuperClass : MonoBehaviour
 {
 
+
     private PlayerInputActionMap playerActions;
     private bool interactPressed = false;
 

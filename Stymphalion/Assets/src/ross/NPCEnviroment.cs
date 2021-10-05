@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//ss
 public class NPCEnviroment : EnvirmentObjectSuperClass
 {
     private NPC standeredNPC; 

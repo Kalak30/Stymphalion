@@ -1,3 +1,16 @@
 {
-	"name": "hunterSrc"
+    "name": "hunterSrc",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4c07c17f39828dd46b31be1e6cfbab42"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -1,3 +1,16 @@
 {
-	"name": "rileySrc"
+    "name": "rileySrc",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3ba41543d7cb3994496a76c8cdb2f4e2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
