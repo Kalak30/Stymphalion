@@ -3,8 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-{
-    private String name;
+public class NPC : MonoBehaviour {
+    Vector2 position;
+    String name;
 
-    public abstract void interactFunc();
+
+    public void touchingInteractable(){
+        Debug.Log("=======================\n --------- NPC ---------\n touchingInteractable()\n =======================\n");
+    }
 }

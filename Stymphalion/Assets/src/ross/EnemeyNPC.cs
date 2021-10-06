@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemeyNPC : EnvironmentObjectSuperClass
+public class EnemeyNPC : EnvirmentObjectSuperClass
 {
     private Battle_Manager battleManager;
     // Start is called before the first frame update

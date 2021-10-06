@@ -42,11 +42,11 @@ public class Quest
     private Status quest_status;
     private Quest_Step active_step;
     private int active_step_pos;
-    private Dictionary<int, Quest_Step> steps;
+    private Dictionary<int, Quest_Step> step_list;
 
     public Quest(string quest_name, string quest_description, string quest_reward)
     {
-        steps = new Dictionary<int, Quest_Step>();
+        step_list = new Dictionary<int, Quest_Step>();
         this.quest_name = quest_name;
         this.quest_description = quest_description;
         this.quest_reward = quest_reward;
@@ -64,7 +64,7 @@ public class Quest
     /// </returns>
     public bool NextStep()
     {
-        bool success = steps.TryGetValue(active_step_pos + 1, out active_step);
+        bool success = step_list.TryGetValue(active_step_pos + 1, out active_step);
         if (!success)
         {
             quest_status = Status.finished;
@@ -81,7 +81,7 @@ public class Quest
         Debug.Log("Quest Name: " + quest_name);
         Debug.Log("Quest Description: " + quest_description);
         Debug.Log("Quest Reward: " + quest_reward);
-        foreach (Quest_Step step in steps.Values)
+        foreach (Quest_Step step in step_list.Values)
         {
             step.DisplayStep();
         }
@@ -101,15 +101,10 @@ public class Quest
         return quest_status;
     }
 
-    public Dictionary<int, Quest_Step> GetSteps()
-    {
-        return steps;
-    }
-
     public void AddStep(int step_position, string step_name, string step_description)
     {
         Quest_Step s = new Quest_Step(step_name, step_description, this);
-        steps.Add(step_position, s);
+        step_list.Add(step_position, s);
     }
 
     public void UpdateStatus(Status status)

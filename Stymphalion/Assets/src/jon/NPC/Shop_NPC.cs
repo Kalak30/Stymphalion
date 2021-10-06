@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shop_NPC : NPC
+public class Shop_NPC : MonoBehaviour
 {
-    public override void interactFunc()
+    // Start is called before the first frame update
+    void Start()
     {
-        throw new System.NotImplementedException();
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

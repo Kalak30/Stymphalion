@@ -1,19 +1,3 @@
 {
-    "name": "jonSrc",
-    "rootNamespace": "",
-    "references": [
-        "GUID:4c07c17f39828dd46b31be1e6cfbab42",
-        "GUID:aaeb01cc918a43547a2bced6bac432b9"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [
-        ""
-    ],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+	"name": "jonSrc"
 }
