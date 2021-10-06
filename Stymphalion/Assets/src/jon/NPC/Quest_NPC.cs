@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Quest_NPC : MonoBehaviour
+public class Quest_NPC : NPC
 {
-    // Start is called before the first frame update
-    void Start()
+    private Quest npc_quest;
+
+    public override void touchingInteractable()
     {
-        
+        throw new System.NotImplementedException();
+    }
+
+    // Start is called before the first frame update
+    private void awake()
+    {
+        npc_quest = new Quest("start", "the first quest", "sword");
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 }
