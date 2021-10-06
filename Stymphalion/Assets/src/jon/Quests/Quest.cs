@@ -9,7 +9,7 @@ using UnityEngine;
 ///
 public class Quest
 {
-    public readonly int DEFAULT_STEPS = 50
+    public readonly int DEFAULT_STEPS = 50;
     private int max_steps;
 
     /// <summary>
@@ -54,7 +54,7 @@ public class Quest
         this.quest_description = quest_description;
         this.quest_reward = quest_reward;
         active_step_pos = 0;
-        maxsteps = DEFAULT_STEPS;
+        max_steps = DEFAULT_STEPS;
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ public class Quest
 
     public void AddStep(int step_position, string step_name, string step_description)
     {
-        if(maxsteps > steps.Count){
+        if(max_steps > steps.Count){
             Quest_Step s = new Quest_Step(step_name, step_description, this);
             steps.Add(step_position, s);
         }
