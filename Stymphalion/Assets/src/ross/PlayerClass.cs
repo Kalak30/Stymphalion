@@ -10,6 +10,7 @@ public class PlayerClass : MonoBehaviour
     public int movementSpeed = 5;
     public Vector2 location;
     public int level = 0; 
+    public int xp = 0;
     //public inventorySystem;
     public int health = 100;
     public bool onFire = false;
@@ -36,6 +37,7 @@ public class PlayerClass : MonoBehaviour
         player = GetComponent<Rigidbody2D>();
         OnEnable();
     }
+
     private void OnEnable(){
         movement = playerActions.PlayerActionMap.Movement;
         movement.Enable();
@@ -52,7 +54,6 @@ public class PlayerClass : MonoBehaviour
         playerInventory.InventoryCreation();
       //  Debug.Log("Test");
     }
-////
     private void Movement(){
       //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
         player.velocity = movement.ReadValue<Vector2>() * 5;
@@ -69,9 +70,27 @@ public class PlayerClass : MonoBehaviour
 
     }
 
+    private void checkHealth(){
+        if (health > 100){
+            health = 100;
+        }
+        else if (health < 0){
+            health = 0;
+        }
+    }
+
+    private void levelCheck(){
+        while(xp >= 100){
+            xp = xp - 100;
+            level = level + 1;
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
         Movement();
+        checkHealth();
+        levelCheck();
     }
 }
