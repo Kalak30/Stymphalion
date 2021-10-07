@@ -7,7 +7,7 @@ public class PlayerClass : MonoBehaviour
 {
     // public variables
     
-    public int movementSpeed = 5;
+    public float movementSpeed;
     public Vector2 location;
     public int level = 0; 
     public int xp = 0;
@@ -54,9 +54,11 @@ public class PlayerClass : MonoBehaviour
         playerInventory.InventoryCreation();
       //  Debug.Log("Test");
     }
-    private void Movement(){
+
+    // Make virutal for testing purposes
+    public virtual void Movement(){
       //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
-        player.velocity = movement.ReadValue<Vector2>() * 5;
+        player.velocity = movement.ReadValue<Vector2>() * movementSpeed;
         location = player.position;
         
 

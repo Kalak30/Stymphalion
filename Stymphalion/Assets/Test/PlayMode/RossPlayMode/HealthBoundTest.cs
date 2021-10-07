@@ -12,7 +12,7 @@ public class HealthBoundTest
 
     [UnityTest]
     public IEnumerator HealthUpperBoundTest(){
-        SceneManager.LoadScene("Main Island");
+        SceneManager.LoadScene("MainIsland");
 
         yield return new WaitForSeconds(2);
 
@@ -29,7 +29,7 @@ public class HealthBoundTest
     }
     [UnityTest]
     public IEnumerator HealthLowerBoundTest(){
-        SceneManager.LoadScene("Main Island");
+        SceneManager.LoadScene("MainIsland");
 
         yield return new WaitForSeconds(2);
 
