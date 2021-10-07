@@ -7,7 +7,7 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.785D90A9" = "MonoDevelop"
+	"last_search.785D90A9" = "preferences"
 	"InspectorPreview.785D90A9" = "0"
 	"currentGroup.785D90A9" = "all"
 }
@@ -49,6 +49,8 @@ providers = {
 	}
 }
 recentSearches = [
+	"preferences"
+	"MonoDevelop"
 ]
 searchItemFavorites = [
 ]

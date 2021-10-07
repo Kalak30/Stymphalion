@@ -45,7 +45,7 @@ public class Quest
     private Status quest_status;
     private Quest_Step active_step;
     private int active_step_pos;
-    private Dictionary<int, Quest_Step> steps;
+    private Dictionary<int, Quest_Step> steps; // This cannot be a dictionary because there is no notion of order. Go back to list or something.
 
     public Quest(string quest_name, string quest_description, string quest_reward)
     {
@@ -55,26 +55,6 @@ public class Quest
         this.quest_reward = quest_reward;
         active_step_pos = 0;
         max_steps = DEFAULT_STEPS;
-    }
-
-    /// <summary>
-    /// Proceeds to the next step of the quest
-    /// </summary>
-    /// <returns>
-    /// <list type="bullet">
-    ///     <item><see langword="true"/> if there is a new step</item>
-    ///     <item><see langword="false"/> if the last step has been reached. Also sets status to finished.</item>
-    /// </list>
-    /// </returns>
-    public bool NextStep()
-    {
-        bool success = steps.TryGetValue(active_step_pos + 1, out active_step);
-        if (!success)
-        {
-            quest_status = Status.finished;
-        }
-
-        return success;
     }
 
     /// <summary>
@@ -105,25 +85,86 @@ public class Quest
         return quest_status;
     }
 
+    public void UpdateStatus(Status status)
+    {
+        quest_status = status;
+    }
+
+    /// <summary>
+    /// Proceeds to the next step of the quest
+    /// </summary>
+    /// <returns>
+    /// <list type="bullet">
+    ///     <item><see langword="true"/> if there is a new step</item>
+    ///     <item><see langword="false"/> if the last step has been reached. Also sets status to finished.</item>
+    /// </list>
+    /// </returns>
+    public bool NextStep()
+    {
+        int next_step = active_step_pos + 1;
+        if (next_step > max_steps)
+        {
+            return false;
+        }
+        bool success = steps.TryGetValue(active_step_pos + 1, out active_step);
+        if (!success)
+        {
+            quest_status = Status.finished;
+        }
+
+        return success;
+    }
+
     public Dictionary<int, Quest_Step> GetSteps()
     {
         return steps;
     }
 
-    public void AddStep(int step_position, string step_name, string step_description)
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="step_position">the order the step should be placed in</param>
+    /// <param name="step_name">The name of the step</param>
+    /// <param name="step_description">A deeper description of what the player needs to do in order to complete
+    ///                                 the step</param>
+    /// <returns><list type="bullet">
+    ///     <item><see langword="true"/> if there were no problems</item>
+    ///     <item><see langword="false"/> if there was a problem adding the step</item>
+    ///     </list></returns>
+    public bool AddStep(int step_position, string step_name, string step_description)
     {
-        if(max_steps > steps.Count){
-            Quest_Step s = new Quest_Step(step_name, step_description, this);
-            steps.Add(step_position, s);
+        if (max_steps <= steps.Count)
+        {
+            //Debug.Log("Tried to add too many quest steps");
+            return false;
         }
-        else{
-            Debug.Log("Tried to add too many quest steps");
-        }
+
+        Quest_Step s = new Quest_Step(step_name, step_description, this);
+        steps.Add(step_position, s);
+
+        return true;
     }
 
-
-    public void UpdateStatus(Status status)
+    /// <summary>
+    /// Removes the step at the given step position
+    /// </summary>
+    /// <param name="step_position"></param>
+    /// <returns></returns>
+    public bool RemoveStep(int step_position)
     {
-        quest_status = status;
+        if (steps.Count <= 0)
+        {
+            return false;
+        }
+
+        return steps.Remove(step_position);
+    }
+
+    /// <summary>
+    /// Clears all steps from the quest
+    /// </summary>
+    public void ClearSteps()
+    {
+        steps.Clear();
     }
 }

@@ -12,7 +12,7 @@ public class Quest_NPC : NPC
     }
 
     // Start is called before the first frame update
-    private void awake()
+    private void Awake()
     {
         npc_quest = new Quest("start", "the first quest", "sword");
     }
