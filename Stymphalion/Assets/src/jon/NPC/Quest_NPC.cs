@@ -15,6 +15,8 @@ public class Quest_NPC : NPC
     private void Awake()
     {
         npc_quest = new Quest("start", "the first quest", "sword");
+        Quest_Manager.GetQuest_Manager().AddQuest(npc_quest);
+        
     }
 
     // Update is called once per frame

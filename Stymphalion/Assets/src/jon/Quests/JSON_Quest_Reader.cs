@@ -34,7 +34,7 @@ public class JSON_Quest_Reader : MonoBehaviour
     public void ReadFile(string file_name)
     {
         // Load the default quest data
-        if (PlayerPrefs.GetInt("FIRSTTIMEOPENING", 1) == 1)
+        if (PlayerPrefs.GetInt("FIRSTTIMEOPENING", 1) == 1 || !File.Exists(Application.persistentDataPath + "/" + file_name + ".txt"))
         {
             Debug.Log("First Time Opening");
             PlayerPrefs.SetInt("FIRSTTIMEOPENING", 0);

@@ -58,3 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+/Stymphalion/Packages/MSTest.TestAdapter.2.1.1
+/Stymphalion/Packages/MSTest.TestFramework.2.1.1/lib
+/Stymphalion/Packages/MSTest.TestFramework.2.1.1

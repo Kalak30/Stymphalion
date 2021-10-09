@@ -20,6 +20,10 @@ public class Boundary_Test_Quest
             {
                 Assert.IsFalse(success);
             }
+            else
+            {
+                Assert.IsTrue(success);
+            }
         }
         Assert.AreEqual(50, q.GetSteps().Count);
 
@@ -47,7 +51,30 @@ public class Boundary_Test_Quest
     }
 
     [Test]
-    public void Boundary_Test_QuestLower()
+    public void Boundary_Test_QuestManager()
     {
+        Quest_Manager quest_man = Quest_Manager.GetQuest_Manager();
+
+        int num = 50;
+
+        for (int i = 0; i < num; i++)
+        {
+            quest_man.AddQuest("name", "desc", "reward");
+        }
+
+        // Access out of bounds
+        Quest over = quest_man.GetQuest(num + 40);
+        Assert.IsNull(over);
+
+        // Access in bounds
+        Quest under = quest_man.GetQuest(num - num / 2);
+        Assert.IsNotNull(under);
+
+        // Access on boundary
+        Quest on = quest_man.GetQuest(num - 1);
+        Assert.IsNotNull(on);
+
+        Quest negative = quest_man.GetQuest(-num);
+        Assert.IsNull(negative);
     }
 }

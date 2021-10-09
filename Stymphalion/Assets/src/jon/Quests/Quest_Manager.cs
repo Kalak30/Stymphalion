@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Quest_Manager
 {
+    // Using the Singleton Pattern
     private static Quest_Manager quest_manager;
 
     private List<Quest> quests;
@@ -19,9 +20,22 @@ public class Quest_Manager
         quests.Add(quest);
     }
 
+    /// <param name="position"></param>
+    /// <returns>Quest at position or null if position is out of bounds.</returns>
     public Quest GetQuest(int position)
     {
+        // Bounds check on position
+        if (position >= quests.Count || position < 0)
+        {
+            return null;
+        }
+        
         return quests[position];
+    }
+
+    public int QuestsLength()
+    {
+        return quests.Count;
     }
 
     public void AddQuest(string quest_name, string quest_description, string quest_reward)

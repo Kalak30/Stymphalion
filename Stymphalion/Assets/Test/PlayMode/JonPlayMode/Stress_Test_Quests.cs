@@ -7,20 +7,43 @@ using UnityEngine.SceneManagement;
 
 public class Stress_Test_Quests
 {
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator Stress_Test_QuestsWithEnumeratorPasses()
-    {
-        SceneManager.LoadScene("Main Island");
-        for (int i = 0; i > -1; i++)
-        {
-            //Create a bunch of new quests within the quest manager
-            Object.Instantiate(Resources.Load("Assets/prefabs/jon/NPC"));
-        }
+    private Quest_Manager qm = Quest_Manager.GetQuest_Manager();
 
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
+    // Still have no idea for a stress test
+    [UnityTest]
+    public IEnumerator Stress_Test_QuestManager()
+    {
+        
+
+        
+        for (int i = 0; i <= qm.QuestsLength(); i++)
+        {
+            qm.AddQuest("i","i","i");
+           // MakeQuests();
+            //qm.DisplayQuests();
+        }
+        Assert
         yield return null;
+    }
+
+    private void MakeQuests()
+    {
+        int quests_per = 30000;
+        for (int i = 0; i < quests_per; i++)
+        {
+            // Make the strings longer just because I can
+            Quest q = new Quest("a".PadLeft(i, 'c'), "a".PadRight(i, 'b'), "a".PadLeft(i, 'a'));
+            MakeSteps(q);
+            qm.AddQuest(q);
+        }
+    }
+
+    private void MakeSteps(Quest q)
+    {
+        int steps_per = 4000;
+        for (int i = 0; i < steps_per; i++)
+        {
+            q.AddStep("s".PadLeft(i, 't'), "u".PadLeft(i, 'v'));
+        }
     }
 }
