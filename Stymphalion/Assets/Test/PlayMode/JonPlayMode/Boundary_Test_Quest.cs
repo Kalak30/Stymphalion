@@ -15,7 +15,7 @@ public class Boundary_Test_Quest
         //Above upper bound
         for (int i = 0; i < 60; i++)
         {
-            bool success = q.AddStep(i, "step: " + i.ToString(), "step_descrip");
+            bool success = q.AddStep("step: " + i.ToString(), "step_descrip");
             if (i > 50)
             {
                 Assert.IsFalse(success);
@@ -28,7 +28,7 @@ public class Boundary_Test_Quest
 
         for (int i = 0; i < 40; i++)
         {
-            bool success = q.AddStep(i, "step: " + i.ToString(), "step_descrip");
+            bool success = q.AddStep("step: " + i.ToString(), "step_descrip");
             Assert.IsTrue(success);
         }
 
@@ -39,7 +39,7 @@ public class Boundary_Test_Quest
 
         for (int i = 0; i < 50; i++)
         {
-            bool success = q.AddStep(i, "step: " + i.ToString(), "step_descrip");
+            bool success = q.AddStep("step: " + i.ToString(), "step_descrip");
             Assert.IsTrue(success);
         }
 

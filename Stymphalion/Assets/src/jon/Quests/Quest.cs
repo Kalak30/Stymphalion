@@ -33,27 +33,31 @@ public class Quest
         locked = 2,
 
         /// <summary>
-        /// If a <see cref="Quest"/> has been finished by the player.
+        /// If a <see cref="Quest"/> has been completed by the player, but rewards have yet to be collected.
         /// </summary>
-        finished = 3
+        completed = 3,
+
+        /// <summary>
+        /// If a <see cref="Quest"/> has been finished by the player and rewards have been collected.
+        /// </summary>
+        finished = 4
     };
 
     public string quest_name;
     public string quest_description;
-    public string quest_reward; // Needs to be an item from kyles stuff
+    public string quest_reward;  // Needs to be an item from kyles stuff
 
-    private Status quest_status;
-    private Quest_Step active_step;
-    private int active_step_pos;
-    private Dictionary<int, Quest_Step> steps; // This cannot be a dictionary because there is no notion of order. Go back to list or something.
+    public Status quest_status;
+    public int active_step_pos;
+    public List<Quest_Step> steps;
 
     public Quest(string quest_name, string quest_description, string quest_reward)
     {
-        steps = new Dictionary<int, Quest_Step>();
+        steps = new List<Quest_Step>();
         this.quest_name = quest_name;
         this.quest_description = quest_description;
         this.quest_reward = quest_reward;
-        active_step_pos = 0;
+        this.active_step_pos = 0;
         max_steps = DEFAULT_STEPS;
     }
 
@@ -65,7 +69,7 @@ public class Quest
         Debug.Log("Quest Name: " + quest_name);
         Debug.Log("Quest Description: " + quest_description);
         Debug.Log("Quest Reward: " + quest_reward);
-        foreach (Quest_Step step in steps.Values)
+        foreach (Quest_Step step in steps)
         {
             step.DisplayStep();
         }
@@ -90,6 +94,11 @@ public class Quest
         quest_status = status;
     }
 
+    public void SetActiveStep(int active_step_pos)
+    {
+        this.active_step_pos = active_step_pos;
+    }
+
     /// <summary>
     /// Proceeds to the next step of the quest
     /// </summary>
@@ -104,18 +113,15 @@ public class Quest
         int next_step = active_step_pos + 1;
         if (next_step > max_steps)
         {
+            quest_status = Status.completed;
             return false;
         }
-        bool success = steps.TryGetValue(active_step_pos + 1, out active_step);
-        if (!success)
-        {
-            quest_status = Status.finished;
-        }
+        active_step_pos = next_step;
 
-        return success;
+        return true;
     }
 
-    public Dictionary<int, Quest_Step> GetSteps()
+    public List<Quest_Step> GetSteps()
     {
         return steps;
     }
@@ -131,7 +137,7 @@ public class Quest
     ///     <item><see langword="true"/> if there were no problems</item>
     ///     <item><see langword="false"/> if there was a problem adding the step</item>
     ///     </list></returns>
-    public bool AddStep(int step_position, string step_name, string step_description)
+    public bool InsertStep(int step_position, string step_name, string step_description)
     {
         if (max_steps <= steps.Count)
         {
@@ -140,7 +146,31 @@ public class Quest
         }
 
         Quest_Step s = new Quest_Step(step_name, step_description, this);
-        steps.Add(step_position, s);
+        steps.Insert(step_position, s);
+
+        return true;
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="step_name">The name of the step</param>
+    /// <param name="step_description">A deeper description of what the player needs to do in order to complete
+    ///                                 the step</param>
+    /// <returns><list type="bullet">
+    ///     <item><see langword="true"/> if there were no problems</item>
+    ///     <item><see langword="false"/> if there was a problem adding the step</item>
+    ///     </list></returns>
+    public bool AddStep(string step_name, string step_description)
+    {
+        if (max_steps <= steps.Count)
+        {
+            //Debug.Log("Tried to add too many quest steps");
+            return false;
+        }
+
+        Quest_Step s = new Quest_Step(step_name, step_description, this);
+        steps.Add(s);
 
         return true;
     }
@@ -157,7 +187,8 @@ public class Quest
             return false;
         }
 
-        return steps.Remove(step_position);
+        steps.RemoveAt(step_position);
+        return true;
     }
 
     /// <summary>
@@ -166,5 +197,26 @@ public class Quest
     public void ClearSteps()
     {
         steps.Clear();
+    }
+
+    public Quest_Data ToSaveData()
+    {
+        // Add all required data to new save file
+        Quest_Data save_quest = new Quest_Data();
+        save_quest.quest_name = quest_name;
+        save_quest.quest_description = quest_description;
+        save_quest.quest_reward = quest_reward;
+        save_quest.quest_status = (int)quest_status;
+        save_quest.active_step_pos = active_step_pos;
+
+        //Get save data for each step
+        List<Step_Data> steps_save_data = new List<Step_Data>();
+        foreach (Quest_Step step in steps)
+        {
+            steps_save_data.Add(step.ToSaveData());
+        }
+
+        save_quest.steps = steps_save_data;
+        return save_quest;
     }
 }

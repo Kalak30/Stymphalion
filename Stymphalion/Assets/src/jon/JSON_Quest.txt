@@ -1,0 +1,24 @@
+{
+	"quests":
+	[
+		{
+			"quest_name": "The Start",
+			"quest_description": "This is a description",
+			"quest_reward": "Item",
+			"quest_status": "0"
+			"active_step_pos":
+			"steps":
+			[
+				{
+				"step_name": "Step 1"
+				"step_description": "Do this thing"
+				},
+				{
+				"step_name": "Step 2",
+				"step_description": "Do this other thing"
+				}
+			]
+		}
+	]
+}
+			

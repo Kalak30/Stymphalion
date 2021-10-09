@@ -7,9 +7,9 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.785D90A9" = "preferences"
+	"last_search.785D90A9" = "Preferences"
 	"InspectorPreview.785D90A9" = "0"
-	"currentGroup.785D90A9" = "all"
+	"currentGroup.785D90A9" = "settings"
 }
 providers = {
 	asset = {
@@ -49,6 +49,9 @@ providers = {
 	}
 }
 recentSearches = [
+	"Preferences"
+	"player"
+	"prefer"
 	"preferences"
 	"MonoDevelop"
 ]
