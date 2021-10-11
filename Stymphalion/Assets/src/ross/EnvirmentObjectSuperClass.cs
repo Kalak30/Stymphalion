@@ -31,6 +31,10 @@ public class EnvirmentObjectSuperClass : MonoBehaviour
         }
     }
 
+    void OnTrigger2D(Collider2D obj){
+        Debug.Log("BOOO");
+    }
+
     public virtual void interactFunc(){
         Debug.Log("Generic Interacable object IDK");
        
