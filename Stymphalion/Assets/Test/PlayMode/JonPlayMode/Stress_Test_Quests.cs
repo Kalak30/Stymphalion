@@ -13,37 +13,17 @@ public class Stress_Test_Quests
     [UnityTest]
     public IEnumerator Stress_Test_QuestManager()
     {
-        
-
-        
-        for (int i = 0; i <= qm.QuestsLength(); i++)
+        while ((1.0f / Time.smoothDeltaTime) > 30)
         {
-            qm.AddQuest("i","i","i");
-           // MakeQuests();
-            //qm.DisplayQuests();
+            for (int i = 0; i < 1000; i++)
+            {
+                qm.AddQuest("i", "i", "i");
+            }
+            yield return null;
         }
-        //Assert 
+        Debug.Log(qm.QuestsLength());
+        Assert.IsTrue((1.0f / Time.smoothDeltaTime) < 30);
+        //Assert
         yield return null;
-    }
-
-    private void MakeQuests()
-    {
-        int quests_per = 30000;
-        for (int i = 0; i < quests_per; i++)
-        {
-            // Make the strings longer just because I can
-            Quest q = new Quest("a".PadLeft(i, 'c'), "a".PadRight(i, 'b'), "a".PadLeft(i, 'a'));
-            MakeSteps(q);
-            qm.AddQuest(q);
-        }
-    }
-
-    private void MakeSteps(Quest q)
-    {
-        int steps_per = 4000;
-        for (int i = 0; i < steps_per; i++)
-        {
-            q.AddStep("s".PadLeft(i, 't'), "u".PadLeft(i, 'v'));
-        }
     }
 }
