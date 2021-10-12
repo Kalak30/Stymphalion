@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void TakeDamage(int damage)
+    public bool TakeDamage(int damage)
     {
         currentHealth -= damage;
 
@@ -24,15 +24,22 @@ public class Enemy : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+            return true;
         }
+        return false;
     }
 
     void Die()
     {
         Debug.Log("Enemy Died");
 
+        //Make Enemy disappear
+        GameObject objectToDisappear = GameObject.Find("Boss");
+        objectToDisappear.GetComponent<Renderer>().enabled = false;
+
         //Die animation
 
         //Disable the enemy
+      
     }
 }

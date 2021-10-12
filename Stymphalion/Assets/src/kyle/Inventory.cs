@@ -1,27 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using trevor
 
 
-public class Inventory : MonoBehaviour
-{
-    private Inventory inventoryAction;
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+public class Inventory{
+    private List<Item> itemList;
         
-    }
+        public void InventoryManage(){
+            itemList = new List<Item>();
 
-    public void InventoryCreation(){
+            AddItem(new Item {itemType = Item.ItemType.Sword, amount = 1}, itemList.Count);
+            RemoveItem(new Item{itemType = Item.ItemType.Sword, amount = 1}, itemList.Count);
+        }
 
-        Debug.Log("Inventory not yet set up");
-        Debug.Log("Inventory will call function from Inventory shown below");
+        
+        public void AddItem(Item item, int inventoryCount){
+            if( inventoryCount < 10 ){
+                itemList.Add(item);
+            }
+        }
+        public void RemoveItem(Item item, int inventoryCount){
+            if( inventoryCount > 0 ){
+                itemList.Remove(item);
+            } 
+        }
+    
+
+        public void InventoryCreation(){
+            Debug.Log("Inventory not yet set up");
+            Debug.Log("Inventory will call function from Inventory shown below");
     }
 }
