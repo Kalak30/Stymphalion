@@ -68,7 +68,9 @@ public class PlayerClass : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerInventory = gameObject.AddComponent<Inventory>() as Inventory;
+        //playerInventory = gameObject.AddComponent<Inventory>() as Inventory;
+        playerInventory = new Inventory();
+        // should be playerInventory = new Inventory;
 
     }
 
