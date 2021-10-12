@@ -58,18 +58,7 @@ public class AttackBoundaryTest : MonoBehaviour
 
 
     }
-    public int testvalue = 1;
-    public int testvalue2 = 60;
-    [Test]
-    public void Test3()
-    {
-        while(testvalue2 > 0)
-        {
-            testvalue = testvalue + testvalue;
-            Debug.Log(testvalue);
-            testvalue2--;
-        }
-    }
+    
 
     // Update is called once per frame
     void Update()
