@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        int currentHealth = maxHealth;
 
     }
 
@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            int after = 0 - currentHealth;
+            Debug.Log("Health is " + after + " below boundry");
             currentHealth = 0;
             Die();
         }
