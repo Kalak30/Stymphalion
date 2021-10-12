@@ -22,7 +22,8 @@ public class AttackBoundaryTest : MonoBehaviour
     public void Test1()
     {
         Attack attack1 = new Attack();
-        attack1.damage = Random.Range(69, 90);
+        //attack1.damage = Random.Range(69, 90);
+        attack1.damage = Random.Range(-1000, 1000);
         attack1.speed = attack1.damage / 10;
         attack1.bonus = 0;
 
@@ -40,11 +41,20 @@ public class AttackBoundaryTest : MonoBehaviour
         attack4.damage = Random.Range(30, 55);
         attack4.speed = attack4.damage / 10;
         attack4.bonus = Random.Range(1, 4);
-
+        int counter = 0;
+        //while(attack1.damage != 70)
+        while (attack1.damage > 91 || attack1.damage < 70)
+        {
+            Debug.Log("Attack 1 damage was outside of expected range, (" + attack1.damage + ") trying again.");
+            attack1.damage = Random.Range(-1000, 1000);
+            attack1.speed = attack1.damage / 10;
+            counter++;
+        }
+        Debug.Log("Retries: " + counter);
         Debug.Log("Attack 1 damage is " + attack1.damage + " with a speed of " + attack1.speed);
-        Debug.Log("Attack 1 damage is " + attack2.damage + " with a speed of " + attack2.speed);
-        Debug.Log("Attack 1 damage is " + attack3.damage + " with a speed of " + attack3.speed);
-        Debug.Log("Attack 1 damage is " + attack4.damage + " with a speed of " + attack4.speed);
+        Debug.Log("Attack 2 damage is " + attack2.damage + " with a speed of " + attack2.speed);
+        Debug.Log("Attack 3 damage is " + attack3.damage + " with a speed of " + attack3.speed);
+        Debug.Log("Attack 4 damage is " + attack4.damage + " with a speed of " + attack4.speed);
 
 
     }

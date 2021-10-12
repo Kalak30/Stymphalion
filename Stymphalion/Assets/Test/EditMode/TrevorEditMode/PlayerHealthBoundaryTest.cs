@@ -20,13 +20,14 @@ public class PlayerHealthBoundaryTest : MonoBehaviour
     [Test]
     public void Test2()
     {
-        playerHealth = Random.Range(-25, 150);
-        playerHealthPercentage = playerHealth / 100.0;
-        if(playerHealthPercentage > 1.0 || playerHealthPercentage < 0.001)
+        playerHealth = Random.Range(-1000, 1000);
+        
+        while(playerHealth > 100 || playerHealth < 0)
         {
             Debug.Log("Player health is outside of expected range, setting it to a correct value.");
-            playerHealthPercentage = 1.0;
+            playerHealth = Random.Range(-1000,1000);
         }
+        playerHealthPercentage = playerHealth / 100.0;
         Debug.Log(playerHealth + "space" + playerHealthPercentage);
         if (playerHealthPercentage >= .75)
         {
