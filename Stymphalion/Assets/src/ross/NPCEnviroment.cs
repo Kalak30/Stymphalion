@@ -8,6 +8,7 @@ public class NPCEnviroment : EnvirmentObjectSuperClass
 {
     private NPC standeredNPC; 
 
+    // Dynamic Binding lets goo
     public override void interactFunc(){
         //Debug.Log("Hello");
         standeredNPC.touchingInteractable();

@@ -7,6 +7,8 @@ public class EnemeyNPC : EnvirmentObjectSuperClass
     private Battle_Manager battleManager;
     // Start is called before the first frame update
 
+
+    // Dynamic Binding lets gooo
     public override void interactFunc(){
         battleManager.initializeBattle();
     }

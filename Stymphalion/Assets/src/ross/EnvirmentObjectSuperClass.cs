@@ -11,6 +11,7 @@ public class EnvirmentObjectSuperClass : MonoBehaviour
     private bool interactPressed = false;
 
     public void Awake(){
+        // initalize and enable action map
         playerActions = new PlayerInputActionMap();
         playerActions.PlayerActionMap.Interact.started += interactIsPressed; 
         playerActions.PlayerActionMap.Interact.canceled += interactReleased;
@@ -31,9 +32,6 @@ public class EnvirmentObjectSuperClass : MonoBehaviour
         }
     }
 
-    void OnTrigger2D(Collider2D obj){
-        Debug.Log("BOOO");
-    }
 
     public virtual void interactFunc(){
         Debug.Log("Generic Interacable object IDK");
