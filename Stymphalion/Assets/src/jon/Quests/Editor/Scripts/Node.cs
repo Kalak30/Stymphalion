@@ -1,7 +1,33 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+public enum NodeType
+{
+    Base,
+    Quest,
+    Step
+}
+
+[System.Serializable]
+public class ConnectionRule
+{
+    public NodeType InputType;
+    public int InputID;
+    public NodeType OutputType;
+    public int OutputID;
+
+    public ConnectionRule(NodeType inputType, int inputID, NodeType outputType, int outputID)
+    {
+        InputType = inputType;
+        InputID = inputID;
+        OutputType = outputType;
+        OutputID = outputID;
+    }
+}
+
+[System.Serializable]
 public class Node
 {
     public int m_id;
@@ -12,8 +38,13 @@ public class Node
     public GUIStyle m_style;
     public GUIStyle m_defaultNodeStyle;
     public GUIStyle m_selectedNodeStyle;
-    public ConnectionPoint m_inPoint;
-    public ConnectionPoint m_outPoint;
+    public List<ConnectionPoint> m_inPoints;
+    public List<ConnectionPoint> m_outPoints;
+    public List<ConnectionRule> m_allowedInputs;
+    public List<ConnectionRule> m_allowedOutputs;
+    public NodeType m_type = NodeType.Base;
+    /*    public ConnectionPoint m_inPoint;
+        public ConnectionPoint m_outPoint;*/
     public Action<Node> m_onRemoveNode;
 
     public Node(Vector2 position, float width, float height, int ID, GUIStyle nodeStyle, GUIStyle selectedStyle, GUIStyle inPointStyle, GUIStyle outPointStyle, Action<ConnectionPoint> OnClickInPoint, Action<ConnectionPoint> OnClickOutPoint, Action<Node> OnClickRemoveNode)
@@ -21,8 +52,6 @@ public class Node
         m_id = ID;
         m_rect = new Rect(position.x, position.y, width, height);
         m_style = nodeStyle;
-        m_inPoint = new ConnectionPoint(this, ConnectionPointType.In, inPointStyle, OnClickInPoint);
-        m_outPoint = new ConnectionPoint(this, ConnectionPointType.Out, outPointStyle, OnClickOutPoint);
         m_defaultNodeStyle = nodeStyle;
         m_selectedNodeStyle = selectedStyle;
         m_onRemoveNode = OnClickRemoveNode;
@@ -36,8 +65,21 @@ public class Node
 
     public void DrawConnectionPoints()
     {
-        m_inPoint.Draw();
-        m_outPoint.Draw();
+        if (m_inPoints != null)
+        {
+            foreach (ConnectionPoint p in m_inPoints)
+            {
+                p.Draw();
+            }
+        }
+
+        if (m_outPoints != null)
+        {
+            foreach (ConnectionPoint p in m_outPoints)
+            {
+                p.Draw();
+            }
+        }
     }
 
     public virtual void DrawWindow(int id)
