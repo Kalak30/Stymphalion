@@ -273,9 +273,22 @@ public class Quest_Editor : EditorWindow
 
             foreach (Connection c in m_connections)
             {
-                if (c.m_inPoint == node.m_inPoint || c.m_outPoint == node.m_outPoint)
+                // Do a check for every inpoint, not just one
+                foreach (ConnectionPoint p in node.m_inPoints)
                 {
-                    connectionsToRemove.Add(c);
+                    if (c.m_inPoint == p)
+                    {
+                        connectionsToRemove.Add(c);
+                    }
+                }
+
+                // Same with out points
+                foreach (ConnectionPoint p in node.m_outPoints)
+                {
+                    if (c.m_outPoint == p)
+                    {
+                        connectionsToRemove.Add(c);
+                    }
                 }
             }
 

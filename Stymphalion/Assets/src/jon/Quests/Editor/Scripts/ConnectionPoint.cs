@@ -8,12 +8,16 @@ public class ConnectionPoint
     public Rect m_rect;
     public ConnectionPointType m_type;
     public Node m_node;
+    public string m_name;
+    public float m_y;
     public GUIStyle m_style;
     public Action<ConnectionPoint> m_onClickConnectionPoint;
 
-    public ConnectionPoint(Node node, ConnectionPointType type, GUIStyle style, Action<ConnectionPoint> OnClickConnectionPoint)
+    public ConnectionPoint(Node node, string name, float y, ConnectionPointType type, GUIStyle style, Action<ConnectionPoint> OnClickConnectionPoint)
     {
         m_node = node;
+        m_name = name;
+        m_y = y;
         m_type = type;
         m_style = style;
         m_onClickConnectionPoint = OnClickConnectionPoint;
@@ -22,7 +26,7 @@ public class ConnectionPoint
 
     public void Draw()
     {
-        m_rect.y = m_node.m_rect.y + (m_node.m_rect.height * 0.5f) - m_rect.height * 0.5f;
+        m_rect.y = m_y + m_node.m_rect.y + (m_node.m_rect.height * 0.5f) - m_rect.height * 0.5f;
 
         switch (m_type)
         {
