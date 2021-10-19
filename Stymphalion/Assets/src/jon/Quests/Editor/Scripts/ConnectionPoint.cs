@@ -27,14 +27,13 @@ public class ConnectionPoint
         switch (m_type)
         {
             case ConnectionPointType.In:
-                m_rect.x = m_node.m_rect.x - m_rect.width + 8f;
+                m_rect.x = m_node.m_rect.x - m_rect.width + 4f;
                 break;
 
             case ConnectionPointType.Out:
-                m_rect.x = m_node.m_rect.x + m_node.m_rect.width - 8f;
+                m_rect.x = m_node.m_rect.x + m_node.m_rect.width - 4f;
                 break;
         }
-        Debug.Log("This");
 
         if (GUI.Button(m_rect, ""))
         {

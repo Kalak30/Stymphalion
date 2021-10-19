@@ -34,10 +34,14 @@ public class Node
         m_rect.position += delta;
     }
 
-    public virtual void DrawWindow(int id)
+    public void DrawConnectionPoints()
     {
         m_inPoint.Draw();
         m_outPoint.Draw();
+    }
+
+    public virtual void DrawWindow(int id)
+    {
         GUI.Box(m_rect, m_title, m_style);
     }
 

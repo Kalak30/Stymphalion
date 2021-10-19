@@ -121,6 +121,8 @@ public class Quest_Editor : EditorWindow
                 {
                     n.m_rect = GUI.Window(n.m_id, n.m_rect, stepNode.DrawWindow, n.m_title);
                 }
+
+                n.DrawConnectionPoints();
             }
         }
 
@@ -198,6 +200,7 @@ public class Quest_Editor : EditorWindow
         }
 
         Quest_Node n = new Quest_Node(mousePosition, 400, 150, m_nextNodeID, m_nodeStyle, m_selectedNodeStyle, m_inPointStyle, m_outPointStyle, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
+        n.Data = new Quest_NPC();
         m_nodes.Add(n);
         m_questNodes.Add(n);
         m_nextNodeID++;
@@ -215,6 +218,7 @@ public class Quest_Editor : EditorWindow
         }
 
         Step_Node n = new Step_Node(mousePosition, 400, 100, m_nextNodeID, m_nodeStyle, m_selectedNodeStyle, m_inPointStyle, m_outPointStyle, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
+        n.Data = new Quest_Step("", "", null);
         m_nodes.Add(n);
         m_stepNodes.Add(n);
         m_nextNodeID++;
