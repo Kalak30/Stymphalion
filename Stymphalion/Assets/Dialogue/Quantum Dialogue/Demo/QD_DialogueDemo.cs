@@ -20,7 +20,7 @@ namespace QuantumTek.QuantumDialogue.Demo
 
         private void Awake()
         {
-            handler.SetConversation("Meeting with Bob");
+            handler.SetConversation("Talking to Hercules");
             SetText();
         }
 
@@ -102,7 +102,6 @@ namespace QuantumTek.QuantumDialogue.Demo
                 speakerName.text = message.SpeakerName;
                 messageText.text = message.MessageText;
                 messageText.gameObject.SetActive(true);
-
             }
             else if (handler.currentMessageInfo.Type == QD_NodeType.Choice)
             {
@@ -115,7 +114,7 @@ namespace QuantumTek.QuantumDialogue.Demo
         {
             if (ended)
                 return;
-            
+
             // Go to the next message
             handler.NextMessage(choice);
             // Set the new text

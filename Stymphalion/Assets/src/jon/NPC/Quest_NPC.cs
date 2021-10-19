@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Quest_NPC : NPC
 {
-    private Quest npc_quest;
+    public Quest npc_quest;
 
     public override void touchingInteractable()
     {
@@ -16,7 +16,6 @@ public class Quest_NPC : NPC
     {
         npc_quest = new Quest("start", "the first quest", "sword");
         Quest_Manager.GetQuest_Manager().AddQuest(npc_quest);
-        
     }
 
     // Update is called once per frame

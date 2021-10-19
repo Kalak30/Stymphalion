@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc788fe28a1947c5906bf24c0472406, type: 3}
+  m_Name: Test_Dialogue
+  m_EditorClassIdentifier: 
+  Conversations:
+  - ID: 0
+    Name: Talking to Hercules
+    FirstMessage: 3
+  Speakers:
+  - ID: 1
+    Name: The Boi
+    Icon: {fileID: 0}
+  - ID: 2
+    Name: Hercules
+    Icon: {fileID: 0}
+  Messages:
+  - ID: 3
+    Speaker: 1
+    SpeakerName: Player
+    PreviousMessage: -1
+    NextMessage: 4
+    MessageText: "Hello Father. What do you want me to do.\t"
+    Clip: {fileID: 0}
+  - ID: 4
+    Speaker: 2
+    SpeakerName: Hercules
+    PreviousMessage: 3
+    NextMessage: 6
+    MessageText: Go kill some dang birds boi!
+    Clip: {fileID: 0}
+  - ID: 7
+    Speaker: 2
+    SpeakerName: Hercules
+    PreviousMessage: -1
+    NextMessage: -1
+    MessageText: Thanks boi
+    Clip: {fileID: 0}
+  - ID: 8
+    Speaker: 2
+    SpeakerName: Hercules
+    PreviousMessage: 6
+    NextMessage: -1
+    MessageText: Wrong. U go kill some birds.
+    Clip: {fileID: 0}
+  Choices:
+  - ID: 6
+    Choices:
+    - Sure
+    - No, U suck
+    NextMessages: 0700000008000000

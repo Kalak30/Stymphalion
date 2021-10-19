@@ -7,7 +7,7 @@ using UnityEngine;
 /// See also: <seealso cref="Quest_Manager"/>
 /// </summary>
 ///
-public class Quest
+public class Quest : ScriptableObject
 {
     public readonly int DEFAULT_STEPS = 50;
     private int max_steps;
