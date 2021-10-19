@@ -8,13 +8,15 @@ public class ConnectionPoint
     public Rect m_rect;
     public ConnectionPointType m_type;
     public Node m_node;
+    public int m_id;
     public string m_name;
     public float m_y;
     public GUIStyle m_style;
     public Action<ConnectionPoint> m_onClickConnectionPoint;
 
-    public ConnectionPoint(Node node, string name, float y, ConnectionPointType type, GUIStyle style, Action<ConnectionPoint> OnClickConnectionPoint)
+    public ConnectionPoint(Node node, int id, string name, float y, ConnectionPointType type, GUIStyle style, Action<ConnectionPoint> OnClickConnectionPoint)
     {
+        m_id = id;
         m_node = node;
         m_name = name;
         m_y = y;

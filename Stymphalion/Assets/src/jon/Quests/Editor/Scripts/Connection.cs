@@ -26,7 +26,7 @@ public class Connection
             null,
             2f
         );
-        Debug.Log("This");
+
         if (GUI.Button(new Rect((m_inPoint.m_rect.center + m_outPoint.m_rect.center) * 0.5f, new Vector2(4, 8)), ""))
         //if (Handles.Button((m_inPoint.m_rect.center + m_outPoint.m_rect.center) * 0.5f, Quaternion.identity, 4, 8, Handles.RectangleHandleCap))
         {

@@ -245,6 +245,7 @@ public class Quest_Editor : EditorWindow
     private void OnClickOutPoint(ConnectionPoint outPoint)
     {
         m_selectedOutPoint = outPoint;
+        Debug.Log(m_selectedOutPoint);
 
         if (m_selectedInPoint != null)
         {
@@ -309,8 +310,14 @@ public class Quest_Editor : EditorWindow
         {
             m_connections = new List<Connection>();
         }
-
-        m_connections.Add(new Connection(m_selectedInPoint, m_selectedOutPoint, OnClickRemoveConnection));
+        if (m_selectedInPoint.m_node.CanConnect(m_selectedInPoint.m_type, m_selectedInPoint.m_id, m_selectedOutPoint.m_node.m_type, m_selectedOutPoint.m_type, m_selectedOutPoint.m_id))
+        {
+            m_connections.Add(new Connection(m_selectedInPoint, m_selectedOutPoint, OnClickRemoveConnection));
+        }
+        else
+        {
+            ClearConnectionSelection();
+        }
     }
 
     private void ClearConnectionSelection()

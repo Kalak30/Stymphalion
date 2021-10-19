@@ -13,10 +13,10 @@ public class Quest_Node : Node
         m_type = NodeType.Quest;
         m_title = "Quest";
 
-        m_inPoints = new List<ConnectionPoint>
+        m_outPoints = new List<ConnectionPoint>
         {
-            new ConnectionPoint(this, "Quest", 7.5f, ConnectionPointType.Out, outPointStyle, OnClickOutPoint),
-            new ConnectionPoint(this, "Next", 35f, ConnectionPointType.Out, outPointStyle, OnClickOutPoint)
+            new ConnectionPoint(this, 0,  "Quest", 7.5f, ConnectionPointType.Out, outPointStyle, OnClickOutPoint),
+            new ConnectionPoint(this, 1, "Next", 35f, ConnectionPointType.Out, outPointStyle, OnClickOutPoint)
         };
 
         m_allowedInputs = new List<ConnectionRule>
@@ -24,7 +24,7 @@ public class Quest_Node : Node
         };
         m_allowedOutputs = new List<ConnectionRule>
         {
-            new ConnectionRule(NodeType.Step, 0, NodeType.Quest, 0)
+            new ConnectionRule(NodeType.Quest, 0, NodeType.Step, 0)
         };
     }
 

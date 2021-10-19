@@ -147,4 +147,36 @@ public class Node
             m_onRemoveNode(this);
         }
     }
+
+    public bool CanConnect(ConnectionPointType connType, int pointID, NodeType otherNodeType, ConnectionPointType otherConnType, int otherPointID)
+    {
+        Debug.Log($"connType: {connType}  pointID: {pointID}  otherNodeType: {otherNodeType}  otherConnType: {otherConnType}  otherPointID:  {otherPointID}");
+
+        bool canConnect = false;
+
+        if (connType == ConnectionPointType.In)
+        {
+            foreach (var rule in m_allowedInputs)
+            {
+                if (rule.InputType == m_type && rule.InputID == pointID && rule.OutputType == otherNodeType && otherConnType == ConnectionPointType.Out && rule.OutputID == otherPointID)
+                {
+                    canConnect = true;
+                    break;
+                }
+            }
+        }
+        else if (connType == ConnectionPointType.Out)
+        {
+            foreach (var rule in m_allowedOutputs)
+            {
+                if (rule.OutputType == m_type && rule.OutputID == pointID && rule.InputType == otherNodeType && otherConnType == ConnectionPointType.In && rule.InputID == otherPointID)
+                {
+                    canConnect = true;
+                    break;
+                }
+            }
+        }
+
+        return canConnect;
+    }
 }
