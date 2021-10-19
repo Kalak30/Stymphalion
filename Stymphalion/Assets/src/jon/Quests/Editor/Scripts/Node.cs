@@ -63,6 +63,13 @@ public class Node
         m_rect.position += delta;
     }
 
+    public void AddConnection(ConnectionPoint connectionPoint)
+    {
+        if (connectionPoint.m_type == ConnectionPointType.In && m_type == NodeType.Step)
+        {
+        }
+    }
+
     public void DrawConnectionPoints()
     {
         if (m_inPoints != null)
@@ -150,8 +157,6 @@ public class Node
 
     public bool CanConnect(ConnectionPointType connType, int pointID, NodeType otherNodeType, ConnectionPointType otherConnType, int otherPointID)
     {
-        Debug.Log($"connType: {connType}  pointID: {pointID}  otherNodeType: {otherNodeType}  otherConnType: {otherConnType}  otherPointID:  {otherPointID}");
-
         bool canConnect = false;
 
         if (connType == ConnectionPointType.In)

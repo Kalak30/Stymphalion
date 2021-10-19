@@ -3,25 +3,46 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JSON_Quest_Reader : MonoBehaviour
+public class JSON_Quest_Reader
 {
+    private static JSON_Quest_Reader jsonQuestReader;
     public TextAsset file;
     private string file_contents;
+
+    public static JSON_Quest_Reader GetReader()
+    {
+        if (jsonQuestReader == null)
+        {
+            jsonQuestReader = new JSON_Quest_Reader();
+        }
+
+        return jsonQuestReader;
+    }
 
     //The ReadFile() method should be called elsewhere. Possibly in some of
     // Ross' code during boot.
     public void Start()
     {
         ReadFile("quests");
-        Quest_Manager.GetQuest_Manager().AddQuest("another quest", "another description", "the coolest sword ever");
+        Quest_Manager.GetQuest_Manager().AddQuest("another quest", "another description", null);
         SaveFile("quests");
         Debug.Log("++++++++++++++++++\n++++++++++++++++");
         ReadFile("quests");
     }
 
+    public void SaveFile(string file_name, Quests_List_Data qData)
+    {
+        FileManager.WriteToFile(file_name + ".txt", QuestJSON(qData));
+    }
+
     public void SaveFile(string file_name)
     {
         FileManager.WriteToFile(file_name + ".txt", QuestJSON());
+    }
+
+    public string QuestJSON(Quests_List_Data qData)
+    {
+        return JsonUtility.ToJson(qData, true);
     }
 
     public string QuestJSON()

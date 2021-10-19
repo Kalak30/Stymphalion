@@ -45,13 +45,13 @@ public class Quest : ScriptableObject
 
     public string quest_name;
     public string quest_description;
-    public string quest_reward;  // Needs to be an item from kyles stuff
+    public Item quest_reward;  // Needs to be an item from kyles stuff
 
     public Status quest_status;
     public int active_step_pos;
     public List<Quest_Step> steps;
 
-    public Quest(string quest_name, string quest_description, string quest_reward)
+    public Quest(string quest_name, string quest_description, Item quest_reward)
     {
         steps = new List<Quest_Step>();
         this.quest_name = quest_name;

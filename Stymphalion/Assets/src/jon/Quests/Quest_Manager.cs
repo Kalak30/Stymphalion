@@ -29,7 +29,7 @@ public class Quest_Manager
         {
             return null;
         }
-        
+
         return quests[position];
     }
 
@@ -38,7 +38,7 @@ public class Quest_Manager
         return quests.Count;
     }
 
-    public void AddQuest(string quest_name, string quest_description, string quest_reward)
+    public void AddQuest(string quest_name, string quest_description, Item quest_reward)
     {
         Quest quest = new Quest(quest_name, quest_description, quest_reward);
         quests.Add(quest);

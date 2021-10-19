@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Step_Node : Node
 {
-    public Quest_Step Data;
+    public Step_Data Data;
 
     public Step_Node(Vector2 position, float width, float height, int ID, GUIStyle nodeStyle, GUIStyle selectedStyle, GUIStyle inPointStyle, GUIStyle outPointStyle, Action<ConnectionPoint> OnClickInPoint, Action<ConnectionPoint> OnClickOutPoint, Action<Node> OnClickRemoveNode) : base(position, width, height, ID, nodeStyle, selectedStyle, inPointStyle, outPointStyle, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode)
     {
@@ -42,8 +42,21 @@ public class Step_Node : Node
     public override void DrawWindow(int id)
     {
         EditorGUILayout.BeginHorizontal();
+
+        EditorGUILayout.BeginVertical();
         EditorGUILayout.LabelField("Parent Quest");
-        EditorGUILayout.ObjectField(Data.belongs_to, typeof(Quest), false);
+        EditorGUILayout.LabelField("Step Name");
+        EditorGUILayout.LabelField("Step Description");
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.LabelField("");
+        EditorGUILayout.TextField(Data.step_name);
+        EditorGUILayout.TextField(Data.step_description);
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.Space(50);
+
         EditorGUILayout.EndHorizontal();
     }
 }

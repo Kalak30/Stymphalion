@@ -14,7 +14,7 @@ public class Quest_NPC : NPC
     // Start is called before the first frame update
     private void Awake()
     {
-        npc_quest = new Quest("start", "the first quest", "sword");
+        npc_quest = new Quest("start", "the first quest", null);
         Quest_Manager.GetQuest_Manager().AddQuest(npc_quest);
     }
 

@@ -17,7 +17,7 @@ public class Stress_Test_Quests
         {
             for (int i = 0; i < 1000; i++)
             {
-                qm.AddQuest("i", "i", "i");
+                qm.AddQuest("i", "i", null);
             }
             yield return null;
         }

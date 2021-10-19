@@ -13,7 +13,7 @@ public class Quest_Data
 {
     public string quest_name;
     public string quest_description;
-    public string quest_reward;  // Needs to be an item from kyles stuff
+    public Item quest_reward;  // Needs to be an item from kyles stuff
 
     public int quest_status;
     public int active_step_pos;

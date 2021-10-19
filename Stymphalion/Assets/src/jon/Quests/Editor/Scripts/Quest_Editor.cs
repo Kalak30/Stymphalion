@@ -6,6 +6,9 @@ using UnityEngine.UIElements;
 
 public class Quest_Editor : EditorWindow
 {
+    public Quests_List_Data m_questsListsData;
+    public List<Step_Data> m_unassignedSteps;
+
     private List<Node> m_nodes;
     private List<Quest_Node> m_questNodes;
     private List<Step_Node> m_stepNodes;
@@ -27,8 +30,15 @@ public class Quest_Editor : EditorWindow
         wnd.titleContent = new GUIContent("Quest Editor");
     }
 
+    private void SaveToJSON()
+    {
+        JSON_Quest_Reader.GetReader().SaveFile("quest_file", m_questsListsData);
+    }
+
     private void OnEnable()
     {
+        m_questsListsData = new Quests_List_Data();
+
         m_nodeStyle = new GUIStyle();
         m_nodeStyle.normal.background = EditorGUIUtility.Load("builtin skins/darkskin/images/node1.png") as Texture2D;
         m_nodeStyle.border = new RectOffset(12, 12, 12, 12);
@@ -64,6 +74,11 @@ public class Quest_Editor : EditorWindow
     {
         DrawGrid(20, 0.2f, Color.gray);
         DrawGrid(100, 0.4f, Color.gray);
+
+        if (GUI.Button(new Rect(5, 5, 100, 50), "Save to JSON"))
+        {
+            SaveToJSON();
+        }
 
         DrawNodes();
         DrawConnections();
@@ -188,6 +203,7 @@ public class Quest_Editor : EditorWindow
         genericMenu.ShowAsContext();
     }
 
+    // Adding new nods needs to cleaned quite badly
     private void OnClickAddQuestNode(Vector2 mousePosition)
     {
         if (m_nodes == null)
@@ -198,9 +214,22 @@ public class Quest_Editor : EditorWindow
         {
             m_questNodes = new List<Quest_Node>();
         }
+        if (m_questsListsData.quests == null)
+        {
+            m_questsListsData.quests = new List<Quest_Data>();
+        }
+
+        Quest_Data qd = new Quest_Data();
+        qd.quest_name = "";
+        qd.quest_description = "";
+        qd.quest_reward = null;
+        qd.quest_status = (int)Quest.Status.locked;
+        qd.active_step_pos = 0;
+        qd.steps = new List<Step_Data>();
+        m_questsListsData.quests.Add(qd);
 
         Quest_Node n = new Quest_Node(mousePosition, 400, 150, m_nextNodeID, m_nodeStyle, m_selectedNodeStyle, m_inPointStyle, m_outPointStyle, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
-        n.Data = new Quest_NPC();
+        n.Data = qd;
         m_nodes.Add(n);
         m_questNodes.Add(n);
         m_nextNodeID++;
@@ -216,9 +245,18 @@ public class Quest_Editor : EditorWindow
         {
             m_stepNodes = new List<Step_Node>();
         }
+        if (m_unassignedSteps == null)
+        {
+            m_unassignedSteps = new List<Step_Data>();
+        }
+
+        Step_Data sd = new Step_Data();
+        sd.step_name = "";
+        sd.step_description = "";
+        m_unassignedSteps.Add(sd);
 
         Step_Node n = new Step_Node(mousePosition, 400, 100, m_nextNodeID, m_nodeStyle, m_selectedNodeStyle, m_inPointStyle, m_outPointStyle, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
-        n.Data = new Quest_Step("", "", null);
+        n.Data = sd;
         m_nodes.Add(n);
         m_stepNodes.Add(n);
         m_nextNodeID++;
@@ -245,7 +283,6 @@ public class Quest_Editor : EditorWindow
     private void OnClickOutPoint(ConnectionPoint outPoint)
     {
         m_selectedOutPoint = outPoint;
-        Debug.Log(m_selectedOutPoint);
 
         if (m_selectedInPoint != null)
         {
@@ -274,21 +311,27 @@ public class Quest_Editor : EditorWindow
 
             foreach (Connection c in m_connections)
             {
-                // Do a check for every inpoint, not just one
-                foreach (ConnectionPoint p in node.m_inPoints)
+                if (node.m_inPoints != null)
                 {
-                    if (c.m_inPoint == p)
+                    // Do a check for every inpoint, not just one
+                    foreach (ConnectionPoint p in node.m_inPoints)
                     {
-                        connectionsToRemove.Add(c);
+                        if (c.m_inPoint == p)
+                        {
+                            connectionsToRemove.Add(c);
+                        }
                     }
                 }
 
-                // Same with out points
-                foreach (ConnectionPoint p in node.m_outPoints)
+                if (node.m_outPoints != null)
                 {
-                    if (c.m_outPoint == p)
+                    // Same with out points
+                    foreach (ConnectionPoint p in node.m_outPoints)
                     {
-                        connectionsToRemove.Add(c);
+                        if (c.m_outPoint == p)
+                        {
+                            connectionsToRemove.Add(c);
+                        }
                     }
                 }
             }
@@ -304,6 +347,39 @@ public class Quest_Editor : EditorWindow
         m_nodes.Remove(node);
     }
 
+    //Recursivly finds the root quest node of any given node
+    private Quest_Node GetRootQuest(Node n)
+    {
+        if (n.m_type == NodeType.Quest)
+        {
+            Debug.Log("There is a root Quest: " + n);
+            return (Quest_Node)n;
+        }
+        List<Connection> connections = GetConnections(n.m_inPoints[0]);
+        foreach (Connection c in connections)
+        {
+            Debug.Log($"ConnectionInType: {c.m_inPoint.m_type}   ConnectionOutType: {c.m_outPoint.m_type}");
+            return GetRootQuest(c.m_outPoint.m_node);
+        }
+
+        return null;
+    }
+
+    private List<Connection> GetConnections(ConnectionPoint p)
+    {
+        List<Connection> connections = new List<Connection>();
+        foreach (Connection c in m_connections)
+        {
+            if (c.m_inPoint == p || c.m_outPoint == p)
+            {
+                connections.Add(c);
+            }
+        }
+
+        return connections;
+    }
+
+    //Super ugly, way too many if statements. Try to re-factor
     private void CreateConnection()
     {
         if (m_connections == null)
@@ -312,7 +388,19 @@ public class Quest_Editor : EditorWindow
         }
         if (m_selectedInPoint.m_node.CanConnect(m_selectedInPoint.m_type, m_selectedInPoint.m_id, m_selectedOutPoint.m_node.m_type, m_selectedOutPoint.m_type, m_selectedOutPoint.m_id))
         {
+            // Connection must be crated first, then data can be adjusted based on new connection
             m_connections.Add(new Connection(m_selectedInPoint, m_selectedOutPoint, OnClickRemoveConnection));
+
+            if (m_selectedInPoint.m_node.m_type == NodeType.Step && m_selectedInPoint.m_id == 0 && m_selectedOutPoint.m_id == 0)
+            {
+                Debug.Log("Here");
+                Quest_Node qn = GetRootQuest(m_selectedInPoint.m_node);
+                if (qn != null)
+                {
+                    qn.Data.steps.Add(((Step_Node)m_selectedInPoint.m_node).Data);
+                    m_unassignedSteps.Remove(((Step_Node)m_selectedInPoint.m_node).Data);
+                }
+            }
         }
         else
         {

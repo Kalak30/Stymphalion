@@ -1,7 +1,9 @@
 {
     "name": "jonSrc",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:aaeb01cc918a43547a2bced6bac432b9"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
