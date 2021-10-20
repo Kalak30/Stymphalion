@@ -78,7 +78,8 @@ public class PlayerClass : MonoBehaviour
     void Start()
     {
         //playerInventory = gameObject.AddComponent<Inventory>() as Inventory;
-        // should be playerInventory = new Inventory;
+        playerInventory = new Inventory();
+
 
     }
 
