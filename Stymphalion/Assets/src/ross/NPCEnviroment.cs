@@ -1,3 +1,10 @@
+/*
+*
+* Filename: NPCEviroment.cs
+* Developer: Ross Prestwich
+* Purpose: For Interacting with NPCs ---- Subclass of EnvirmentObjectSuperClass.cs
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +13,18 @@ using UnityEngine;
 //ss
 public class NPCEnviroment : EnvirmentObjectSuperClass
 {
-    private NPC standeredNPC; 
+    private NPC m_standered_NPC; 
 
     // Dynamic Binding lets goo
-    public override void interactFunc(){
+    public override void InteractFunc(){
         //Debug.Log("Hello");
-        standeredNPC.touchingInteractable();
+        m_standered_NPC.touchingInteractable();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        standeredNPC = gameObject.AddComponent<Quest_NPC>() as NPC;
+        m_standered_NPC = gameObject.AddComponent<Quest_NPC>() as NPC;
 
     }
 

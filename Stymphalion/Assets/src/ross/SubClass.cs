@@ -1,3 +1,12 @@
+/*
+*
+* Filename: SubClass.cs
+* Developer: Ross Prestwich
+* Purpose: For testing ---- Subclass of EnvirmentObjectSuperClass.cs
+*/
+
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +14,7 @@ using UnityEngine.InputSystem;
 public class SubClass : EnvirmentObjectSuperClass
 {
    // private testScript NPC;
-    public override void interactFunc(){
+    public override void InteractFunc(){
         Debug.Log("Hello");
        // NPC.teest();
     }

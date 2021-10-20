@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ed29c22fd1982439ad5120d8edc7e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  m_damage: 1
 --- !u!4 &26313790 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2055102311959635375, guid: f681a54372d73d74785b9c9d4ac477e8,
@@ -60340,12 +60340,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d059385d6f4d89b4d9f6b7a984bb32c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  location: {x: 0, y: 0}
-  level: 0
-  xp: 0
-  health: 100
-  onFire: 0
+  m_movement_speed: 5
+  m_location: {x: 0, y: 0}
+  m_level: 0
+  m_xp: 0
+  m_health: 100
+  m_on_fire: 0
 --- !u!95 &1480590502
 Animator:
   serializedVersion: 3
