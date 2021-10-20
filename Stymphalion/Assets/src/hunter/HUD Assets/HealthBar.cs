@@ -8,7 +8,6 @@ public class HealthBar : MonoBehaviour
     public Slider healthSlider;
     //Main Character (the player)
     public PlayerClass MC; 
-
     //Sets the max health
     private void SetMaxHealth(int health)
     {
