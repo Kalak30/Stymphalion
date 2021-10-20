@@ -13,7 +13,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class SubClass : EnvirmentObjectSuperClass
 {
-   // private testScript NPC;
+
+/// <summary>
+/// Implements InteractFunc
+/// Mostly For testing
+/// </summary>
     public override void InteractFunc(){
         Debug.Log("Hello");
        // NPC.teest();

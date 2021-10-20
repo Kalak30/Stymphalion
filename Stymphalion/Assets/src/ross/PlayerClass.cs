@@ -1,3 +1,12 @@
+/*
+*
+* Filename: PayerClass.cs
+* Developer: Ross Prestwich
+* Purpose: Implementing Player movements and data
+*/
+
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +34,10 @@ public class PlayerClass : MonoBehaviour
     private Animator m_main_animator;
 
 
-    // Should I be Doing all this in Start or Awake?? Idk but it works here. 
+/// <summary>
+/// Intialize Everything Important in the program
+/// 
+/// </summary>
     private void Awake(){
         Debug.Log("awake\n");
         // add Inventory Object and Action map
@@ -39,6 +51,10 @@ public class PlayerClass : MonoBehaviour
         m_main_animator.SetFloat("Speed", 0);
     }
 
+/// <summary>
+/// Enable Action map
+/// Add Player Movement and Inventory function
+/// </summary>
     private void OnEnable(){
         // add and enabple movement action map
         m_movement = m_player_actions.PlayerActionMap.Movement;
@@ -53,7 +69,10 @@ public class PlayerClass : MonoBehaviour
 
     }//
 
-    //open Inventory
+    /// <summary>
+    /// Open Invetory
+    /// </summary>
+    /// <param name="obj"></param>
     private void OpenInventory(InputAction.CallbackContext obj)
     {
         // Change function to what it's actually supposed to be when Kyle is ready
@@ -61,7 +80,9 @@ public class PlayerClass : MonoBehaviour
         //  Debug.Log("Test");
     }
 
-    // Make virutal for testing purposes
+/// <summary>
+/// Function for moving Character
+/// </summary>
     public virtual void Movement(){
         //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
         // playe values
@@ -74,7 +95,6 @@ public class PlayerClass : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
     void Start()
     {
         //playerInventory = gameObject.AddComponent<Inventory>() as Inventory;
@@ -83,8 +103,11 @@ public class PlayerClass : MonoBehaviour
 
     }
 
-    // make sure player isn't going out of bounds
-    // Should Probably use a function to update health instead of making it a public variable
+
+/// <summary>
+/// Make Sure Health does not become negative
+/// The better way to do this is make everything go through a function to change
+/// </summary>
     private void CheckHealth()
     {
         if (m_health > 100)
@@ -98,7 +121,9 @@ public class PlayerClass : MonoBehaviour
     }
 
 
-    // Update Level
+/// <summary>
+/// Update Level when xp increases
+/// </summary>
     private void LevelCheck()
     {
         while(m_xp >= 100)
@@ -108,8 +133,10 @@ public class PlayerClass : MonoBehaviour
         }
     }
 
-    // Run all functions as needed
-    // levelCheck and checkHealth probably shouldnt be here
+    /// <summary>
+    /// Built in Unity function
+    /// Runs every tick
+    /// </summary>
     void FixedUpdate()
     {
         Movement();
