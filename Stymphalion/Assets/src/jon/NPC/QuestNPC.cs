@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Quest_NPC : NPC
+public class QuestNPC : NPC
 {
     public Quest npc_quest;
 
-    public override void touchingInteractable()
+    public override void TouchingInteractable()
     {
         throw new System.NotImplementedException();
     }

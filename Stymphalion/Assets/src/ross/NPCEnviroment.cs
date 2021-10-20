@@ -17,7 +17,7 @@ public class NPCEnviroment : EnvirmentObjectSuperClass
     // Start is called before the first frame update
     void Start()
     {
-        standeredNPC = gameObject.AddComponent<Quest_NPC>() as NPC;
+        standeredNPC = gameObject.AddComponent<QuestNPC>() as NPC;
 
     }
 
