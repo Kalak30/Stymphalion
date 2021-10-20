@@ -13,15 +13,15 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    private int playerHealth;
-    private float playerHealthPercentage;
+    private int player_Health;
+    private float player_Health_Percentage;
 
     // Start is called before the first frame update
     void Start()
     {
         
-        playerHealth = Random.Range(1, 100);
-        playerHealthPercentage = playerHealth / 100;
+        player_Health = Random.Range(1, 100);
+        player_Health_Percentage = player_Health / 100;
        
     }
 
@@ -59,21 +59,21 @@ public class EnemyAI : MonoBehaviour
         }
 
         //For minimum viable product, a simple hypothetical method for determining what move the enemy should use, using only player health.
-        if (playerHealthPercentage >= .75)
+        if (player_Health_Percentage >= .75)
         {
-            Debug.Log("If player health is " + playerHealth + "then I'll use a strong but slow attack");
+            Debug.Log("If player health is " + player_Health + "then I'll use a strong but slow attack");
         }
-        else if (playerHealthPercentage < .75 && playerHealthPercentage >= .50)
+        else if (player_Health_Percentage < .75 && player_Health_Percentage >= .50)
         {
-            Debug.Log("If player health is " + playerHealth + "then I'll use either a strong attack or a medium attack");
+            Debug.Log("If player health is " + player_Health + "then I'll use either a strong attack or a medium attack");
         }
-        else if (playerHealthPercentage < .50 && playerHealthPercentage >= .25)
+        else if (player_Health_Percentage < .50 && player_Health_Percentage >= .25)
         {
-            Debug.Log("If player health is " + playerHealth + "then I'll use a medium but faster attack");
+            Debug.Log("If player health is " + player_Health + "then I'll use a medium but faster attack");
         }
-        else if (playerHealthPercentage < .75)
+        else if (player_Health_Percentage < .75)
         {
-            Debug.Log("If player health is " + playerHealth + "then I'll use the quickest attack that will defeat the player");
+            Debug.Log("If player health is " + player_Health + "then I'll use the quickest attack that will defeat the player");
         }
     }
 }

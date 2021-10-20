@@ -15,7 +15,7 @@ public class Trap : EnvirmentObjectSuperClass
         if(other.name == "Player"){
             Debug.Log("obj.name == player");
             player = other.gameObject.GetComponent<PlayerClass>();
-            player.health = player.health - damage;
+            player.m_health = player.m_health - damage;
         }
         
 

@@ -8,7 +8,6 @@ public class HealthBar : MonoBehaviour
     public Slider healthSlider;
     //Main Character (the player)
     public PlayerClass MC; 
-
     //Sets the max health
     private void SetMaxHealth(int health)
     {
@@ -31,15 +30,15 @@ public class HealthBar : MonoBehaviour
     void Update() //Check player heath and update it
     {
         //Always check inputs before doing anything with them: software security 101
-        if (MC.health > 100)
+        if (MC.m_health > 100)
         {
-            MC.health = 100;
+            MC.m_health = 100;
         }
-        if (MC.health < 0)
+        if (MC.m_health < 0)
         {
-            MC.health = 0;
+            MC.m_health = 0;
         }
         
-        SetHealth(MC.health);
+        SetHealth(MC.m_health);
     }
 }

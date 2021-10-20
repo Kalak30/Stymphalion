@@ -16,19 +16,19 @@ public class TrapTest
 
         GameObject player = GameObject.Find("Player");
         PlayerClass playerclass = player.GetComponent<PlayerClass>();
-        playerclass.health = 100;
+        playerclass.m_health = 100;
         GameObject trap = GameObject.Find("Trap");
 
 
         player.transform.position = trap.transform.position + new Vector3(0,2,0);
-        while(playerclass.health == 100){
+        while(playerclass.m_health == 100){
             player.transform.position = player.transform.position - new Vector3(0, 0.1f, 0);
             yield return new WaitForSeconds(0.5f);
             //
         }
         Debug.Log("Player Position = " + player.transform.position);
-        Debug.Log("Player Health = " + playerclass.health);
-        Assert.IsTrue(playerclass.health < 100);
+        Debug.Log("Player Health = " + playerclass.m_health);
+        Assert.IsTrue(playerclass.m_health < 100);
 
         
 
