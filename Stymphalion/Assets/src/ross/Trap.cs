@@ -5,17 +5,22 @@ using UnityEngine;
 public class Trap : EnvirmentObjectSuperClass
 {
 
-    public int damage = 1;
-    private PlayerClass player;
+    public int m_damage = 1;
+    private PlayerClass m_player;
 
+
+    /// <summary>
+    /// Damage Player
+    /// </summary>
+    /// <param name="other"></param>
     void OnTriggerStay2D(Collider2D other){
         Debug.Log("TRIGGERED");
 
         // damage player
         if(other.name == "Player"){
             Debug.Log("obj.name == player");
-            player = other.gameObject.GetComponent<PlayerClass>();
-            player.health = player.health - damage;
+            m_player = other.gameObject.GetComponent<PlayerClass>();
+            m_player.m_health = m_player.m_health - m_damage;
         }
         
 

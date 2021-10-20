@@ -1,44 +1,70 @@
+/*
+* Filename: HealthBar.cs
+* Developer: Hunter Leppek
+* Purpose: This file implements a health bar for the main character, referred to here as "mc."
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// A healthbar class for the mc
+/// Member Variables
+/// <list type = "bullet">
+/// <item>m_health_slider</item>
+/// <item>m_mc</item>
+/// </list>
+/// </summary>
 public class HealthBar : MonoBehaviour
 {
-    public Slider healthSlider;
-    //Main Character (the player)
-    public PlayerClass MC; 
-    //Sets the max health
-    private void SetMaxHealth(int health)
-    {
-        healthSlider.maxValue = health;
-        healthSlider.value = health;
-    }
+    public Slider m_health_slider;
+    public PlayerClass m_mc; 
 
-    //Sets current health
-    private void SetHealth(int health)
-    {
-        healthSlider.value = health;
-    }
-
-    //Player health starts at 100
+    /// <summary>
+    /// Initializes the player health to 100
+    /// </summary>
     void Start()
     {
         SetMaxHealth(100);
     }
 
-    void Update() //Check player heath and update it
+    /// <summary>
+    /// Checks the player health every frame and changes the healthbar to reflect that health
+    /// </summary>
+    void Update() 
     {
-        //Always check inputs before doing anything with them: software security 101
-        if (MC.health > 100)
+        if (m_mc.m_health > 100)
         {
-            MC.health = 100;
+            m_mc.m_health = 100;
         }
-        if (MC.health < 0)
+        if (m_mc.m_health < 0)
         {
-            MC.health = 0;
+            m_mc.m_health = 0;
         }
         
-        SetHealth(MC.health);
+        SetHealth(m_mc.m_health);
     }
+
+    /// <summary>
+    /// Sets the max health of the player to the passed health
+    /// </summary>
+    /// <param name="health"></param>
+    private void SetMaxHealth(int health)
+    {
+        m_health_slider.maxValue = health;
+        m_health_slider.value = health;
+    }
+
+    /// <summary>
+    /// Sets the health of the player to the passed health
+    /// </summary>
+    /// <param name="health"></param>
+    private void SetHealth(int health)
+    {
+        m_health_slider.value = health;
+    }
+
+
 }
