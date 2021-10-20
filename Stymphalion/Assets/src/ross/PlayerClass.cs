@@ -33,13 +33,8 @@ public class PlayerClass : MonoBehaviour
         playerInventory = new Inventory();
         playerActions = new PlayerInputActionMap();
         // Get the rigid body from gameObject
-<<<<<<< Updated upstream
         player = GetComponent<Rigidbody2D>();
         OnEnable(); // enable action map
-=======
-        m_player = GetComponent<Rigidbody2D>();
-       // OnEnable(); // enable action map
->>>>>>> Stashed changes
         // add animator and set speed to 0
         MainAnimator =  GetComponent<Animator>(); 
         MainAnimator.SetFloat("Speed", 0);
@@ -68,7 +63,7 @@ public class PlayerClass : MonoBehaviour
 
     // Make virutal for testing purposes
     public virtual void Movement(){
-       // Debug.Log("Mvement values::: " + m_movement.ReadValue<Vector2>() );
+      //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
       // playe values
         player.velocity = movement.ReadValue<Vector2>() * movementSpeed;
         location = player.position;
