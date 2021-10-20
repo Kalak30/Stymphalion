@@ -19,59 +19,59 @@ public class HealthbarBoundaryTests
         PlayerClass MC = GameObject.Find("Player").GetComponent<PlayerClass>();
 
         //Starting player health is 100
-        MC.health = maxHealth;
+        MC.m_health = maxHealth;
 
         //Lower boundary tests
         Debug.Log("Lower boundary tests:");
         //Below boundary (health = -5)
-        MC.health -= 105;
+        MC.m_health -= 105;
         yield return null; //Let one frame pass so the healthbar script can check the player health before displaying it
-        Assert.IsTrue(MC.health >= 0); //Report test result
+        Assert.IsTrue(MC.m_health >= 0); //Report test result
         yield return new WaitForSeconds(2); //Wait 2 seconds so that we can see the healthbar in the scene
-        Debug.Log("Current health: " + MC.health); //Print to console the current player health
-        MC.health = maxHealth; //Reset health to the max so that the next test can begin
+        Debug.Log("Current health: " + MC.m_health); //Print to console the current player health
+        MC.m_health = maxHealth; //Reset health to the max so that the next test can begin
 
         //On boundary (health = 0)
-        MC.health -= 100;
+        MC.m_health -= 100;
         yield return null;
-        Assert.IsTrue(MC.health >= 0);
+        Assert.IsTrue(MC.m_health >= 0);
         yield return new WaitForSeconds(2);
-        Debug.Log("Current health: " + MC.health);
-        MC.health = maxHealth;
+        Debug.Log("Current health: " + MC.m_health);
+        MC.m_health = maxHealth;
 
         //Above boundary (health = 5)
-        MC.health -= 95;
+        MC.m_health -= 95;
         yield return null;
-        Assert.IsTrue(MC.health >= 0);
+        Assert.IsTrue(MC.m_health >= 0);
         yield return new WaitForSeconds(2);
-        Debug.Log("Current health: " + MC.health);
-        MC.health = maxHealth;
+        Debug.Log("Current health: " + MC.m_health);
+        MC.m_health = maxHealth;
 
         //Upper boundary tests
         Debug.Log("Upper boundary tests:");
         //Below boundary (health = 95)
-        MC.health -= 5;
+        MC.m_health -= 5;
         yield return null;
-        Assert.IsTrue(MC.health <= 100);
+        Assert.IsTrue(MC.m_health <= 100);
         yield return new WaitForSeconds(2);
-        Debug.Log("Current health: " + MC.health);
-        MC.health = maxHealth;
+        Debug.Log("Current health: " + MC.m_health);
+        MC.m_health = maxHealth;
 
         //On boundary (health = 100)
-        MC.health += 0;
+        MC.m_health += 0;
         yield return null;
-        Assert.IsTrue(MC.health <= 100);
+        Assert.IsTrue(MC.m_health <= 100);
         yield return new WaitForSeconds(2);
-        Debug.Log("Current health: " + MC.health);
-        MC.health = maxHealth;
+        Debug.Log("Current health: " + MC.m_health);
+        MC.m_health = maxHealth;
 
         //Above boundary (health = 105)
-        MC.health += 5;
+        MC.m_health += 5;
         yield return null;
-        Assert.IsTrue(MC.health <= 100);
+        Assert.IsTrue(MC.m_health <= 100);
         yield return new WaitForSeconds(2);
-        Debug.Log("Current health: " + MC.health);
-        MC.health = maxHealth;
+        Debug.Log("Current health: " + MC.m_health);
+        MC.m_health = maxHealth;
         
     }
 }
