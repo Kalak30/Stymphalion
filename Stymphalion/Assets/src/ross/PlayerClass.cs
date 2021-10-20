@@ -12,7 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-//s
+
 public class PlayerClass : MonoBehaviour
 {
     // public variables
@@ -33,11 +33,19 @@ public class PlayerClass : MonoBehaviour
     private Inventory m_player_inventory;
     private Animator m_main_animator;
 
+    private PlayerClass() { }
 
-/// <summary>
-/// Intialize Everything Important in the program
-/// 
-/// </summary>
+    private static readonly PlayerClass instance = new PlayerClass();
+
+    public static PlayerClass GetPlayerClass(){
+        return instance;
+    }
+
+
+    /// <summary>
+    /// Intialize Everything Important in the program
+    /// 
+    /// </summary>
     private void Awake(){
         Debug.Log("awake\n");
         // add Inventory Object and Action map
@@ -50,6 +58,11 @@ public class PlayerClass : MonoBehaviour
         m_main_animator = GetComponent<Animator>();
         m_main_animator.SetFloat("Speed", 0);
     }
+
+
+
+
+
 
 /// <summary>
 /// Enable Action map
