@@ -16,7 +16,7 @@ public class Boundary_Test_Quest
         for (int i = 0; i < 60; i++)
         {
             bool success = q.AddStep("step: " + i.ToString(), "step_descrip");
-            if (i > 50)
+            if (i >= 50)
             {
                 Assert.IsFalse(success);
             }
