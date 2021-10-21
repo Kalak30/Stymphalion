@@ -74,7 +74,7 @@ public class PlayerClass : MonoBehaviour
         m_movement.Enable();
 
         // add ineventory controls to action map
-        m_player_actions.PlayerActionMap.Inventory.performed += OpenInventory;
+        m_player_actions.PlayerActionMap.Inventory.started += OpenInventory;
         m_player_actions.PlayerActionMap.Inventory.Enable();
 
 
