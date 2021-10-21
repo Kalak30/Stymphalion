@@ -60195,9 +60195,10 @@ GameObject:
   - component: {fileID: 1480590500}
   - component: {fileID: 1480590499}
   - component: {fileID: 1480590497}
-  - component: {fileID: 1480590501}
   - component: {fileID: 1480590498}
   - component: {fileID: 1480590502}
+  - component: {fileID: 1480590503}
+  - component: {fileID: 1480590501}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -60340,7 +60341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d059385d6f4d89b4d9f6b7a984bb32c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_movement_speed: 5
+  m_movement_speed: 0
   m_location: {x: 0, y: 0}
   m_level: 0
   m_xp: 0
@@ -60365,6 +60366,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1480590503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480590496}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb32efefa49de5847938d29bb3f8edb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1492981783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -91536,8 +91549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2302fb9cfa1e2194383b1e591986ad11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSlider: {fileID: 1997863166}
-  MC: {fileID: 1480590501}
+  m_health_slider: {fileID: 0}
+  m_mc: {fileID: 0}
 --- !u!4 &2025841695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2055102311959635375, guid: 9e7797bb065982d4497d030f065d6e2f,
