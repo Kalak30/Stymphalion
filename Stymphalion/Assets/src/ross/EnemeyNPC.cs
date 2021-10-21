@@ -11,14 +11,14 @@ using UnityEngine;
 
 public class EnemeyNPC : EnvirmentObjectSuperClass
 {
-    private Battle_Manager m_battle_manager;
+    private BattleManager m_battle_manager;
 
 
     /// <summary>
     /// Implements the interact function for enemey NPC's
     /// </summary>
     public override void InteractFunc(){
-        m_battle_manager.initializeBattle();
+        m_battle_manager.InitializeBattle();
     }
 
 /// <summary>
@@ -26,7 +26,7 @@ public class EnemeyNPC : EnvirmentObjectSuperClass
 /// </summary>
     void Start()
     {
-        m_battle_manager = gameObject.AddComponent<Battle_Manager>() as Battle_Manager;
+        m_battle_manager = gameObject.AddComponent<BattleManager>() as BattleManager;
 
     }
 
