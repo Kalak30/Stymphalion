@@ -28,7 +28,7 @@ public class HealthBar : MonoBehaviour
     /// </summary>
     void Start()
     {
-        m_mc = m_mc.GetPlayerClass();
+        m_mc = PlayerClass.Instance;
         SetMaxHealth(100);
     }
 

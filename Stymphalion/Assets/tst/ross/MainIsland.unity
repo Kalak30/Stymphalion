@@ -91766,7 +91766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2302fb9cfa1e2194383b1e591986ad11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_health_slider: {fileID: 0}
+  m_health_slider: {fileID: 1997863166}
 --- !u!4 &2025841695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2055102311959635375, guid: 9e7797bb065982d4497d030f065d6e2f,
