@@ -20,7 +20,7 @@ using UnityEngine.TestTools;
 /// <item></item>
 /// </list>
 /// </summary>
-public class WallTest
+public class Wall_Test
 {
     [UnityTest]
     ///<summary>  

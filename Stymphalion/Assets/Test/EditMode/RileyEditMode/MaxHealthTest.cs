@@ -18,7 +18,7 @@ using UnityEngine.TestTools;
 /// <item></item>
 /// </list>
 /// </summary>
-public class MaxHealthTest
+public class MaxHealth_Test
 {
     [Test]
     ///<summary>  
