@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     public int m_maxHealth = 100;
     public int m_currentHealth;
 
-    
+
     ///<summary>  
     ///Start function 
     ///</summary> 
@@ -69,8 +69,6 @@ public class Enemy : MonoBehaviour
         //Die animation
 
         //Disable the enemy
-      
     }
 
-
-} 
+}

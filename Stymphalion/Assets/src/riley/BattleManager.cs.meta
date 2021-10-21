@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 1d0f5e2ae6ddf314b9ecda50576ce9bf
+<<<<<<< HEAD:Stymphalion/Assets/src/jon/Quests/JSONQuestIO.cs.meta
+guid: f3dc3a4d9682bd140ba89ae3ba76bab0
+=======
+guid: f00cdb5e91dea2d429e44807e0357c34
+>>>>>>> 7c7eafeddea6fcff390a8ab72025063a6f8f7df4:Stymphalion/Assets/src/riley/BattleManager.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
