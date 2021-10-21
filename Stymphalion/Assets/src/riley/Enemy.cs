@@ -1,27 +1,51 @@
+/*
+ * Filename: Enemy.cs
+ * Developer: Riley Doyle
+ * Purpose: Contains behaviors asociated with enemy objects
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Member Variables
+/// <list type = "bullet">
+/// <item>m_maxHealth</item>
+/// <item>m_currentHealth</item>
+/// </list>
+/// </summary>
 public class Enemy : MonoBehaviour
 {
+    public int m_maxHealth = 100;
+    public int m_currentHealth;
 
-    public int maxHealth = 100;
-    int currentHealth;
-
-    // Start is called before the first frame update
+    
+    ///<summary>  
+    ///Start function 
+    ///</summary> 
+    ///<returns> void </returns>
     void Start()
     {
-        currentHealth = maxHealth;
+        m_currentHealth = m_maxHealth;
 
     }
 
+
+    ///<summary>  
+    ///Allows Enemy to take damage
+    ///</summary> 
+    ///<param name =”damage”> int </param> 
+    ///<returns> bool </returns>
     public bool TakeDamage(int damage)
     {
-        currentHealth -= damage;
+        m_currentHealth -= damage;
 
         //Play hurt animation
 
-        if (currentHealth <= 0)
+        if (m_currentHealth <= 0)
         {
             Die();
             return true;
@@ -29,6 +53,11 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
+
+    ///<summary>  
+    ///Action when Enemy reeaches zero health
+    ///</summary> 
+    ///<returns> void </returns>
     void Die()
     {
         Debug.Log("Enemy Died");
@@ -42,4 +71,6 @@ public class Enemy : MonoBehaviour
         //Disable the enemy
       
     }
-}
+
+
+} 

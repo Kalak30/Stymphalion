@@ -1,0 +1,8 @@
+﻿
+extensions: .cs
+/*
+ * Filename: %FileName%
+ * Developer: Jon Kopf
+ * Purpose:
+ */
+extensions: .aspx .ascx

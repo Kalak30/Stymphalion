@@ -103,6 +103,7 @@ public class Quest : ScriptableObject
     /// Proceeds to the next step of the quest
     /// </summary>
     /// <returns>
+    ///
     /// <list type="bullet">
     ///     <item><see langword="true"/> if there is a new step</item>
     ///     <item><see langword="false"/> if the last step has been reached. Also sets status to finished.</item>

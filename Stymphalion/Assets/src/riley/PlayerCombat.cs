@@ -1,16 +1,37 @@
+/*
+ * Filename: PlayerCombat.cs
+ * Developer: Riley Doyle
+ * Purpose: Contains behavior of combat in relation to the player in boss battles
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Member Variables
+/// <list type = "bullet">
+/// <item>m_attackPoint</item>
+/// <item>m_enemyLayers</item>
+/// <item>m_attackRange</item>
+/// <item>m_attackDamage</item>
+/// </list>
+/// </summary>
 public class PlayerCombat : MonoBehaviour
 {
-    public Transform attackPoint;
-    public LayerMask enemyLayers;
+    public Transform m_attackPoint;
+    public LayerMask m_enemyLayers;
+    public float m_attackRange = 0.5f;
+    public int m_attackDamage = 40;
 
-    public float attackRange = 0.5f;
-    public int attackDamage = 40;
 
-    // Update is called once per frame
+    
+    ///<summary>  
+    ///Update function 
+    ///</summary> 
+    ///<returns> void </returns>
     void Update()
     {
         if (Input.GetButtonDown("attack"))
@@ -19,25 +40,39 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+
+    ///<summary>  
+    ///Alows the player to attack
+    ///</summary> 
+    ///<returns> void </returns>
     void Attack()
     {
         //Play attack animation
 
         //Detect enemies in range of attack
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(m_attackPoint.position, m_attackRange, m_enemyLayers);
 
         //Damage enemies in range
         foreach(Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            enemy.GetComponent<Enemy>().TakeDamage(m_attackDamage);
         }
     }
 
+
+    ///<summary>  
+    ///Draws a wireframe for attack range for easy visualization
+    ///</summary> 
+    ///<returns> void </returns>
     void OnDrawGizmosSelected()
     {
-        if (attackPoint == null)
+        if (m_attackPoint == null)
             return;  
 
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireSphere(m_attackPoint.position, m_attackRange);
     }
+
+
 }
+
+

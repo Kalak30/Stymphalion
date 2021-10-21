@@ -58,17 +58,6 @@ public class Quest_Editor : EditorWindow
         m_outPointStyle.border = new RectOffset(4, 4, 12, 12);
     }
 
-    /*public void CreateGUI()
-    {
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/src/jon/Quests/Editor/Resources/Edit_Window.uxml");
-        VisualElement rootFromUXML = visualTree.Instantiate();
-        rootVisualElement.Add(rootFromUXML);
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/src/jon/Quests/Editor/Resources/Edit_Window.uss");
-        rootVisualElement.styleSheets.Add(styleSheet);
-
-        //Default icon?
-    }*/
-
     // Node based system from https://gram.gs/gramlog/creating-node-based-editor-unity/
     private void OnGUI()
     {
@@ -298,8 +287,20 @@ public class Quest_Editor : EditorWindow
         }
     }
 
+    //TODO: Removal needs to remove from data containers as well
+    private void RemoveStepData(Connection connection)
+    {
+        Node disconnectedNode = connection.m_inPoint.m_node;
+        Quest_Node root = GetRootQuest(disconnectedNode);
+
+        root.Data.steps.Remove(((Step_Node)disconnectedNode).Data);
+
+        m_unassignedSteps.Add(((Step_Node)disconnectedNode).Data);
+    }
+
     private void OnClickRemoveConnection(Connection connection)
     {
+        RemoveStepData(connection);
         m_connections.Remove(connection);
     }
 
@@ -338,10 +339,16 @@ public class Quest_Editor : EditorWindow
 
             foreach (Connection c in connectionsToRemove)
             {
+                RemoveStepData(c);
                 m_connections.Remove(c);
             }
 
             connectionsToRemove = null;
+        }
+
+        if (node.m_type == NodeType.Quest)
+        {
+            m_questsListsData.quests.Remove(((Quest_Node)node).Data);
         }
 
         m_nodes.Remove(node);

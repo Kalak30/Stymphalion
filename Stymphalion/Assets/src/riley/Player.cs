@@ -1,45 +1,81 @@
+/*
+ * Filename: Player.cs
+ * Developer: Riley Doyle
+ * Purpose: Contains all behaviors associated with the player class in the boss battle scene
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Member Variables
+/// <list type = "bullet">
+/// <item>m_maxHealth</item>
+/// <item>m_currentHealth</item>
+/// </list>
+/// </summary>
 public class Player : MonoBehaviour
 {
 
-    public int maxHealth = 100;
-    int currentHealth;
+    public int m_maxHealth = 100;
+    int m_currentHealth;
 
-    // Start is called before the first frame update
+    
+    ///<summary>  
+    ///Start function
+    ///</summary> 
+    ///<returns> void </returns>
     void Start()
     {
-        int currentHealth = maxHealth;
+        int m_currentHealth = m_maxHealth;
 
     }
 
+    
+    ///<summary>  
+    ///Gives player  health
+    ///</summary> 
+    ///<param name =”health”> int </param> 
+    ///<returns> void </returns>
     public void GainHealth(int health)
     {
-        currentHealth += health;
-        Debug.Log("After healing: " + currentHealth); 
+        m_currentHealth += health;
+        Debug.Log("After healing: " + m_currentHealth); 
 
-        if (currentHealth > maxHealth)
+        if (m_currentHealth > m_maxHealth)
         {
-            currentHealth = maxHealth;
+            m_currentHealth = m_maxHealth;
         }
     }
 
+
+    ///<summary>  
+    ///Allows player to take damage when getting hit 
+    ///</summary> 
+    ///<param name =”damage”> int </param> 
+    ///<returns> void </returns>
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        Debug.Log("After Damage: " + currentHealth);
+        m_currentHealth -= damage;
+        Debug.Log("After Damage: " + m_currentHealth);
 
-        if (currentHealth <= 0)
+        if (m_currentHealth <= 0)
         {
-            int after = 0 - currentHealth;
+            int after = 0 - m_currentHealth;
             Debug.Log("Health is " + after + " below boundry");
-            currentHealth = 0;
+            m_currentHealth = 0;
             Die();
         }
     }
 
+
+    ///<summary>  
+    ///Action when player dies
+    ///</summary> 
+    ///<returns> void </returns>
     void Die()
     {
         Debug.Log("Enemy Died");
@@ -53,13 +89,26 @@ public class Player : MonoBehaviour
         //Disable the enemy
     }
 
+
+    ///<summary>  
+    ///Returns player's current health
+    ///</summary> 
+    ///<returns> int </returns>
     public int GetCurrentHealth()
     {
-        return currentHealth;
+        return m_currentHealth;
     }
 
+
+    ///<summary>  
+    ///Returns player's max health 
+    ///</summary> 
+    ///<returns> int </returns>
     public int GetMaxHealth()
     {
-        return maxHealth;
+        return m_maxHealth;
     }
+
+
 }
+
