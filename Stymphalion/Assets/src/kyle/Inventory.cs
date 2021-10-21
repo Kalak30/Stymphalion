@@ -13,11 +13,12 @@ using UnityEngine;
 public class Inventory
 {
     private List<Item> itemList;
-    private GameObject m_ui_inventory;
+    public GameObject m_ui_inventory;
+    private int m_tog = 0;
 
-    private void Start()
+    private void Awake()
     {
-        m_ui_inventory = GameObject.Find("UI_Inventory");
+        
     }
 
     public void InventoryManage()
@@ -32,7 +33,7 @@ public class Inventory
     /// Adds item to inventory. 
     /// </summary>
     /// <param name="item"></param>
-    /// <param name="inventoryCount"></param>
+    /// <param name="inventoryCount"></param> 
     public void AddItem(Item item, int inventoryCount)
     {
         if (inventoryCount < 10)
@@ -50,8 +51,17 @@ public class Inventory
 
     public void ToggleInventory()
     {
+        GameObject temp = GameObject.Find("Inventory_UI");
+        m_ui_inventory = temp.transform.Find("UI_Inventory").gameObject;
         m_ui_inventory.SetActive(!m_ui_inventory.activeSelf);
-        Debug.Log("Inventory not yet set up");
-        Debug.Log("Inventory will call function from Inventory shown below");
+
+        if(m_ui_inventory.activeSelf == true)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 }
