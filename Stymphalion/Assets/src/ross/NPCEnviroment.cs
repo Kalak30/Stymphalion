@@ -6,24 +6,23 @@ using UnityEngine;
 //ss
 public class NPCEnviroment : EnvirmentObjectSuperClass
 {
-    private NPC standeredNPC; 
-
     // Dynamic Binding lets goo
-    public override void interactFunc(){
+    public override void InteractFunc()
+    {
         //Debug.Log("Hello");
-        standeredNPC.touchingInteractable();
+        standeredNPC.TouchingInteractable();
     }
 
+    private NPC standeredNPC;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         standeredNPC = gameObject.AddComponent<QuestNPC>() as NPC;
-
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 }
