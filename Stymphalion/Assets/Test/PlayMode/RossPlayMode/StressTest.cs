@@ -20,7 +20,8 @@ using UnityEngine.SceneManagement;
 public class MapColiderStressTest
 {
     [UnityTest]
-    public IEnumerator MapTest(){
+    public IEnumerator MapTest()
+    {
         SceneManager.LoadScene("MainIsland");
         // wiat for scene to load
         yield return new WaitForSeconds(2);
@@ -30,18 +31,18 @@ public class MapColiderStressTest
 
         PlayerClass player = GameObject.Find("Player").GetComponent<PlayerClass>();
        // Rigidbody2D player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
-        player.movementSpeed = 5;
+        player.m_movement_speed = 5;
         Debug.Log("Lil WAYNE");
 
-        while((player.location.x < 55) && (player.location.x > -41) && (player.location.y < 37) && (player.location.y > -35)){
-            player.movementSpeed = player.movementSpeed * 1.1f;
+        while((player.m_location.x < 55) && (player.m_location.x > -41) && (player.m_location.y < 37) && (player.m_location.y > -35)){
+            player.m_movement_speed = player.m_movement_speed * 1.1f;
 
             yield return new WaitForSeconds(1);
         }
     
-        Debug.Log("Final Player Speed:" + player.movementSpeed);
-        Debug.Log("Final Player Location: x: " + player.location.x + "    y: " + player.location.y);
-        Assert.IsTrue((player.location.x > 55) | (player.location.x < -41) | (player.location.y > 37) | (player.location.y < -35) );
+        Debug.Log("Final Player Speed:" + player.m_movement_speed);
+        Debug.Log("Final Player Location: x: " + player.m_location.x + "    y: " + player.m_location.y);
+        Assert.IsTrue((player.m_location.x > 55) | (player.m_location.x < -41) | (player.m_location.y > 37) | (player.m_location.y < -35) );
         
         
     }

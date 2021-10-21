@@ -18,12 +18,12 @@ public class HealthBoundTest
 
         PlayerClass player = GameObject.Find("Player").GetComponent<PlayerClass>();
 
-        player.health = 99;
+        player.m_health = 99;
         
         for(int i = 0; i < 3; i++){
             yield return null;
-            Assert.IsTrue(player.health <= 100);
-            player.health++;
+            Assert.IsTrue(player.m_health <= 100);
+            player.m_health++;
             
         }
     }
@@ -35,12 +35,12 @@ public class HealthBoundTest
 
         PlayerClass player = GameObject.Find("Player").GetComponent<PlayerClass>();
 
-        player.health = 1;
+        player.m_health = 1;
         
         for(int i = 0; i < 3; i++){
             yield return null;
-            Assert.IsTrue(player.health <= 100);
-            player.health--;
+            Assert.IsTrue(player.m_health <= 100);
+            player.m_health--;
             
         }
 

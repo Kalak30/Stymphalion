@@ -1,100 +1,159 @@
+/*
+*
+* Filename: PayerClass.cs
+* Developer: Ross Prestwich
+* Purpose: Implementing Player movements and data
+*/
+
+
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-//s
+
 public class PlayerClass : MonoBehaviour
 {
     // public variables
-    
-    public float movementSpeed;
-    public Vector2 location;
-    public int level = 0; 
-    public int xp = 0;
-    //public inventorySystem;
-    public int health = 100;
-    public bool onFire = false;
 
-    private Rigidbody2D player;
+    public float m_movement_speed;
+    public Vector2 m_location;
+    public int m_level = 0;
+    public int m_xp = 0;
+    public int m_health = 100;
+    public bool m_on_fire = false;
 
-    private PlayerInputActionMap playerActions;
-    private InputAction movement;
-    private Inventory playerInventory;
 
-    /*
-    private void OnCollisionStay2D(Collision2D collisionInfo){
-        // Debug.Log("Trash");
-        EnvirmentObjectSuperClass otherScript = collisionInfo.gameObject.GetComponent<EnvirmentObjectSuperClass>();
+    //Private Variables
+    private Rigidbody2D m_player;
 
-        if(true){
-            otherScript.interact();
-        }
+    private PlayerInputActionMap m_player_actions;
+    private InputAction m_movement;
+    private Inventory m_player_inventory;
+    private Animator m_main_animator;
+
+    private PlayerClass() { }
+
+    private static readonly PlayerClass instance = new PlayerClass();
+
+    public static PlayerClass GetPlayerClass(){
+        return instance;
     }
-    */
-  private void Awake(){
+
+
+    /// <summary>
+    /// Intialize Everything Important in the program
+    /// 
+    /// </summary>
+    private void Awake(){
         Debug.Log("awake\n");
-        playerActions = new PlayerInputActionMap();
-        player = GetComponent<Rigidbody2D>();
-        OnEnable();
+        // add Inventory Object and Action map
+        m_player_inventory = new Inventory();
+        m_player_actions = new PlayerInputActionMap();
+        // Get the rigid body from gameObject
+        m_player = GetComponent<Rigidbody2D>();
+        OnEnable(); // enable action map
+        // add animator and set speed to 0
+        m_main_animator = GetComponent<Animator>();
+        m_main_animator.SetFloat("Speed", 0);
     }
 
-    private void OnEnable(){
-        movement = playerActions.PlayerActionMap.Movement;
-        movement.Enable();
 
-        playerActions.PlayerActionMap.Inventory.performed += inventoryX; 
-        playerActions.PlayerActionMap.Inventory.Enable();
+
+
+
+
+/// <summary>
+/// Enable Action map
+/// Add Player Movement and Inventory function
+/// </summary>
+    private void OnEnable(){
+        // add and enabple movement action map
+        m_movement = m_player_actions.PlayerActionMap.Movement;
+        m_movement.Enable();
+
+        // add ineventory controls to action map
+        m_player_actions.PlayerActionMap.Inventory.started += OpenInventory;
+        m_player_actions.PlayerActionMap.Inventory.Enable();
 
 
         Debug.Log("Enabled");
 
     }//
 
-    private void inventoryX(InputAction.CallbackContext obj){
-        playerInventory.InventoryCreation();
-      //  Debug.Log("Test");
+    /// <summary>
+    /// Open Invetory
+    /// </summary>
+    /// <param name="obj"></param>
+    private void OpenInventory(InputAction.CallbackContext obj)
+    {
+        // Change function to what it's actually supposed to be when Kyle is ready
+        m_player_inventory.ToggleInventory();
+        //  Debug.Log("Test");
     }
 
-    // Make virutal for testing purposes
+/// <summary>
+/// Function for moving Character
+/// </summary>
     public virtual void Movement(){
-      //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
-        player.velocity = movement.ReadValue<Vector2>() * movementSpeed;
-        location = player.position;
-        
+        //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
+        // playe values
+        m_player.velocity = m_movement.ReadValue<Vector2>() * m_movement_speed;
+        m_location = m_player.position;
+
+        // set speed in animator to the player velocity
+        m_main_animator.SetFloat("Speed", (float)Math.Sqrt((m_player.velocity.x * m_player.velocity.x) + (m_player.velocity.y * m_player.velocity.y)));
 
     }
 
 
-    // Start is called before the first frame update
     void Start()
     {
         //playerInventory = gameObject.AddComponent<Inventory>() as Inventory;
-        playerInventory = new Inventory();
-        // should be playerInventory = new Inventory;
+        //playerInventory = new Inventory();
+
 
     }
 
-    private void checkHealth(){
-        if (health > 100){
-            health = 100;
+
+/// <summary>
+/// Make Sure Health does not become negative
+/// The better way to do this is make everything go through a function to change
+/// </summary>
+    private void CheckHealth()
+    {
+        if (m_health > 100)
+        {
+            m_health = 100;
         }
-        else if (health < 0){
-            health = 0;
+        else if (m_health < 0)
+        {
+            m_health = 0;
         }
     }
 
-    private void levelCheck(){
-        while(xp >= 100){
-            xp = xp - 100;
-            level = level + 1;
+
+/// <summary>
+/// Update Level when xp increases
+/// </summary>
+    private void LevelCheck()
+    {
+        while(m_xp >= 100)
+        {
+            m_xp = m_xp - 100;
+            m_level = m_level + 1;
         }
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Built in Unity function
+    /// Runs every tick
+    /// </summary>
     void FixedUpdate()
     {
         Movement();
-        checkHealth();
-        levelCheck();
+        CheckHealth();
+        LevelCheck();
     }
 }

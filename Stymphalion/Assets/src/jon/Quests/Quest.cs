@@ -7,7 +7,7 @@ using UnityEngine;
 /// See also: <seealso cref="Quest_Manager"/>
 /// </summary>
 ///
-public class Quest
+public class Quest : ScriptableObject
 {
     public readonly int DEFAULT_STEPS = 50;
     private int max_steps;
@@ -45,13 +45,13 @@ public class Quest
 
     public string quest_name;
     public string quest_description;
-    public string quest_reward;  // Needs to be an item from kyles stuff
+    public Item quest_reward;  // Needs to be an item from kyles stuff
 
     public Status quest_status;
     public int active_step_pos;
     public List<Quest_Step> steps;
 
-    public Quest(string quest_name, string quest_description, string quest_reward)
+    public Quest(string quest_name, string quest_description, Item quest_reward)
     {
         steps = new List<Quest_Step>();
         this.quest_name = quest_name;
@@ -103,6 +103,7 @@ public class Quest
     /// Proceeds to the next step of the quest
     /// </summary>
     /// <returns>
+    ///
     /// <list type="bullet">
     ///     <item><see langword="true"/> if there is a new step</item>
     ///     <item><see langword="false"/> if the last step has been reached. Also sets status to finished.</item>

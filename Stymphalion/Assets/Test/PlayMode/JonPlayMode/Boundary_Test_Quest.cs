@@ -5,12 +5,18 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// <list type="bullet">
+/// <item> m_thing_thing</item>
+/// </list>
+/// </summary>
 public class Boundary_Test_Quest
 {
+    
     [Test]
     public void Boundary_Test_QuestUpper()
     {
-        Quest q = new Quest("Quest", "Go Questing", "a cool sword");
+        Quest q = new Quest("Quest", "Go Questing", null);
 
         //Above upper bound
         for (int i = 0; i < 60; i++)
@@ -59,7 +65,7 @@ public class Boundary_Test_Quest
 
         for (int i = 0; i < num; i++)
         {
-            quest_man.AddQuest("name", "desc", "reward");
+            quest_man.AddQuest("name", "desc", null);
         }
 
         // Access out of bounds

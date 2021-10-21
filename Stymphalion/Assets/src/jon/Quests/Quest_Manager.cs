@@ -29,16 +29,28 @@ public class Quest_Manager
         {
             return null;
         }
-        
+
         return quests[position];
     }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
     public int QuestsLength()
     {
         return quests.Count;
     }
 
-    public void AddQuest(string quest_name, string quest_description, string quest_reward)
+    /// <summary>
+    /// <list type="bullet">
+    /// <item></item>
+    /// </list>
+    /// </summary>
+    /// <param name="quest_name"></param>
+    /// <param name="quest_description"></param>
+    /// <param name="quest_reward"></param>
+    public void AddQuest(string quest_name, string quest_description, Item quest_reward)
     {
         Quest quest = new Quest(quest_name, quest_description, quest_reward);
         quests.Add(quest);

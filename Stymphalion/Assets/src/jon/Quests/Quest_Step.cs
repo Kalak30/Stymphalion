@@ -5,7 +5,7 @@ using UnityEngine;
 public class Quest_Step
 {
     public string step_name, step_description;
-    private Quest belongs_to;
+    public Quest belongs_to;
 
     public Quest_Step(string step_name, string step_description, Quest belongs_to)
     {

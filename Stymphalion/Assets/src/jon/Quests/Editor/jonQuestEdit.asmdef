@@ -1,0 +1,19 @@
+{
+    "name": "jonQuestEdit",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ea057000c05dd63469a0c25c4844af40",
+        "GUID:aaeb01cc918a43547a2bced6bac432b9"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
