@@ -1,7 +1,7 @@
 /*
- * FileName:
+ * FileName: ShopNPC.cs
  * Developer: Jon Kopf
- * Purpose:
+ * Purpose: Provides abstraction for a ShopNPC
  */
 
 

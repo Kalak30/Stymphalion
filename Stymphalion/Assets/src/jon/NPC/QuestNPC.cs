@@ -1,24 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/*
+ * Filename: QuestNPC.cs
+ * Developer: Jon Kopf
+ * Purpose: Provide an interface to the QuestNPC and its quests
+ */
 
+
+/// <summary>
+/// Provides an abstraction for a QuestNPC
+/// </summary>
 public class QuestNPC : NPC
 {
-    public Quest npc_quest;
 
+    public Quest m_npc_quest;
+
+    /// <summary>
+    /// Gets called whenever the player interacts with a QuestNPC
+    /// </summary>
     public override void TouchingInteractable()
     {
         throw new System.NotImplementedException();
     }
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Just some initial test code
+    /// </summary>
     private void Awake()
     {
-        npc_quest = new Quest("start", "the first quest", null);
-        Quest_Manager.GetQuest_Manager().AddQuest(npc_quest);
+        m_npc_quest = new Quest("start", "the first quest", null);
+        QuestManager.GetQuest_Manager().AddQuest(m_npc_quest);
     }
 
-    // Update is called once per frame
+
     private void Update()
     {
     }

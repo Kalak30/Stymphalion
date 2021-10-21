@@ -1,17 +1,23 @@
 /*
  * Filename: NPC.cs
  * Developer: Jon Kopf
- * Purpose:
+ * Purpose: Gives the abstraction for an NPC type of object
  */
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// An abstract class for an NPC, inherts from MonoBehaviour and is able to be put into the game.
+/// </summary>
 public abstract class NPC : MonoBehaviour
 {
-    public abstract void TouchingInteractable();
 
-    private String name;
+    private String m_name;
+
+    /// <summary>
+    /// Gets called whenever the player interacts with this NPC
+    /// </summary>
+    public abstract void TouchingInteractable();
 }

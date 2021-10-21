@@ -59,7 +59,7 @@ public class Boundary_Test_Quest
     [Test]
     public void Boundary_Test_QuestManager()
     {
-        Quest_Manager quest_man = Quest_Manager.GetQuest_Manager();
+        QuestManager quest_man = QuestManager.GetQuest_Manager();
 
         int num = 50;
 

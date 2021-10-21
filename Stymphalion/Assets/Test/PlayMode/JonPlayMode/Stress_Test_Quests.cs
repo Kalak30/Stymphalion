@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Stress_Test_Quests
 {
-    private Quest_Manager qm = Quest_Manager.GetQuest_Manager();
+    private QuestManager qm = QuestManager.GetQuest_Manager();
 
     // Still have no idea for a stress test
     [UnityTest]
