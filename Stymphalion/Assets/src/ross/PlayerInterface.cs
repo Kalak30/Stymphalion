@@ -5,16 +5,20 @@ using UnityEngine;
 public class PlayerInterface : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    PlayerClass m_player_class;
+
+    void Awake()
     {
-      //  gameObject.find("UI_Invetory")
+      m_player_class = PlayerClass.Instance ;
+        m_player_class.Awake();
+        m_player_class.OnEnable();
 
 
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        m_player_class.FixedUpdate();
     }
 }

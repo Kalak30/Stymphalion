@@ -13,10 +13,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerClass : MonoBehaviour
+public class PlayerClass : Behaviour
 {
     // public variables
-    public float m_movement_speed;
+    public float m_movement_speed = 5;
     public Vector2 m_location;
     public int m_level = 0;
     public int m_xp = 0;
@@ -24,7 +24,7 @@ public class PlayerClass : MonoBehaviour
     public bool m_on_fire = false;
 
 
-    //Private Variables
+    //Private Variables //
     private Rigidbody2D m_player;
 
     private PlayerInputActionMap m_player_actions;
@@ -58,7 +58,7 @@ public class PlayerClass : MonoBehaviour
     /// <returns></returns>
     public PlayerClass GetPlayerClass()
     {
-        return this;
+        return Instance;
 
     }
 
@@ -67,7 +67,7 @@ public class PlayerClass : MonoBehaviour
     /// Intialize Everything Important in the program
     /// 
     /// </summary>
-    private void Awake(){
+    public void Awake(){
     
       //  m_instance = GameObject.Find("Player").AddComponent<PlayerClass>();
         Debug.Log("awake\n");
@@ -75,10 +75,10 @@ public class PlayerClass : MonoBehaviour
         m_player_inventory = new Inventory();
         m_player_actions = new PlayerInputActionMap();
         // Get the rigid body from gameObject
-        m_player = GetComponent<Rigidbody2D>();
+        m_player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
      //   OnEnable(); // enable action map
         // add animator and set speed to 0
-        m_main_animator = GetComponent<Animator>();
+        m_main_animator = GameObject.Find("Player").GetComponent<Animator>();
         m_main_animator.SetFloat("Speed", 0);
     }
 
@@ -91,7 +91,7 @@ public class PlayerClass : MonoBehaviour
 /// Enable Action map
 /// Add Player Movement and Inventory function
 /// </summary>
-    private void OnEnable(){
+    public void OnEnable(){
         // add and enabple movement action map
         m_movement = m_player_actions.PlayerActionMap.Movement;
         m_movement.Enable();
@@ -165,7 +165,7 @@ public class PlayerClass : MonoBehaviour
     /// Built in Unity function
     /// Runs every tick
     /// </summary>
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         Movement();
         CheckHealth();
