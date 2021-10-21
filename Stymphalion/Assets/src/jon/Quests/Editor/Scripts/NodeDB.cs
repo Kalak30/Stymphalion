@@ -5,8 +5,8 @@ using UnityEngine;
 public class NodeDB : ScriptableObject
 {
     private List<Node> m_nodes;
-    private List<Quest_Node> m_questNodes;
-    private List<Step_Node> m_stepNodes;
+    private List<QuestNode> m_questNodes;
+    private List<StepNode> m_stepNodes;
     private List<Connection> m_connections;
     private GUIStyle m_nodeStyle;
     private GUIStyle m_selectedNodeStyle;

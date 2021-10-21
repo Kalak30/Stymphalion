@@ -31,10 +31,10 @@ public enum NodeType
 [Serializable]
 public class ConnectionRule
 {
-    public NodeType m_input_type;
     public int m_input_id;
-    public NodeType m_output_type;
+    public NodeType m_input_type;
     public int m_output_id;
+    public NodeType m_output_type;
 
     /// <summary>
     ///
@@ -53,7 +53,7 @@ public class ConnectionRule
 }
 
 /// <summary>
-/// Provides all information to uniquely characterize a node within the <see cref="Quest_Editor"/>
+/// Provides all information to uniquely characterize a node within the <see cref="QuestEditor"/>
 /// ///  <para>Member Variables</para>
 /// <list type="bullet">
 ///     <item>m_id</item>
@@ -76,25 +76,25 @@ public class ConnectionRule
 [Serializable]
 public class Node
 {
-    public int m_id;
-    public Rect m_rect;
-    public string m_title;
-    public bool m_is_dragged;
-    public bool m_is_selected;
-    public GUIStyle m_style;
-    public GUIStyle m_default_node_style;
-    public GUIStyle m_selected_node_style;
-    public List<ConnectionPoint> m_in_points;
-    public List<ConnectionPoint> m_out_points;
     public List<ConnectionRule> m_allowed_inputs;
     public List<ConnectionRule> m_allowed_outputs;
-    public NodeType m_type = NodeType.Base;
+    public GUIStyle m_default_node_style;
+    public int m_id;
+    public List<ConnectionPoint> m_in_points;
+    public bool m_is_dragged;
+    public bool m_is_selected;
     public Action<Node> m_on_remove_node;
+    public List<ConnectionPoint> m_out_points;
+    public Rect m_rect;
+    public GUIStyle m_selected_node_style;
+    public GUIStyle m_style;
+    public string m_title;
+    public NodeType m_type = NodeType.Base;
 
     /// <summary>
     ///
     /// </summary>
-    /// <param name="position">position in the <see cref="Quest_Editor"/> Editor window</param>
+    /// <param name="position">position in the <see cref="QuestEditor"/> Editor window</param>
     /// <param name="width">Width of the new node</param>
     /// <param name="height">height of the new node</param>
     /// <param name="id"></param>
@@ -117,21 +117,56 @@ public class Node
     }
 
     /// <summary>
-    ///
+    /// Determines if a given connection is valid based on this <see cref="Node"/>'s connection rules
     /// </summary>
-    /// <param name="delta"></param>
+    /// <param name="conn_type">Type of connection on this node</param>
+    /// <param name="point_id">Connection point id on this node</param>
+    /// <param name="other_node_type">Type of the other node</param>
+    /// <param name="other_conn_type">Type of connection on the other node</param>
+    /// <param name="other_point_id">Connection point id on the other node</param>
+    /// <returns></returns>
+    public bool CanConnect(ConnectionPointType conn_type, int point_id, NodeType other_node_type, ConnectionPointType other_conn_type, int other_point_id)
+    {
+        bool canConnect = false;
+
+        if (conn_type == ConnectionPointType.In)
+        {
+            foreach (var rule in m_allowed_inputs)
+            {
+                if (rule.m_input_type == m_type && rule.m_input_id == point_id && rule.m_output_type == other_node_type && other_conn_type == ConnectionPointType.Out && rule.m_output_id == other_point_id)
+                {
+                    canConnect = true;
+                    break;
+                }
+            }
+        }
+        else if (conn_type == ConnectionPointType.Out)
+        {
+            foreach (var rule in m_allowed_outputs)
+            {
+                if (rule.m_output_type == m_type && rule.m_output_id == point_id && rule.m_input_type == other_node_type && other_conn_type == ConnectionPointType.In && rule.m_input_id == other_point_id)
+                {
+                    canConnect = true;
+                    break;
+                }
+            }
+        }
+
+        return canConnect;
+    }
+
+    /// <summary>
+    /// Moves the node when dragged
+    /// </summary>
+    /// <param name="delta">Change in position of the node</param>
     public void Drag(Vector2 delta)
     {
         m_rect.position += delta;
     }
 
-    public void AddConnection(ConnectionPoint connectionPoint)
-    {
-        if (connectionPoint.m_type == ConnectionPointType.In && m_type == NodeType.Step)
-        {
-        }
-    }
-
+    /// <summary>
+    /// Draws the connection point buttons to the screen
+    /// </summary>
     public void DrawConnectionPoints()
     {
         if (m_in_points != null)
@@ -151,11 +186,25 @@ public class Node
         }
     }
 
+    /// <summary>
+    /// Draws the <see cref="Node"/> as a <see cref="GUI.Box"/>
+    /// </summary>
+    /// <param name="id"></param>
     public virtual void DrawWindow(int id)
     {
         GUI.Box(m_rect, m_title, m_style);
     }
 
+    /// <summary>
+    /// Decides what to do when a certain event happens
+    /// </summary>
+    /// <param name="e">Event that happens</param>
+    /// <returns>
+    /// <list type="bullet">
+    ///     <item><see langword="true"/> if mouse is dragged</item>
+    ///     <item><see langword="false"/> otherwise</item>
+    /// </list>
+    /// </returns>
     public bool ProcessEvents(Event e)
     {
         switch (e.type)
@@ -202,13 +251,9 @@ public class Node
         return false;
     }
 
-    private void ProcessContextMenu()
-    {
-        GenericMenu genericMenu = new GenericMenu();
-        genericMenu.AddItem(new GUIContent("Remove Node"), false, OnClickRemoveNode);
-        genericMenu.ShowAsContext();
-    }
-
+    /// <summary>
+    /// Removes this node
+    /// </summary>
     private void OnClickRemoveNode()
     {
         if (m_on_remove_node != null)
@@ -217,33 +262,13 @@ public class Node
         }
     }
 
-    public bool CanConnect(ConnectionPointType connType, int pointID, NodeType otherNodeType, ConnectionPointType otherConnType, int otherPointID)
+    /// <summary>
+    /// Popup a context menu, allows for additional actions on a node
+    /// </summary>
+    private void ProcessContextMenu()
     {
-        bool canConnect = false;
-
-        if (connType == ConnectionPointType.In)
-        {
-            foreach (var rule in m_allowed_inputs)
-            {
-                if (rule.m_input_type == m_type && rule.m_input_id == pointID && rule.m_output_type == otherNodeType && otherConnType == ConnectionPointType.Out && rule.m_output_id == otherPointID)
-                {
-                    canConnect = true;
-                    break;
-                }
-            }
-        }
-        else if (connType == ConnectionPointType.Out)
-        {
-            foreach (var rule in m_allowed_outputs)
-            {
-                if (rule.m_output_type == m_type && rule.m_output_id == pointID && rule.m_input_type == otherNodeType && otherConnType == ConnectionPointType.In && rule.m_input_id == otherPointID)
-                {
-                    canConnect = true;
-                    break;
-                }
-            }
-        }
-
-        return canConnect;
+        GenericMenu genericMenu = new GenericMenu();
+        genericMenu.AddItem(new GUIContent("Remove Node"), false, OnClickRemoveNode);
+        genericMenu.ShowAsContext();
     }
 }

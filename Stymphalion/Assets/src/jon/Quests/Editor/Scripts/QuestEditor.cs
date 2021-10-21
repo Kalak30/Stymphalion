@@ -1,20 +1,41 @@
-using System.Collections;
+/*
+ * Filename: QuestEditor.cs
+ * Developer: Jon Kopf
+ * Purpose: This is the window and controller for the QuetEditor tool.
+ *          The tool allows for development of quests in a visual way and allow them to be saved to a JSON file
+ *
+ *          Node based system from https://gram.gs/gramlog/creating-node-based-editor-unity/
+ */
+
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class Quest_Editor : EditorWindow
+
+/// <summary>
+/// A window containing the node based system for editing quests
+/// /// <list type="bullet">
+///     <item>m_quests_lists_data</item>
+///     <item>m_unassigned_steps</item>
+///     <item>m_connections</item>
+///     <item>m_drag</item>
+///     <item>m_in_point_style</item>
+///     <item>m_next_node_id</item>
+///     <item>m_node_style</item>
+///     <item>m_nodes</item>
+///     <item>m_offset</item>
+///     <item>m_out_point_style</item>
+///     <item>m_quest_nodes</item>
+///     <item>m_selected_in_point</item>
+///     <item>m_selected_node_style</item>
+///     <item>m_selected_out_point</item>
+///     <item>m_step_nodes</item>
+/// </list>
+/// </summary>
+public class QuestEditor : EditorWindow
 {
     public QuestsListData m_quests_lists_data;
     public List<StepData> m_unassigned_steps;
-
-    [MenuItem("QUESTS/Quest Editor")]
-    public static void OpenWindow()
-    {
-        Quest_Editor wnd = GetWindow<Quest_Editor>();
-        wnd.titleContent = new GUIContent("Quest Editor");
-    }
 
     private List<Connection> m_connections;
     private Vector2 m_drag;
@@ -24,19 +45,34 @@ public class Quest_Editor : EditorWindow
     private List<Node> m_nodes;
     private Vector2 m_offset;
     private GUIStyle m_out_point_style;
-    private List<Quest_Node> m_quest_nodes;
+    private List<QuestNode> m_quest_nodes;
     private ConnectionPoint m_selected_in_point;
     private GUIStyle m_selected_node_style;
     private ConnectionPoint m_selected_out_point;
-    private List<Step_Node> m_step_nodes;
+    private List<StepNode> m_step_nodes;
 
+    /// <summary>
+    /// Actions taken when opening this window. Located in Unity toolbar
+    /// </summary>
+    [MenuItem("QUESTS/Quest Editor")]
+    public static void OpenWindow()
+    {
+        QuestEditor wnd = GetWindow<QuestEditor>();
+        wnd.titleContent = new GUIContent("Quest Editor");
+    }
+
+    /// <summary>
+    /// Clears the current selected nodes
+    /// </summary>
     private void ClearConnectionSelection()
     {
         m_selected_in_point = null;
         m_selected_out_point = null;
     }
 
-    //Super ugly, way too many if statements. Try to re-factor
+    /// <summary>
+    /// Creates a <see cref="Connection"/> between two <see cref="ConnectionPoint"/>
+    /// </summary>
     private void CreateConnection()
     {
         if (m_connections == null)
@@ -50,12 +86,11 @@ public class Quest_Editor : EditorWindow
 
             if (m_selected_in_point.m_node.m_type == NodeType.Step && m_selected_in_point.m_id == 0 && m_selected_out_point.m_id == 0)
             {
-                Debug.Log("Here");
-                Quest_Node qn = GetRootQuest(m_selected_in_point.m_node);
+                QuestNode qn = GetRootQuest(m_selected_in_point.m_node);
                 if (qn != null)
                 {
-                    qn.Data.m_steps.Add(((Step_Node)m_selected_in_point.m_node).m_data);
-                    m_unassigned_steps.Remove(((Step_Node)m_selected_in_point.m_node).m_data);
+                    qn.m_data.m_steps.Add(((StepNode)m_selected_in_point.m_node).m_data);
+                    m_unassigned_steps.Remove(((StepNode)m_selected_in_point.m_node).m_data);
                 }
             }
         }
@@ -65,6 +100,11 @@ public class Quest_Editor : EditorWindow
         }
     }
 
+    /// <summary>
+    /// Draws an active line between the first selected point and the current mouse position.
+    /// This allows for the user to see that they are in fact creating a connection
+    /// </summary>
+    /// <param name="e"></param>
     private void DrawConnectionLine(Event e)
     {
         if (m_selected_in_point != null && m_selected_out_point == null)
@@ -98,6 +138,9 @@ public class Quest_Editor : EditorWindow
         }
     }
 
+    /// <summary>
+    /// Draw all <see cref="Connection"/> lines within the editor
+    /// </summary>
     private void DrawConnections()
     {
         if (m_connections != null)
@@ -109,31 +152,41 @@ public class Quest_Editor : EditorWindow
         }
     }
 
-    private void DrawGrid(float gridSpacing, float gridOpacity, Color gridColor)
+    /// <summary>
+    /// Draws a background grid. Gives the user a sense of movement when panning around
+    /// </summary>
+    /// <param name="grid_spacing"></param>
+    /// <param name="grid_opacity"></param>
+    /// <param name="grid_color"></param>
+    private void DrawGrid(float grid_spacing, float grid_opacity, Color grid_color)
     {
-        int widthDivs = Mathf.CeilToInt(position.width / gridSpacing);
-        int heightDivs = Mathf.CeilToInt(position.height / gridSpacing);
+        int widthDivs = Mathf.CeilToInt(position.width / grid_spacing);
+        int heightDivs = Mathf.CeilToInt(position.height / grid_spacing);
 
         Handles.BeginGUI();
-        Handles.color = new Color(gridColor.r, gridColor.g, gridColor.b, gridOpacity);
+        Handles.color = new Color(grid_color.r, grid_color.g, grid_color.b, grid_opacity);
 
         m_offset += m_drag * 0.5f;
-        Vector3 newOffset = new Vector3(m_offset.x % gridSpacing, m_offset.y % gridSpacing, 0);
+        Vector3 newOffset = new Vector3(m_offset.x % grid_spacing, m_offset.y % grid_spacing, 0);
 
         for (int i = 0; i < widthDivs; i++)
         {
-            Handles.DrawLine(new Vector3(gridSpacing * i, -gridSpacing, 0) + newOffset, new Vector3(gridSpacing * i, position.height, 0f) + newOffset);
+            Handles.DrawLine(new Vector3(grid_spacing * i, -grid_spacing, 0) + newOffset, new Vector3(grid_spacing * i, position.height, 0f) + newOffset);
         }
 
         for (int j = 0; j < heightDivs; j++)
         {
-            Handles.DrawLine(new Vector3(-gridSpacing, gridSpacing * j, 0) + newOffset, new Vector3(position.width, gridSpacing * j, 0f) + newOffset);
+            Handles.DrawLine(new Vector3(-grid_spacing, grid_spacing * j, 0) + newOffset, new Vector3(position.width, grid_spacing * j, 0f) + newOffset);
         }
 
         Handles.color = Color.white;
         Handles.EndGUI();
     }
 
+    /// <summary>
+    /// Draws all <see cref="Node"/> objects as windows.
+    /// Different types of nodes are drawn differently
+    /// </summary>
     private void DrawNodes()
     {
         BeginWindows();
@@ -142,8 +195,8 @@ public class Quest_Editor : EditorWindow
         {
             foreach (Node n in m_nodes)
             {
-                Quest_Node questNode = GetQuestNode(n.m_id);
-                Step_Node stepNode = GetStepNode(n.m_id);
+                QuestNode questNode = GetQuestNode(n.m_id);
+                StepNode stepNode = GetStepNode(n.m_id);
 
                 if (questNode != null)
                 {
@@ -162,6 +215,13 @@ public class Quest_Editor : EditorWindow
         EndWindows();
     }
 
+    /// <summary>
+    /// Gets all <see cref="Connections"/> attached to a given <see cref="ConnectionPoint"/>
+    /// </summary>
+    /// <param name="p">Point to get connections from</param>
+    /// <returns>
+    /// List of connections attached to p
+    /// </returns>
     private List<Connection> GetConnections(ConnectionPoint p)
     {
         List<Connection> connections = new List<Connection>();
@@ -176,7 +236,12 @@ public class Quest_Editor : EditorWindow
         return connections;
     }
 
-    private Quest_Node GetQuestNode(int id)
+    /// <summary>
+    /// Gets a quest node within the quest node list
+    /// </summary>
+    /// <param name="id">id value of node to find</param>
+    /// <returns><see cref="Node"/> with id, or null if not in <see cref="m_quest_nodes"/></returns>
+    private QuestNode GetQuestNode(int id)
     {
         if (m_quest_nodes is null) return null;
         foreach (var node in m_quest_nodes)
@@ -190,13 +255,17 @@ public class Quest_Editor : EditorWindow
         return null;
     }
 
-    //Recursivly finds the root quest node of any given node
-    private Quest_Node GetRootQuest(Node n)
+    /// <summary>
+    /// Recursivly finds the root quest node of any given node
+    /// </summary>
+    /// <param name="n">Node to find root quest from</param>
+    /// <returns>Root quest node, or null if no root node exists</returns>
+    private QuestNode GetRootQuest(Node n)
     {
         if (n.m_type == NodeType.Quest)
         {
             Debug.Log("There is a root Quest: " + n);
-            return (Quest_Node)n;
+            return (QuestNode)n;
         }
         List<Connection> connections = GetConnections(n.m_in_points[0]);
         foreach (Connection c in connections)
@@ -208,7 +277,12 @@ public class Quest_Editor : EditorWindow
         return null;
     }
 
-    private Step_Node GetStepNode(int id)
+    /// <summary>
+    /// Gets a step node within the step node list
+    /// </summary>
+    /// <param name="id">id value of node to find</param>
+    /// <returns><see cref="Node"/> with id, or null if not in <see cref="m_quest_nodes"/></returns>
+    private StepNode GetStepNode(int id)
     {
         if (m_step_nodes is null) return null;
         foreach (var node in m_step_nodes)
@@ -221,8 +295,12 @@ public class Quest_Editor : EditorWindow
         return null;
     }
 
-    // Adding new nods needs to cleaned quite badly
-    private void OnClickAddQuestNode(Vector2 mousePosition)
+    /// <summary>
+    /// Action to take when clicking on add a quest node.
+    /// Creates a new node and a new data object to store its data.
+    /// </summary>
+    /// <param name="mmouse_position"></param>
+    private void OnClickAddQuestNode(Vector2 mmouse_position)
     {
         if (m_nodes == null)
         {
@@ -230,7 +308,7 @@ public class Quest_Editor : EditorWindow
         }
         if (m_quest_nodes == null)
         {
-            m_quest_nodes = new List<Quest_Node>();
+            m_quest_nodes = new List<QuestNode>();
         }
         if (m_quests_lists_data.m_quests == null)
         {
@@ -241,18 +319,23 @@ public class Quest_Editor : EditorWindow
         qd.m_quest_name = "";
         qd.m_quest_description = "";
         qd.m_quest_reward = null;
-        qd.m_quest_status = (int)Quest.QuestStatus.locked;
+        qd.m_quest_status = (int)QuestStatus.locked;
         qd.m_active_step_pos = 0;
         qd.m_steps = new List<StepData>();
         m_quests_lists_data.m_quests.Add(qd);
 
-        Quest_Node n = new Quest_Node(mousePosition, 400, 150, m_next_node_id, m_node_style, m_selected_node_style, m_in_point_style, m_out_point_style, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
-        n.Data = qd;
+        QuestNode n = new QuestNode(mmouse_position, 400, 150, m_next_node_id, m_node_style, m_selected_node_style, m_in_point_style, m_out_point_style, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
+        n.m_data = qd;
         m_nodes.Add(n);
         m_quest_nodes.Add(n);
         m_next_node_id++;
     }
 
+    /// <summary>
+    /// Action to take when clicking on add a step node
+    /// Creates a new step node and a new data object to store it
+    /// </summary>
+    /// <param name="mousePosition"></param>
     private void OnClickAddStepNode(Vector2 mousePosition)
     {
         if (m_nodes == null)
@@ -261,7 +344,7 @@ public class Quest_Editor : EditorWindow
         }
         if (m_step_nodes == null)
         {
-            m_step_nodes = new List<Step_Node>();
+            m_step_nodes = new List<StepNode>();
         }
         if (m_unassigned_steps == null)
         {
@@ -273,16 +356,21 @@ public class Quest_Editor : EditorWindow
         sd.m_step_description = "";
         m_unassigned_steps.Add(sd);
 
-        Step_Node n = new Step_Node(mousePosition, 400, 100, m_next_node_id, m_node_style, m_selected_node_style, m_in_point_style, m_out_point_style, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
+        StepNode n = new StepNode(mousePosition, 400, 100, m_next_node_id, m_node_style, m_selected_node_style, m_in_point_style, m_out_point_style, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
         n.m_data = sd;
         m_nodes.Add(n);
         m_step_nodes.Add(n);
         m_next_node_id++;
     }
 
-    private void OnClickInPoint(ConnectionPoint inPoint)
+    /// <summary>
+    /// When a <see cref="ConnectionPoint"/> with <see cref="ConnectionPointType"/> == <see cref="ConnectionPointType.In"/>,
+    /// a new connection should be created if there is both an in point and out point selected
+    /// </summary>
+    /// <param name="in_point">selected point</param>
+    private void OnClickInPoint(ConnectionPoint in_point)
     {
-        m_selected_in_point = inPoint;
+        m_selected_in_point = in_point;
 
         if (m_selected_out_point != null)
         {
@@ -298,9 +386,14 @@ public class Quest_Editor : EditorWindow
         }
     }
 
-    private void OnClickOutPoint(ConnectionPoint outPoint)
+    /// <summary>
+    /// When a <see cref="ConnectionPoint"/> with <see cref="ConnectionPointType"/> == <see cref="ConnectionPointType.Out"/>,
+    /// a new connection should be created if there is both an in point and out point selected
+    /// </summary>
+    /// <param name="out_point">selected point</param>
+    private void OnClickOutPoint(ConnectionPoint out_point)
     {
-        m_selected_out_point = outPoint;
+        m_selected_out_point = out_point;
 
         if (m_selected_in_point != null)
         {
@@ -316,12 +409,20 @@ public class Quest_Editor : EditorWindow
         }
     }
 
+    /// <summary>
+    /// Remove a connection when the remove connection button is pressed
+    /// </summary>
+    /// <param name="connection"></param>
     private void OnClickRemoveConnection(Connection connection)
     {
         RemoveStepData(connection);
         m_connections.Remove(connection);
     }
 
+    /// <summary>
+    /// Remove a node when the remove node button is pressed. Removes the all data associated with node from the data lists
+    /// </summary>
+    /// <param name="node"></param>
     private void OnClickRemoveNode(Node node)
     {
         if (m_connections != null)
@@ -366,12 +467,16 @@ public class Quest_Editor : EditorWindow
 
         if (node.m_type == NodeType.Quest)
         {
-            m_quests_lists_data.m_quests.Remove(((Quest_Node)node).Data);
+            m_quests_lists_data.m_quests.Remove(((QuestNode)node).m_data);
         }
 
         m_nodes.Remove(node);
     }
 
+    /// <summary>
+    /// Actions to take when the mouse is dragged on the editor window
+    /// </summary>
+    /// <param name="delta">Amount of space to move by</param>
     private void OnDrag(Vector2 delta)
     {
         m_drag = delta;
@@ -387,6 +492,9 @@ public class Quest_Editor : EditorWindow
         GUI.changed = true;
     }
 
+    /// <summary>
+    /// Initializes editor settings as well as Graphics styles
+    /// </summary>
     private void OnEnable()
     {
         m_quests_lists_data = new QuestsListData();
@@ -410,7 +518,9 @@ public class Quest_Editor : EditorWindow
         m_out_point_style.border = new RectOffset(4, 4, 12, 12);
     }
 
-    // Node based system from https://gram.gs/gramlog/creating-node-based-editor-unity/
+    /// <summary>
+    /// Automatically gets called. Draws the editor window
+    /// </summary>
     private void OnGUI()
     {
         DrawGrid(20, 0.2f, Color.gray);
@@ -432,15 +542,23 @@ public class Quest_Editor : EditorWindow
         if (GUI.changed) Repaint();
     }
 
-    private void ProcessContextMenu(Vector2 mousePosition)
+    /// <summary>
+    /// Gives the user a context menu so they have some form of options when editing.
+    /// </summary>
+    /// <param name="mouse_position"></param>
+    private void ProcessContextMenu(Vector2 mouse_position)
     {
-        GenericMenu genericMenu = new GenericMenu();
-        genericMenu.AddItem(new GUIContent("Add Quest Node"), false, () => OnClickAddQuestNode(mousePosition));
-        genericMenu.AddItem(new GUIContent("Add Step Node"), false, () => OnClickAddStepNode(mousePosition));
+        GenericMenu generic_menu = new GenericMenu();
+        generic_menu.AddItem(new GUIContent("Add Quest Node"), false, () => OnClickAddQuestNode(mouse_position));
+        generic_menu.AddItem(new GUIContent("Add Step Node"), false, () => OnClickAddStepNode(mouse_position));
 
-        genericMenu.ShowAsContext();
+        generic_menu.ShowAsContext();
     }
 
+    /// <summary>
+    /// Process all incoming events happening on the editor window
+    /// </summary>
+    /// <param name="e"></param>
     private void ProcessEvents(Event e)
     {
         m_drag = Vector2.zero;
@@ -463,6 +581,10 @@ public class Quest_Editor : EditorWindow
         }
     }
 
+    /// <summary>
+    /// Process all events happening to nodes within the editor
+    /// </summary>
+    /// <param name="e"></param>
     private void ProcessNodeEvents(Event e)
     {
         if (m_nodes != null)
@@ -480,17 +602,23 @@ public class Quest_Editor : EditorWindow
         }
     }
 
-    //TODO: Removal needs to remove from data containers as well
+    /// <summary>
+    /// Removes the step data from quest data list
+    /// </summary>
+    /// <param name="connection"></param>
     private void RemoveStepData(Connection connection)
     {
         Node disconnectedNode = connection.m_in_point.m_node;
-        Quest_Node root = GetRootQuest(disconnectedNode);
+        QuestNode root = GetRootQuest(disconnectedNode);
 
-        root.Data.m_steps.Remove(((Step_Node)disconnectedNode).m_data);
+        root.m_data.m_steps.Remove(((StepNode)disconnectedNode).m_data);
 
-        m_unassigned_steps.Add(((Step_Node)disconnectedNode).m_data);
+        m_unassigned_steps.Add(((StepNode)disconnectedNode).m_data);
     }
 
+    /// <summary>
+    /// Saves the quests within the editor to a SJON file named 'quest_file' in the persistent data path
+    /// </summary>
     private void SaveToJSON()
     {
         JSONQuestIO.GetReader().SaveFile("quest_file", m_quests_lists_data);
