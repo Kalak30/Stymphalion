@@ -13,11 +13,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerClass : MonoBehaviour
+public class PlayerClass : Behaviour
 {
     // public variables
-
-    public float m_movement_speed;
+    public float m_movement_speed = 5;
     public Vector2 m_location;
     public int m_level = 0;
     public int m_xp = 0;
@@ -25,7 +24,7 @@ public class PlayerClass : MonoBehaviour
     public bool m_on_fire = false;
 
 
-    //Private Variables
+    //Private Variables //
     private Rigidbody2D m_player;
 
     private PlayerInputActionMap m_player_actions;
@@ -35,10 +34,32 @@ public class PlayerClass : MonoBehaviour
 
     private PlayerClass() { }
 
-    private static readonly PlayerClass instance = new PlayerClass();
+    //private PlayerClass m_instance = null;
 
-    public static PlayerClass GetPlayerClass(){
-        return instance;
+    /*
+        private PlayerClass CreateInstance(){
+            PlayerClass test = this;
+            return test;
+        }
+    */
+
+   /// <summary>
+   /// Supposed to be used to make singleton
+   /// Wprl In Progress
+   /// </summary>
+    private static readonly Lazy<PlayerClass> lazy = new Lazy<PlayerClass>(() => new PlayerClass());
+    public static PlayerClass Instance { get{ return lazy.Value; } }
+
+
+    /// <summary>
+    /// Will be used to properly get the singelton class
+    /// Work In progress
+    /// </summary>
+    /// <returns></returns>
+    public PlayerClass GetPlayerClass()
+    {
+        return Instance;
+
     }
 
 
@@ -46,16 +67,18 @@ public class PlayerClass : MonoBehaviour
     /// Intialize Everything Important in the program
     /// 
     /// </summary>
-    private void Awake(){
+    public void Awake(){
+    
+      //  m_instance = GameObject.Find("Player").AddComponent<PlayerClass>();
         Debug.Log("awake\n");
         // add Inventory Object and Action map
         m_player_inventory = new Inventory();
         m_player_actions = new PlayerInputActionMap();
         // Get the rigid body from gameObject
-        m_player = GetComponent<Rigidbody2D>();
+        m_player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
      //   OnEnable(); // enable action map
         // add animator and set speed to 0
-        m_main_animator = GetComponent<Animator>();
+        m_main_animator = GameObject.Find("Player").GetComponent<Animator>();
         m_main_animator.SetFloat("Speed", 0);
     }
 
@@ -68,7 +91,7 @@ public class PlayerClass : MonoBehaviour
 /// Enable Action map
 /// Add Player Movement and Inventory function
 /// </summary>
-    private void OnEnable(){
+    public void OnEnable(){
         // add and enabple movement action map
         m_movement = m_player_actions.PlayerActionMap.Movement;
         m_movement.Enable();
@@ -109,15 +132,6 @@ public class PlayerClass : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        //playerInventory = gameObject.AddComponent<Inventory>() as Inventory;
-        //playerInventory = new Inventory();
-
-
-    }
-
-
 /// <summary>
 /// Make Sure Health does not become negative
 /// The better way to do this is make everything go through a function to change
@@ -151,7 +165,7 @@ public class PlayerClass : MonoBehaviour
     /// Built in Unity function
     /// Runs every tick
     /// </summary>
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         Movement();
         CheckHealth();
