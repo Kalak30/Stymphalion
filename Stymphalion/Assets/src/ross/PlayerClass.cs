@@ -53,7 +53,7 @@ public class PlayerClass : MonoBehaviour
         m_player_actions = new PlayerInputActionMap();
         // Get the rigid body from gameObject
         m_player = GetComponent<Rigidbody2D>();
-        OnEnable(); // enable action map
+     //   OnEnable(); // enable action map
         // add animator and set speed to 0
         m_main_animator = GetComponent<Animator>();
         m_main_animator.SetFloat("Speed", 0);
@@ -88,6 +88,7 @@ public class PlayerClass : MonoBehaviour
     /// <param name="obj"></param>
     private void OpenInventory(InputAction.CallbackContext obj)
     {
+        Debug.Log("160");
         // Change function to what it's actually supposed to be when Kyle is ready
         m_player_inventory.ToggleInventory();
         //  Debug.Log("Test");
