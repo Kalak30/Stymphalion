@@ -1,79 +1,144 @@
+/*
+ *
+ * Filename: EnemyAI.cs 
+ * Developer: Trevor McGeary
+ * Purpose: Determing which attack the enemy should use in combat
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class EnemyAI : MonoBehaviour
 {
-
+    /// <summary>
+    /// An attack has 3 values, speed, damage, and a bonus effect
+    /// int damage
+    /// int speed
+    /// int bonus
+    /// </summary>
     public class Attack
     {
        public int damage;
        public int speed;
        public int bonus;
+       
     }
 
+    //public variables
+    public Attack strong_Attack = new Attack();
+    public Attack fast_Attack = new Attack();
+    public Attack mid_Attack = new Attack();
+    public Attack bonus_Attack = new Attack();
+    public Attack block = new Attack();
 
-    private int player_Health;
+    //private variables
     private float player_Health_Percentage;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        //createAttackList();
+        //player_Health = GetComponent<Player>
+        //player_Health_Percentage = player_Health / 100;
+        //GameObject.GetComponent<EnemyAttackList>.GetAttackValues(1);
         
-        player_Health = Random.Range(1, 100);
-        player_Health_Percentage = player_Health / 100;
-       
+
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        //EnemyMove();
     }
 
-    public void EnemyMove()
+    /// <summary>
+    /// Creates the list of attacks an enemy can use in combat
+    /// </summary>
+    public void createAttackList()
     {
-        Attack attack1 = new Attack();
-        attack1.damage = Random.Range(69,90);
-        attack1.speed = attack1.damage/10;
-        attack1.bonus = 0;
+        //Attack strong_Attack = new Attack();
+        strong_Attack.damage = Random.Range(69, 90);
+        strong_Attack.speed = strong_Attack.damage / 10;
 
-        Attack attack2 = new Attack();
-        attack2.damage = Random.Range(40,50);
-        attack2.speed = attack2.damage/10;
-        attack2.bonus = 0;
 
-        Attack attack3 = new Attack();
-        attack3.damage = Random.Range(15,25);
-        attack3.speed = attack3.damage/10;
-        attack3.bonus = 0;
+        //Attack fast_Attack = new Attack();
+        fast_Attack.damage = Random.Range(15, 25);
+        fast_Attack.speed = fast_Attack.damage / 10;
 
-        Attack attack4 = new Attack();
-        attack4.damage = Random.Range(30,55);
-        attack4.speed = attack4.damage/10;
-        attack4.bonus = Random.Range(1,4);
+        // Attack mid_Attack = new Attack();
+        mid_Attack.damage = Random.Range(35, 50);
+        mid_Attack.speed = mid_Attack.damage / 10;
 
-        if(Input.GetKeyDown("/"))
+        // Attack bonus_Attack = new Attack();
+        bonus_Attack.damage = Random.Range(30, 40);
+        bonus_Attack.speed = bonus_Attack.damage / 10;
+        bonus_Attack.bonus = Random.Range(1, 3);
+
+        // Attack block = new Attack();
+        block.damage = 0;
+        block.speed = 5;
+        block.bonus = 4;
+
+    }
+
+    /// <summary>
+    /// Still in testing phase due to poor time management. Function returns the values of the attack the enemy will use.
+    /// </summary>
+    /// <returns></returns>
+    public int EnemyMove()
+    {
+        int player_Health = Random.Range(1, 100);
+        player_Health = 100;
+        //int enemy_Behavior = Random.Range(1, 4);
+        int enemy_Behavior = 1;
+
+        player_Health_Percentage = player_Health / 100;
+        //NEED TO GET PLAYER HEALTH
+        
+
+        if (enemy_Behavior == 1)
         {
-            Debug.Log("Attack 1 damage is " + attack1.damage + "with a speed of" + attack1.speed);
+            if (player_Health_Percentage >= .75)
+            {
+                Debug.Log(strong_Attack.damage);
+                return strong_Attack.damage;
+            }
+
+            else if (player_Health_Percentage <.75 && player_Health_Percentage >= .50)
+            {
+                int check = Random.Range(1, 3);
+                if (check > 1)
+                {
+                    Debug.Log(mid_Attack.damage);
+                    return mid_Attack.damage;
+                }
+                else
+                {
+                    Debug.Log(bonus_Attack.damage);
+                    return bonus_Attack.damage;
+                }
+                
+            }
+
+            else if (player_Health_Percentage <.50 && player_Health_Percentage >=.25)
+            {
+                Debug.Log(mid_Attack.damage);
+                return mid_Attack.damage;
+            }
+            
+            else if (player_Health_Percentage <.25)
+            {
+                Debug.Log(fast_Attack.damage);
+                return fast_Attack.damage;
+            }
+
+
         }
 
-        //For minimum viable product, a simple hypothetical method for determining what move the enemy should use, using only player health.
-        if (player_Health_Percentage >= .75)
-        {
-            Debug.Log("If player health is " + player_Health + "then I'll use a strong but slow attack");
-        }
-        else if (player_Health_Percentage < .75 && player_Health_Percentage >= .50)
-        {
-            Debug.Log("If player health is " + player_Health + "then I'll use either a strong attack or a medium attack");
-        }
-        else if (player_Health_Percentage < .50 && player_Health_Percentage >= .25)
-        {
-            Debug.Log("If player health is " + player_Health + "then I'll use a medium but faster attack");
-        }
-        else if (player_Health_Percentage < .75)
-        {
-            Debug.Log("If player health is " + player_Health + "then I'll use the quickest attack that will defeat the player");
-        }
+       
+        return 0;
     }
 }
