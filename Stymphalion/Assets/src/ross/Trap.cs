@@ -1,3 +1,12 @@
+/*
+*
+* Filename: Trap.cs
+* Developer: Ross Prestwich
+* Purpose: Implementing Traps  ---- Subclass of EnvirmentObjectSuperClass.cs
+*/
+
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -60208,9 +60208,9 @@ GameObject:
   - component: {fileID: 1480590500}
   - component: {fileID: 1480590499}
   - component: {fileID: 1480590497}
-  - component: {fileID: 1480590501}
   - component: {fileID: 1480590498}
   - component: {fileID: 1480590502}
+  - component: {fileID: 1480590501}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -91550,7 +91550,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_health_slider: {fileID: 0}
-  m_mc: {fileID: 0}
 --- !u!4 &2025841695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2055102311959635375, guid: 9e7797bb065982d4497d030f065d6e2f,

@@ -16,7 +16,6 @@ using UnityEngine.InputSystem;
 public class PlayerClass : MonoBehaviour
 {
     // public variables
-
     public float m_movement_speed;
     public Vector2 m_location;
     public int m_level = 0;
@@ -35,10 +34,32 @@ public class PlayerClass : MonoBehaviour
 
     private PlayerClass() { }
 
-    private static readonly PlayerClass instance = new PlayerClass();
+    //private PlayerClass m_instance = null;
 
-    public static PlayerClass GetPlayerClass(){
-        return instance;
+    /*
+        private PlayerClass CreateInstance(){
+            PlayerClass test = this;
+            return test;
+        }
+    */
+
+   /// <summary>
+   /// Supposed to be used to make singleton
+   /// Wprl In Progress
+   /// </summary>
+    private static readonly Lazy<PlayerClass> lazy = new Lazy<PlayerClass>(() => new PlayerClass());
+    public static PlayerClass Instance { get{ return lazy.Value; } }
+
+
+    /// <summary>
+    /// Will be used to properly get the singelton class
+    /// Work In progress
+    /// </summary>
+    /// <returns></returns>
+    public PlayerClass GetPlayerClass()
+    {
+        return this;
+
     }
 
 
@@ -47,6 +68,8 @@ public class PlayerClass : MonoBehaviour
     /// 
     /// </summary>
     private void Awake(){
+    
+      //  m_instance = GameObject.Find("Player").AddComponent<PlayerClass>();
         Debug.Log("awake\n");
         // add Inventory Object and Action map
         m_player_inventory = new Inventory();
@@ -105,15 +128,6 @@ public class PlayerClass : MonoBehaviour
 
         // set speed in animator to the player velocity
         m_main_animator.SetFloat("Speed", (float)Math.Sqrt((m_player.velocity.x * m_player.velocity.x) + (m_player.velocity.y * m_player.velocity.y)));
-
-    }
-
-
-    void Start()
-    {
-        //playerInventory = gameObject.AddComponent<Inventory>() as Inventory;
-        //playerInventory = new Inventory();
-
 
     }
 
