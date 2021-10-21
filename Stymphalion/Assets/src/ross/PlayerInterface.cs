@@ -9,8 +9,8 @@ public class PlayerInterface : MonoBehaviour
 
     void Awake()
     {
-      m_player_class = PlayerClass.Instance ;
-        m_player_class.Awake();
+         m_player_class = PlayerClass.Instance ;
+        m_player_class.InitVariables();
         m_player_class.OnEnable();
 
 

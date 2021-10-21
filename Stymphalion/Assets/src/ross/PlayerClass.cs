@@ -13,7 +13,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerClass : Behaviour
+
+/// <summary>
+/// Main Player Class
+/// Singleton Pattern
+/// </summary>
+public class PlayerClass
 {
     // public variables
     public float m_movement_speed = 5;
@@ -25,30 +30,26 @@ public class PlayerClass : Behaviour
 
 
     //Private Variables //
+    private bool m_facing_right = false;
     private Rigidbody2D m_player;
-
     private PlayerInputActionMap m_player_actions;
     private InputAction m_movement;
     private Inventory m_player_inventory;
     private Animator m_main_animator;
+    private GameObject m_player_game_object;
 
+    /// <summary>
+    /// Contructor
+    /// </summary>
     private PlayerClass() { }
 
     //private PlayerClass m_instance = null;
 
-    /*
-        private PlayerClass CreateInstance(){
-            PlayerClass test = this;
-            return test;
-        }
-    */
-
-   /// <summary>
-   /// Supposed to be used to make singleton
-   /// Wprl In Progress
-   /// </summary>
+    /// <summary>
+    /// Return or create Singleton instance
+    /// 
+    /// </summary>
     private static readonly Lazy<PlayerClass> lazy = new Lazy<PlayerClass>(() => new PlayerClass());
-    public static PlayerClass Instance { get{ return lazy.Value; } }
 
 
     /// <summary>
@@ -65,33 +66,44 @@ public class PlayerClass : Behaviour
 
     /// <summary>
     /// Intialize Everything Important in the program
-    /// 
+    /// previously MonoBehavior Awake
     /// </summary>
-    public void Awake(){
-    
-      //  m_instance = GameObject.Find("Player").AddComponent<PlayerClass>();
+    public void InitVariables()
+    {
+
         Debug.Log("awake\n");
+
         // add Inventory Object and Action map
         m_player_inventory = new Inventory();
         m_player_actions = new PlayerInputActionMap();
+
         // Get the rigid body from gameObject
         m_player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
-     //   OnEnable(); // enable action map
+
         // add animator and set speed to 0
         m_main_animator = GameObject.Find("Player").GetComponent<Animator>();
         m_main_animator.SetFloat("Speed", 0);
+        m_player_game_object = GameObject.Find("Player");
     }
 
 
+    /// <summary>
+    /// Built in Unity function
+    /// Runs every tick
+    /// </summary>
+    public void FixedUpdate()
+    {
+        Movement();
+        CheckHealth();
+        LevelCheck();
+    }
 
-
-
-
-/// <summary>
-/// Enable Action map
-/// Add Player Movement and Inventory function
-/// </summary>
-    public void OnEnable(){
+    /// <summary>
+    /// Enable Action map
+    /// Add Player Movement and Inventory function
+    /// </summary>
+    public void OnEnable()
+    {
         // add and enabple movement action map
         m_movement = m_player_actions.PlayerActionMap.Movement;
         m_movement.Enable();
@@ -103,9 +115,58 @@ public class PlayerClass : Behaviour
 
         Debug.Log("Enabled");
 
-    }//
+    }
+
 
     /// <summary>
+    /// Disable movements
+    /// </summary>
+    public void OnDisable()
+    {
+        m_movement.Disable();
+
+        m_player_actions.PlayerActionMap.Inventory.started -= OpenInventory;
+        m_player_actions.PlayerActionMap.Inventory.Disable();
+
+    }
+
+
+    /// <summary>
+    /// Get Singleton Instance
+    /// </summary>
+    public static PlayerClass Instance { get { return lazy.Value; } }
+
+
+    /// <summary>
+    /// Function for moving Character
+    /// </summary>
+    private void Movement()
+    {
+        //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
+        // playe values
+        m_player.velocity = m_movement.ReadValue<Vector2>() * m_movement_speed;
+        m_location = m_player.position;
+        if(m_player.velocity.x < 0 && !m_facing_right){
+            Flip();
+        }
+        else if(m_player.velocity.x > 0 && m_facing_right){
+            Flip();
+        }
+
+        // set speed in animator to the player velocity
+        m_main_animator.SetFloat("Speed", (float)Math.Sqrt((m_player.velocity.x * m_player.velocity.x) + (m_player.velocity.y * m_player.velocity.y)));
+
+    }
+
+    private void Flip(){
+        Vector3 flipper = m_player_game_object.transform.localScale;
+        flipper.x *= -1;
+        m_player_game_object.transform.localScale = flipper;
+        m_facing_right = !m_facing_right;
+    }
+
+
+        /// <summary>
     /// Open Invetory
     /// </summary>
     /// <param name="obj"></param>
@@ -117,25 +178,10 @@ public class PlayerClass : Behaviour
         //  Debug.Log("Test");
     }
 
-/// <summary>
-/// Function for moving Character
-/// </summary>
-    public virtual void Movement(){
-        //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
-        // playe values
-        m_player.velocity = m_movement.ReadValue<Vector2>() * m_movement_speed;
-        m_location = m_player.position;
-
-        // set speed in animator to the player velocity
-        m_main_animator.SetFloat("Speed", (float)Math.Sqrt((m_player.velocity.x * m_player.velocity.x) + (m_player.velocity.y * m_player.velocity.y)));
-
-    }
-
-
-/// <summary>
-/// Make Sure Health does not become negative
-/// The better way to do this is make everything go through a function to change
-/// </summary>
+    /// <summary>
+    /// Make Sure Health does not become negative
+    /// The better way to do this is make everything go through a function to change
+    /// </summary>
     private void CheckHealth()
     {
         if (m_health > 100)
@@ -148,27 +194,23 @@ public class PlayerClass : Behaviour
         }
     }
 
-
-/// <summary>
-/// Update Level when xp increases
-/// </summary>
+    
+    /// <summary>
+    /// Update Level when xp increases
+    /// </summary>
     private void LevelCheck()
     {
-        while(m_xp >= 100)
+        while (m_xp >= 100)
         {
             m_xp = m_xp - 100;
             m_level = m_level + 1;
         }
     }
+    
 
-    /// <summary>
-    /// Built in Unity function
-    /// Runs every tick
-    /// </summary>
-    public void FixedUpdate()
-    {
-        Movement();
-        CheckHealth();
-        LevelCheck();
-    }
+
+
+
+
+
 }
