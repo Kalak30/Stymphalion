@@ -20,7 +20,7 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     public Slider m_health_slider;
-    public PlayerClass m_mc; 
+    PlayerClass m_mc = PlayerClass.GetPlayerClass(); 
 
     /// <summary>
     /// Initializes the player health to 100
