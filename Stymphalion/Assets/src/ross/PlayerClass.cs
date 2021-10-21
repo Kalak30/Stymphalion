@@ -89,7 +89,7 @@ public class PlayerClass : MonoBehaviour
     private void OpenInventory(InputAction.CallbackContext obj)
     {
         // Change function to what it's actually supposed to be when Kyle is ready
-      //  m_player_inventory.InventoryCreation();
+        m_player_inventory.ToggleInventory();
         //  Debug.Log("Test");
     }
 
