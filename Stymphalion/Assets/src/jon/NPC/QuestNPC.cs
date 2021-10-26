@@ -21,16 +21,6 @@ public class QuestNPC : NPC
         throw new System.NotImplementedException();
     }
 
-    /// <summary>
-    /// Just some initial test code
-    /// </summary>
-    private void Awake()
-    {
-        m_npc_quest = new Quest("start", "the first quest", null);
-        QuestManager.GetQuest_Manager().AddQuest(m_npc_quest);
-    }
-
-
     private void Update()
     {
     }

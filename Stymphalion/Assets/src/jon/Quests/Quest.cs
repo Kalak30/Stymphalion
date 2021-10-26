@@ -54,7 +54,7 @@ public enum QuestStatus
 ///     <item>m_steps</item>
 /// </list>
 /// </summary>
-public class Quest : ScriptableObject
+public class Quest
 {
     public readonly int m_default_steps = 50;
     public int m_active_step_pos;
@@ -120,15 +120,8 @@ public class Quest : ScriptableObject
     /// </summary>
     public void DisplayQuest()
     {
-        Debug.Log("Quest Name: " + m_quest_name);
-        Debug.Log("Quest Description: " + m_quest_description);
-        Debug.Log("Quest Reward: " + m_quest_reward);
-        foreach (QuestStep step in m_steps)
-        {
-            step.DisplayStep();
-        }
-
-        return;
+        QuestUI quest_ui = GameObject.Find("QuestUI").GetComponent<QuestUI>();
+        quest_ui.AddQuest(this);
     }
 
     /// <summary>

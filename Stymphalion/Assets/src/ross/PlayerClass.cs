@@ -20,38 +20,56 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerClass
 {
+    public int m_health = 100;
+
+    public int m_level = 0;
+
+    public Vector2 m_location;
+
     // public variables
     public float m_movement_speed = 5;
-    public Vector2 m_location;
-    public int m_level = 0;
-    public int m_xp = 0;
-    public int m_health = 100;
-    public bool m_on_fire = false;
 
+    public bool m_on_fire = false;
+    public int m_xp = 0;
+
+    /// <summary>
+    /// Return or create Singleton instance
+    ///
+    /// </summary>
+    private static readonly Lazy<PlayerClass> lazy = new Lazy<PlayerClass>(() => new PlayerClass());
 
     //Private Variables //
     private bool m_facing_right = false;
+
+    private Animator m_main_animator;
+    private InputAction m_movement;
     private Rigidbody2D m_player;
     private PlayerInputActionMap m_player_actions;
-    private InputAction m_movement;
-    private Inventory m_player_inventory;
-    private Animator m_main_animator;
     private GameObject m_player_game_object;
+    private Inventory m_player_inventory;
 
     /// <summary>
     /// Contructor
     /// </summary>
     private PlayerClass() { }
 
-    //private PlayerClass m_instance = null;
+    /// <summary>
+    /// Get Singleton Instance
+    /// </summary>
+    public static PlayerClass Instance { get { return lazy.Value; } }
 
     /// <summary>
-    /// Return or create Singleton instance
-    /// 
+    /// Built in Unity function
+    /// Runs every tick
     /// </summary>
-    private static readonly Lazy<PlayerClass> lazy = new Lazy<PlayerClass>(() => new PlayerClass());
+    public void FixedUpdate()
+    {
+        Movement();
+        CheckHealth();
+        LevelCheck();
+    }
 
-
+    //private PlayerClass m_instance = null;
     /// <summary>
     /// Will be used to properly get the singelton class
     /// Work In progress
@@ -60,7 +78,6 @@ public class PlayerClass
     public PlayerClass GetPlayerClass()
     {
         return Instance;
-
     }
 
 
@@ -86,16 +103,18 @@ public class PlayerClass
         m_player_game_object = GameObject.Find("Player");
     }
 
-
     /// <summary>
-    /// Built in Unity function
-    /// Runs every tick
+    /// Disable movements
     /// </summary>
-    public void FixedUpdate()
+    public void OnDisable()
     {
-        Movement();
-        CheckHealth();
-        LevelCheck();
+        m_movement.Disable();
+
+        m_player_actions.PlayerActionMap.Inventory.started -= OpenInventory;
+        m_player_actions.PlayerActionMap.Inventory.Disable();
+
+        m_player_actions.PlayerActionMap.Quest.started -= OpenQuests;
+        m_player_actions.PlayerActionMap.Quest.Disable();
     }
 
     /// <summary>
@@ -112,70 +131,10 @@ public class PlayerClass
         m_player_actions.PlayerActionMap.Inventory.started += OpenInventory;
         m_player_actions.PlayerActionMap.Inventory.Enable();
 
+        m_player_actions.PlayerActionMap.Quest.started += OpenQuests;
+        m_player_actions.PlayerActionMap.Quest.Enable();
 
         Debug.Log("Enabled");
-
-    }
-
-
-    /// <summary>
-    /// Disable movements
-    /// </summary>
-    public void OnDisable()
-    {
-        m_movement.Disable();
-
-        m_player_actions.PlayerActionMap.Inventory.started -= OpenInventory;
-        m_player_actions.PlayerActionMap.Inventory.Disable();
-
-    }
-
-
-    /// <summary>
-    /// Get Singleton Instance
-    /// </summary>
-    public static PlayerClass Instance { get { return lazy.Value; } }
-
-
-    /// <summary>
-    /// Function for moving Character
-    /// </summary>
-    private void Movement()
-    {
-        //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
-        // playe values
-        m_player.velocity = m_movement.ReadValue<Vector2>() * m_movement_speed;
-        m_location = m_player.position;
-        if(m_player.velocity.x < 0 && !m_facing_right){
-            Flip();
-        }
-        else if(m_player.velocity.x > 0 && m_facing_right){
-            Flip();
-        }
-
-        // set speed in animator to the player velocity
-        m_main_animator.SetFloat("Speed", (float)Math.Sqrt((m_player.velocity.x * m_player.velocity.x) + (m_player.velocity.y * m_player.velocity.y)));
-
-    }
-
-    private void Flip(){
-        Vector3 flipper = m_player_game_object.transform.localScale;
-        flipper.x *= -1;
-        m_player_game_object.transform.localScale = flipper;
-        m_facing_right = !m_facing_right;
-    }
-
-
-        /// <summary>
-    /// Open Invetory
-    /// </summary>
-    /// <param name="obj"></param>
-    private void OpenInventory(InputAction.CallbackContext obj)
-    {
-        Debug.Log("160");
-        // Change function to what it's actually supposed to be when Kyle is ready
-        m_player_inventory.ToggleInventory();
-        //  Debug.Log("Test");
     }
 
     /// <summary>
@@ -194,7 +153,14 @@ public class PlayerClass
         }
     }
 
-    
+    private void Flip()
+    {
+        Vector3 flipper = m_player_game_object.transform.localScale;
+        flipper.x *= -1;
+        m_player_game_object.transform.localScale = flipper;
+        m_facing_right = !m_facing_right;
+    }
+
     /// <summary>
     /// Update Level when xp increases
     /// </summary>
@@ -206,11 +172,43 @@ public class PlayerClass
             m_level = m_level + 1;
         }
     }
-    
 
+    /// <summary>
+    /// Function for moving Character
+    /// </summary>
+    private void Movement()
+    {
+        //  Debug.Log("Mvement values::: " + movement.ReadValue<Vector2>() );
+        // playe values
+        m_player.velocity = m_movement.ReadValue<Vector2>() * m_movement_speed;
+        m_location = m_player.position;
+        if (m_player.velocity.x < 0 && !m_facing_right)
+        {
+            Flip();
+        }
+        else if (m_player.velocity.x > 0 && m_facing_right)
+        {
+            Flip();
+        }
 
+        // set speed in animator to the player velocity
+        m_main_animator.SetFloat("Speed", (float)Math.Sqrt((m_player.velocity.x * m_player.velocity.x) + (m_player.velocity.y * m_player.velocity.y)));
+    }
 
+    /// <summary>
+    /// Open Invetory
+    /// </summary>
+    /// <param name="obj"></param>
+    private void OpenInventory(InputAction.CallbackContext obj)
+    {
+        Debug.Log("160");
+        // Change function to what it's actually supposed to be when Kyle is ready
+        m_player_inventory.ToggleInventory();
+        //  Debug.Log("Test");
+    }
 
-
-
+    private void OpenQuests(InputAction.CallbackContext ogj)
+    {
+        GameObject.Find("QuestUI").GetComponent<QuestUI>().ToggleDisplay();
+    }
 }

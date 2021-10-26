@@ -54,7 +54,7 @@ public class JSONQuestIO
     /// <returns>New Json string in a prettified mode (extra whitespace) </returns>
     public string QuestJSON()
     {
-        string json = JsonUtility.ToJson(QuestManager.GetQuest_Manager().ToSaveData(), true);
+        string json = JsonUtility.ToJson(QuestManager.GetQuestManager().ToSaveData(), true);
         Debug.Log("JSON: " + json);
         return json;
     }
@@ -84,6 +84,31 @@ public class JSONQuestIO
     }
 
     /// <summary>
+    /// Reads a quest file, and changes qld to be a list of quest data matching the read file
+    /// </summary>
+    /// <param name="file_name"> name of file in the persistent data path. no file extention is required</param>
+    /// <param name="qld">Quest list data that should be returned</param>
+    public void ReadFile(string file_name, out QuestsListData qld)
+    {
+        // Load the default quest data
+        if (PlayerPrefs.GetInt("FIRSTTIMEOPENING", 1) == 1 || !File.Exists(Application.persistentDataPath + "/" + file_name + ".txt"))
+        {
+            Debug.Log("First Time Opening");
+            PlayerPrefs.SetInt("FIRSTTIMEOPENING", 0);
+
+            m_file_contents = m_file.text;
+        }
+        else
+        {
+            Debug.Log("NOT first time opening");
+
+            FileManager.LoadFromFile(file_name + ".txt", out m_file_contents);
+        }
+
+        qld = JsonUtility.FromJson<QuestsListData>(m_file_contents);
+    }
+
+    /// <summary>
     /// Saves the <see cref="QuestsListData""/> to a file in the persistent data path.
     /// </summary>
     /// <param name="file_name">file name (not including file extension) </param>
@@ -102,17 +127,6 @@ public class JSONQuestIO
         FileManager.WriteToFile(file_name + ".txt", QuestJSON());
     }
 
-    /// <summary>
-    /// Some test code. This needs to be removed
-    /// </summary>
-    public void Start()
-    {
-        ReadFile("quests");
-        QuestManager.GetQuest_Manager().AddQuest("another quest", "another description", null);
-        SaveFile("quests");
-        Debug.Log("++++++++++++++++++\n++++++++++++++++");
-        ReadFile("quests");
-    }
 
     /// <summary>
     /// Creates new <see cref="QuestsListData"/>, <see cref="QuestData"/>. and <see cref="StepData"/>
@@ -132,7 +146,7 @@ public class JSONQuestIO
                 new_quest.AddStep(step.m_step_name, step.m_step_description);
             }
 
-            QuestManager.GetQuest_Manager().AddQuest(new_quest);
+            QuestManager.GetQuestManager().AddQuest(new_quest);
         }
     }
 }

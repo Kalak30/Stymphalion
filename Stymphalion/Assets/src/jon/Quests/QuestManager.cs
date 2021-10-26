@@ -5,6 +5,7 @@
  */
 
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Handles the list of all quests within the game. This includes adding quests, removing quests,
@@ -23,10 +24,12 @@ public class QuestManager
     private List<Quest> m_quests;
 
     /// <summary>
-    /// Initialize <see cref="m_quests"/>
+    /// Initialize <see cref="m_quests"/> and make sure the ui is not shown
     /// </summary>
     private QuestManager()
     {
+        //  GameObject.Find("QuestUI").SetActive(false);
+
         m_quests = new List<Quest>();
     }
 
@@ -34,11 +37,12 @@ public class QuestManager
     /// Gets the static <see cref="QuestManager"/> object. This implements the singleton pattern.
     /// </summary>
     /// <returns></returns>
-    public static QuestManager GetQuest_Manager()
+    public static QuestManager GetQuestManager()
     {
         if (m_quest_manager is null)
         {
             m_quest_manager = new QuestManager();
+            m_quest_manager.Load();
         }
 
         return m_quest_manager;
@@ -50,6 +54,7 @@ public class QuestManager
     /// <param name="quest"></param>
     public void AddQuest(Quest quest)
     {
+        
         m_quests.Add(quest);
     }
 
@@ -70,10 +75,11 @@ public class QuestManager
     /// <summary>
     /// Display all quests within the managers list.
     /// </summary>
-    public void DisplayQuests()
+    public void AddToUI()
     {
         foreach (Quest quest in m_quests)
         {
+
             quest.DisplayQuest();
         }
     }
@@ -89,6 +95,11 @@ public class QuestManager
         }
 
         return m_quests[position];
+    }
+
+    public void Load()
+    {
+        JSONQuestIO.GetReader().ReadFile("quest_file");
     }
 
     /// <summary>

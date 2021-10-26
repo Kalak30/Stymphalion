@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+
 /// <summary>
 /// A subclass of <see cref="Node"/> that describes the a step within a quest
 /// <para>Member Variables</para>
@@ -74,6 +75,8 @@ public class StepNode : Node
     /// <param name="id"></param>
     public override void DrawWindow(int id)
     {
+        string step_name, step_description;
+
         EditorGUILayout.BeginHorizontal();
 
         EditorGUILayout.BeginVertical();
@@ -84,12 +87,15 @@ public class StepNode : Node
 
         EditorGUILayout.BeginVertical();
         EditorGUILayout.LabelField("");
-        EditorGUILayout.TextField(m_data.m_step_name);
-        EditorGUILayout.TextField(m_data.m_step_description);
+        step_name = EditorGUILayout.TextField(m_data.m_step_name);
+        step_description = EditorGUILayout.TextField(m_data.m_step_description);
         EditorGUILayout.EndVertical();
 
         EditorGUILayout.Space(50);
 
         EditorGUILayout.EndHorizontal();
+
+        m_data.m_step_name = step_name;
+        m_data.m_step_description = step_description;
     }
 }

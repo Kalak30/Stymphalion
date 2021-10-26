@@ -41,6 +41,14 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Quest"",
+                    ""type"": ""Button"",
+                    ""id"": ""c027f74c-5863-448b-836d-1fb44dfbe17c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -120,6 +128,17 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""405c40f6-a8c4-4c24-95ab-856cbc0b4355"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -131,6 +150,7 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
         m_PlayerActionMap_Movement = m_PlayerActionMap.FindAction("Movement", throwIfNotFound: true);
         m_PlayerActionMap_Interact = m_PlayerActionMap.FindAction("Interact", throwIfNotFound: true);
         m_PlayerActionMap_Inventory = m_PlayerActionMap.FindAction("Inventory", throwIfNotFound: true);
+        m_PlayerActionMap_Quest = m_PlayerActionMap.FindAction("Quest", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,6 +203,7 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerActionMap_Movement;
     private readonly InputAction m_PlayerActionMap_Interact;
     private readonly InputAction m_PlayerActionMap_Inventory;
+    private readonly InputAction m_PlayerActionMap_Quest;
     public struct PlayerActionMapActions
     {
         private @PlayerInputActionMap m_Wrapper;
@@ -190,6 +211,7 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerActionMap_Movement;
         public InputAction @Interact => m_Wrapper.m_PlayerActionMap_Interact;
         public InputAction @Inventory => m_Wrapper.m_PlayerActionMap_Inventory;
+        public InputAction @Quest => m_Wrapper.m_PlayerActionMap_Quest;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -208,6 +230,9 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
                 @Inventory.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInventory;
+                @Quest.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnQuest;
+                @Quest.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnQuest;
+                @Quest.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnQuest;
             }
             m_Wrapper.m_PlayerActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -221,6 +246,9 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @Quest.started += instance.OnQuest;
+                @Quest.performed += instance.OnQuest;
+                @Quest.canceled += instance.OnQuest;
             }
         }
     }
@@ -230,5 +258,6 @@ public class @PlayerInputActionMap : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnQuest(InputAction.CallbackContext context);
     }
 }

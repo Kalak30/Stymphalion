@@ -61,6 +61,50 @@ public class QuestEditor : EditorWindow
         wnd.titleContent = new GUIContent("Quest Editor");
     }
 
+
+    private QuestNode AddQuestNode(QuestData qd, Vector2 pos)
+    {
+        if (m_nodes == null)
+        {
+            m_nodes = new List<Node>();
+        }
+        if (m_quest_nodes == null)
+        {
+            m_quest_nodes = new List<QuestNode>();
+        }
+
+
+
+        QuestNode n = new QuestNode(pos, 400, 150, m_next_node_id, m_node_style, m_selected_node_style, m_in_point_style, m_out_point_style, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
+        n.m_data = qd;
+        m_nodes.Add(n);
+        m_quest_nodes.Add(n);
+        m_next_node_id++;
+
+        return n;
+    }
+
+    private StepNode AddStepNode(StepData sd, Vector2 pos)
+    {
+        if (m_nodes == null)
+        {
+            m_nodes = new List<Node>();
+        }
+        if (m_step_nodes == null)
+        {
+            m_step_nodes = new List<StepNode>();
+        }
+
+
+        StepNode n = new StepNode(pos, 400, 100, m_next_node_id, m_node_style, m_selected_node_style, m_in_point_style, m_out_point_style, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
+        n.m_data = sd;
+        m_nodes.Add(n);
+        m_step_nodes.Add(n);
+        m_next_node_id++;
+
+        return n;
+    }
+
     /// <summary>
     /// Clears the current selected nodes
     /// </summary>
@@ -73,7 +117,7 @@ public class QuestEditor : EditorWindow
     /// <summary>
     /// Creates a <see cref="Connection"/> between two <see cref="ConnectionPoint"/>
     /// </summary>
-    private void CreateConnection()
+    private void CreateConnection(bool from_save_data)
     {
         if (m_connections == null)
         {
@@ -87,7 +131,7 @@ public class QuestEditor : EditorWindow
             if (m_selected_in_point.m_node.m_type == NodeType.Step && m_selected_in_point.m_id == 0 && m_selected_out_point.m_id == 0)
             {
                 QuestNode qn = GetRootQuest(m_selected_in_point.m_node);
-                if (qn != null)
+                if (qn != null && !from_save_data)
                 {
                     qn.m_data.m_steps.Add(((StepNode)m_selected_in_point.m_node).m_data);
                     m_unassigned_steps.Remove(((StepNode)m_selected_in_point.m_node).m_data);
@@ -296,24 +340,66 @@ public class QuestEditor : EditorWindow
     }
 
     /// <summary>
+    /// Loads from the quest_file the current quest data
+    /// </summary>
+    private void LoadFromJSON()
+    {
+
+        if (m_unassigned_steps == null)
+        {
+            m_unassigned_steps = new List<StepData>();
+        }
+
+        JSONQuestIO.GetReader().ReadFile("quest_file", out m_quests_lists_data);
+
+        Vector2 placement_pos = new Vector2(10, 10);
+        float padding = 50;
+
+        foreach (QuestData qd in m_quests_lists_data.m_quests)
+        {
+            QuestNode qn = AddQuestNode(qd, placement_pos);
+            Node previous_node = qn;
+
+            foreach (StepData sd in qd.m_steps)
+            {
+                Vector2 step_pos = placement_pos + new Vector2(qn.m_rect.width + padding, 0);
+
+                // Create Node
+                m_unassigned_steps.Add(sd);
+                StepNode sn = AddStepNode(sd, step_pos);
+
+
+                // Create connection3
+                m_selected_in_point = sn.m_in_points[0];
+                m_selected_out_point = previous_node.m_out_points[0];
+                CreateConnection(true);
+                ClearConnectionSelection();
+                previous_node = sn;
+
+                // Move placement pos between steps
+                placement_pos.y += sn.m_rect.height + padding / 10;
+            }
+
+            // Move placement pos between quests
+            placement_pos.y += padding;
+        }
+
+        Debug.Log("After full load: " + m_quests_lists_data.m_quests.Count);
+    }
+
+    /// <summary>
     /// Action to take when clicking on add a quest node.
     /// Creates a new node and a new data object to store its data.
     /// </summary>
-    /// <param name="mmouse_position"></param>
-    private void OnClickAddQuestNode(Vector2 mmouse_position)
+    /// <param name="mouse_position"></param>
+    private void OnClickAddQuestNode(Vector2 mouse_position)
     {
-        if (m_nodes == null)
-        {
-            m_nodes = new List<Node>();
-        }
-        if (m_quest_nodes == null)
-        {
-            m_quest_nodes = new List<QuestNode>();
-        }
+
         if (m_quests_lists_data.m_quests == null)
         {
             m_quests_lists_data.m_quests = new List<QuestData>();
         }
+
 
         QuestData qd = new QuestData();
         qd.m_quest_name = "";
@@ -324,43 +410,28 @@ public class QuestEditor : EditorWindow
         qd.m_steps = new List<StepData>();
         m_quests_lists_data.m_quests.Add(qd);
 
-        QuestNode n = new QuestNode(mmouse_position, 400, 150, m_next_node_id, m_node_style, m_selected_node_style, m_in_point_style, m_out_point_style, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
-        n.m_data = qd;
-        m_nodes.Add(n);
-        m_quest_nodes.Add(n);
-        m_next_node_id++;
+        AddQuestNode(qd, mouse_position);
     }
 
     /// <summary>
     /// Action to take when clicking on add a step node
     /// Creates a new step node and a new data object to store it
     /// </summary>
-    /// <param name="mousePosition"></param>
-    private void OnClickAddStepNode(Vector2 mousePosition)
+    /// <param name="mouse_position"></param>
+    private void OnClickAddStepNode(Vector2 mouse_position)
     {
-        if (m_nodes == null)
-        {
-            m_nodes = new List<Node>();
-        }
-        if (m_step_nodes == null)
-        {
-            m_step_nodes = new List<StepNode>();
-        }
         if (m_unassigned_steps == null)
         {
             m_unassigned_steps = new List<StepData>();
         }
+
 
         StepData sd = new StepData();
         sd.m_step_name = "";
         sd.m_step_description = "";
         m_unassigned_steps.Add(sd);
 
-        StepNode n = new StepNode(mousePosition, 400, 100, m_next_node_id, m_node_style, m_selected_node_style, m_in_point_style, m_out_point_style, OnClickInPoint, OnClickOutPoint, OnClickRemoveNode);
-        n.m_data = sd;
-        m_nodes.Add(n);
-        m_step_nodes.Add(n);
-        m_next_node_id++;
+        AddStepNode(sd, mouse_position);
     }
 
     /// <summary>
@@ -376,7 +447,7 @@ public class QuestEditor : EditorWindow
         {
             if (m_selected_out_point.m_node != m_selected_in_point.m_node)
             {
-                CreateConnection();
+                CreateConnection(false);
                 ClearConnectionSelection();
             }
             else
@@ -399,7 +470,7 @@ public class QuestEditor : EditorWindow
         {
             if (m_selected_out_point.m_node != m_selected_in_point.m_node)
             {
-                CreateConnection();
+                CreateConnection(false);
                 ClearConnectionSelection();
             }
             else
@@ -498,6 +569,8 @@ public class QuestEditor : EditorWindow
     private void OnEnable()
     {
         m_quests_lists_data = new QuestsListData();
+
+        LoadFromJSON();
 
         m_node_style = new GUIStyle();
         m_node_style.normal.background = EditorGUIUtility.Load("builtin skins/darkskin/images/node1.png") as Texture2D;

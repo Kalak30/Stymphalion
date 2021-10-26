@@ -4,7 +4,6 @@
  * Purpose: A description of a single step within a quest
  */
 
-using UnityEngine;
 
 /// <summary>
 /// A single step within a quest
@@ -29,15 +28,15 @@ public class QuestStep
         m_step_description = step_description;
     }
 
-    /// <summary>
-    /// Puts the <see cref="Step"/> onto the screen for the player to see
-    /// </summary>
-    public void DisplayStep()
-    {
-        Debug.Log("Step Name: " + m_step_name);
-        Debug.Log("Step Description: " + m_step_description);
-        return;
-    }
+    /*    /// <summary>
+        /// Puts the <see cref="Step"/> onto the screen for the player to see
+        /// </summary>
+        public void DisplayStep()
+        {
+            Debug.Log("Step Name: " + m_step_name);
+            Debug.Log("Step Description: " + m_step_description);
+            return;
+        }*/
 
     /// <summary>
     ///
