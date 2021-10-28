@@ -1312,14 +1312,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_StartRecordingWhenEnabled: 0
-  m_RecordFrames: 1
+  m_RecordFrames: 0
   m_ReplayOnNewDevices: 0
-  m_SimulateOriginalTimingOnReplay: 0
+  m_SimulateOriginalTimingOnReplay: 1
   m_RecordStateEventsOnly: 0
   m_CaptureMemoryDefaultSize: 2097152
   m_CaptureMemoryMaxSize: 10485760
-  m_DevicePath: 
-  m_RecordButtonPath: 
+  m_DevicePath: <Keyboard>
+  m_RecordButtonPath: <Keyboard>/r
   m_PlayButtonPath: <Keyboard>/p
   m_ChangeEvent:
     m_PersistentCalls:
@@ -1353,6 +1353,8 @@ MonoBehaviour:
   testClass: {fileID: 349036653}
   idle_Time: 100
   time: 0
+  in_Demo: 0
+  path: C:\Users\trevo\OneDrive\Documents\GitHub\Stymphalion\Stymphalion\InputRecorderTest
 --- !u!4 &349082786 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2055102311959635375, guid: 7277dd75e907b27448ec1de08238d0bb,

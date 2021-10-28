@@ -1,3 +1,13 @@
+/*
+ * 
+ * Filename: DemoMode.CS 
+ * Developer: Trevor McGeary
+ * Purpose: Put the player character into the demo mode
+ */
+
+
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,10 +52,16 @@ public class DemoMode : MonoBehaviour
         if(time == idle_Time & in_Demo == 0)
         {
             in_Demo++;
+
             //testClass.testFunction();
             //testClass.StartReplay();
-            testClass.LoadCaptureFromFile(path);
-            testClass.StartReplay();
+            //testClass.LoadCaptureFromFile(path);
+            //testClass.StartReplay();
         }
+
+        //if (Input.anyKey && in_Demo > 0)
+        //{
+         //   testClass.StopReplay();
+        //}
     }
 }
