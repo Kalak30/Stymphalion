@@ -1,0 +1,3 @@
+Prefab: QuestName
+Purpose: Provide the UI system with a repeatable format for adding new Quests to the UI
+Interactions: This prefab does nothing by itself other than providing a framework that can be edited in other scripts.

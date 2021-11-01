@@ -40,6 +40,11 @@ public class QuestUI : MonoBehaviour
         m_displayed_quests.Add(q);
     }
 
+    public void Test()
+    {
+        ScaleUI();
+    }
+
     public void ToggleDisplay()
     {
 
@@ -126,6 +131,7 @@ public class QuestUI : MonoBehaviour
 
         float top_margin = 75;
         float left_margin = 35;
+        int column = 0;
         float y_start = (background_trans.rect.height / 2) - top_margin;
         float x_start = -(background_trans.rect.width / 2) + left_margin;
 
@@ -135,6 +141,11 @@ public class QuestUI : MonoBehaviour
 
         foreach (GameObject obj in m_quest_text_list)
         {
+            if (total_width > background_trans.rect.width - left_margin)
+            {
+                throw new UnityException("The width of Quest UI text is too large");
+            }
+
             RectTransform obj_trans = obj.GetComponent<RectTransform>();
             RectTransform child_trans = obj_trans.GetChild(0).GetComponent<RectTransform>();
 
@@ -157,8 +168,12 @@ public class QuestUI : MonoBehaviour
 
             if (total_height + 100 > background_trans.rect.height)
             {
-                total_width = obj_trans.rect.width;
+                total_width = obj_ugui.preferredWidth * ++column;
                 total_height = 0;
+            }
+            if (total_width > background_trans.rect.width - left_margin)
+            {
+                return;
             }
         }
     }
