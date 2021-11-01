@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/src/riley/BossBattle.unity
     guid: 3fbcb23b474b2d44c9ba2ce4b4c25a04
+  - enabled: 1
+    path: Assets/src/ross/HydraCave.unity
+    guid: e0b65d69ddf33404aa87e05218642879
   m_configObjects: {}
