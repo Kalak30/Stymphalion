@@ -3,6 +3,7 @@
 * Filename: EnvirmentObjectSuperClass.cs
 * Developer: Ross Prestwich
 * Purpose: Superclass for Enviroment Objects
+* Implements a Bridge Pattern (Superclass is just and Interface)
 */
 using System.Collections;
 using System.Collections.Generic;
@@ -66,23 +67,34 @@ public class EnvirmentObjectSuperClass : MonoBehaviour
 /// <summary>
 /// While Touching an enviroment object, interact with it
 /// </summary>
-    void OnCollisionStay2D()
+    private void OnCollisionStay2D()
     {
         if(m_interact_pressed){
             InteractFunc();
         }
         m_interact_pressed = false;
     }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        {
+            if (m_interact_pressed)
+            {
+                InteractFunc();
+            }
+            m_interact_pressed = false;
+        }
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
 }

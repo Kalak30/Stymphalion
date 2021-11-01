@@ -22,7 +22,7 @@ public class Trap : EnvirmentObjectSuperClass
     /// Damage Player
     /// </summary>
     /// <param name="other"></param>
-    void OnTriggerStay2D(Collider2D other){
+    private void OnTriggerStay2D(Collider2D other){
         Debug.Log("TRIGGERED");
 
         // damage player

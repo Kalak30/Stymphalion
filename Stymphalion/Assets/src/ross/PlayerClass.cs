@@ -40,6 +40,9 @@ public class PlayerClass
 
     //Private Variables //
     private bool m_facing_right = false;
+    public void SetRight(){
+        m_facing_right = false;
+    }
 
     private Animator m_main_animator;
     private InputAction m_movement;
