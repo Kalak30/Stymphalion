@@ -12,7 +12,36 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class Boundary_Test_Quest
 {
-    
+
+    [Test]
+    public void Boundary_Test_QuestManager()
+    {
+        QuestManager quest_man = QuestManager.GetQuestManager();
+
+        int num = 50;
+
+        for (int i = 0; i < num; i++)
+        {
+            Quest q = new Quest("name", "desc", null);
+            quest_man.AddQuest(q);
+        }
+
+        // Access out of bounds
+        Quest over = quest_man.GetQuest(num + 40);
+        Assert.IsNull(over);
+
+        // Access in bounds
+        Quest under = quest_man.GetQuest(num - num / 2);
+        Assert.IsNotNull(under);
+
+        // Access on boundary
+        Quest on = quest_man.GetQuest(num - 1);
+        Assert.IsNotNull(on);
+
+        Quest negative = quest_man.GetQuest(-num);
+        Assert.IsNull(negative);
+    }
+
     [Test]
     public void Boundary_Test_QuestUpper()
     {
@@ -54,33 +83,5 @@ public class Boundary_Test_Quest
         }
 
         Assert.AreEqual(50, q.GetSteps().Count);
-    }
-
-    [Test]
-    public void Boundary_Test_QuestManager()
-    {
-        QuestManager quest_man = QuestManager.GetQuestManager();
-
-        int num = 50;
-
-        for (int i = 0; i < num; i++)
-        {
-            quest_man.AddQuest("name", "desc", null);
-        }
-
-        // Access out of bounds
-        Quest over = quest_man.GetQuest(num + 40);
-        Assert.IsNull(over);
-
-        // Access in bounds
-        Quest under = quest_man.GetQuest(num - num / 2);
-        Assert.IsNotNull(under);
-
-        // Access on boundary
-        Quest on = quest_man.GetQuest(num - 1);
-        Assert.IsNotNull(on);
-
-        Quest negative = quest_man.GetQuest(-num);
-        Assert.IsNull(negative);
     }
 }

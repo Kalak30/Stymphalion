@@ -54,21 +54,7 @@ public class QuestManager
     /// <param name="quest"></param>
     public void AddQuest(Quest quest)
     {
-        
-        m_quests.Add(quest);
-    }
 
-    /// <summary>
-    /// <list type="bullet">
-    /// <item></item>
-    /// </list>
-    /// </summary>
-    /// <param name="quest_name"></param>
-    /// <param name="quest_description"></param>
-    /// <param name="quest_reward"></param>
-    public void AddQuest(string quest_name, string quest_description, Item quest_reward)
-    {
-        Quest quest = new Quest(quest_name, quest_description, quest_reward);
         m_quests.Add(quest);
     }
 
@@ -99,7 +85,10 @@ public class QuestManager
 
     public void Load()
     {
-        JSONQuestIO.GetReader().ReadFile("quest_file");
+        QuestListBuilder quest_builder = new QuestListBuilder();
+        QuestListReader reader = new QuestListReader(quest_builder);
+        reader.Construct("quest_file");
+        m_quests = quest_builder.ToQuests();
     }
 
     /// <summary>

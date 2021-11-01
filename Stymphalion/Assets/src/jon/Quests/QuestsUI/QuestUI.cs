@@ -150,7 +150,6 @@ public class QuestUI : MonoBehaviour
 
             obj_trans.localPosition = new Vector3(x, y, 0);
             child_trans.localPosition = new Vector3(0, -obj_ugui.preferredHeight, -obj_trans.rect.height);
-            Debug.Log("description rendered height: " + child_ugui.preferredHeight);
             local_height = obj_ugui.preferredHeight + child_ugui.preferredHeight;
             local_height = PlaceStepText(obj, local_height);
 

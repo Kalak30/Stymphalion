@@ -9,6 +9,8 @@ public class Stress_Test_Quests
 {
     private QuestManager qm = QuestManager.GetQuestManager();
 
+
+
     // Still have no idea for a stress test
     [UnityTest]
     public IEnumerator Stress_Test_QuestManager()
@@ -17,7 +19,8 @@ public class Stress_Test_Quests
         {
             for (int i = 0; i < 1000; i++)
             {
-                qm.AddQuest("i", "i", null);
+                Quest q = new Quest("i", "i", null);
+                qm.AddQuest(q);
             }
             yield return null;
         }

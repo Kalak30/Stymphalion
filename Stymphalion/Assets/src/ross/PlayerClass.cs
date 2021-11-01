@@ -207,7 +207,7 @@ public class PlayerClass
         //  Debug.Log("Test");
     }
 
-    private void OpenQuests(InputAction.CallbackContext ogj)
+    private void OpenQuests(InputAction.CallbackContext obj)
     {
         GameObject.Find("QuestUI").GetComponent<QuestUI>().ToggleDisplay();
     }

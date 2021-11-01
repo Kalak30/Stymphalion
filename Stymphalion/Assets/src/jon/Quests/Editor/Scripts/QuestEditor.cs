@@ -349,8 +349,9 @@ public class QuestEditor : EditorWindow
         {
             m_unassigned_steps = new List<StepData>();
         }
-
-        JSONQuestIO.GetReader().ReadFile("quest_file", out m_quests_lists_data);
+        QuestListBuilder builder = new QuestListBuilder();
+        QuestListReader reader = new QuestListReader(builder);
+        m_quests_lists_data = reader.ConstructData("quest_file");
 
         Vector2 placement_pos = new Vector2(10, 10);
         float padding = 50;
@@ -383,8 +384,6 @@ public class QuestEditor : EditorWindow
             // Move placement pos between quests
             placement_pos.y += padding;
         }
-
-        Debug.Log("After full load: " + m_quests_lists_data.m_quests.Count);
     }
 
     /// <summary>
@@ -694,6 +693,7 @@ public class QuestEditor : EditorWindow
     /// </summary>
     private void SaveToJSON()
     {
-        JSONQuestIO.GetReader().SaveFile("quest_file", m_quests_lists_data);
+        QuestListWriter writer = new QuestListWriter();
+        writer.SaveFile("quest_file", m_quests_lists_data);
     }
 }
