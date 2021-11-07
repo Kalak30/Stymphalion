@@ -25,6 +25,8 @@ public class PlayerClass
     public int m_level = 0;
 
     public Vector2 m_location;
+    public Vector2 m_new_scene_player_location = new Vector2(1.66f, 4.57f);
+
 
     // public variables
     public float m_movement_speed = 5;
@@ -72,6 +74,11 @@ public class PlayerClass
         LevelCheck();
     }
 
+    public void SetPlayerLocation(float x, float y){
+        m_player_game_object.transform.position = new Vector2(x, y);
+    }
+
+
     //private PlayerClass m_instance = null;
     /// <summary>
     /// Will be used to properly get the singelton class
@@ -94,7 +101,10 @@ public class PlayerClass
         Debug.Log("awake\n");
 
         // add Inventory Object and Action map
-        m_player_inventory = new Inventory();
+        if (m_player_inventory == null)
+        {
+            m_player_inventory = new Inventory();
+        }
         m_player_actions = new PlayerInputActionMap();
 
         // Get the rigid body from gameObject
@@ -104,6 +114,9 @@ public class PlayerClass
         m_main_animator = GameObject.Find("Player").GetComponent<Animator>();
         m_main_animator.SetFloat("Speed", 0);
         m_player_game_object = GameObject.Find("Player");
+        SetPlayerLocation(m_new_scene_player_location.x, m_new_scene_player_location.y);
+
+
     }
 
     /// <summary>

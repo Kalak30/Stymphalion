@@ -10,16 +10,20 @@ public class Cave : EnvirmentObjectSuperClass
     public override void InteractFunc()
     {
         Scene CurrentScence = SceneManager.GetActiveScene();
+        PlayerClass player = PlayerClass.Instance;
 
         if (CurrentScence.name == "MainIsland")
         {
+            player.m_new_scene_player_location = new Vector2(4, 2);
             SceneManager.LoadScene("HydraCave");
         }
         else{
+            player.m_new_scene_player_location = new Vector2(21, 11);
             SceneManager.LoadScene("MainIsland");
+            
         }
 
-        PlayerClass player = PlayerClass.Instance;
+        
         player.SetRight();
         //player.m_location
 
