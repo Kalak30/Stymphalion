@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 18734183}
   m_Layer: 0
   m_Name: Trap
-  m_TagString: Untagged
+  m_TagString: enviromentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22352,7 +22352,7 @@ GameObject:
   - component: {fileID: 782242827}
   m_Layer: 0
   m_Name: enemy
-  m_TagString: Untagged
+  m_TagString: enviromentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23028,7 +23028,7 @@ GameObject:
   - component: {fileID: 1204703207}
   m_Layer: 0
   m_Name: Spike Traps
-  m_TagString: Untagged
+  m_TagString: enviromentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

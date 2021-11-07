@@ -19,7 +19,7 @@ public class EnvirmentObjectSuperClass : MonoBehaviour
 //
 
     private PlayerInputActionMap m_player_actions;
-    private bool m_interact_pressed = false;
+    //private bool m_interact_pressed = false;
 
 
     /// <summary>
@@ -30,10 +30,33 @@ public class EnvirmentObjectSuperClass : MonoBehaviour
     public void Awake(){
         // initalize and enable action map
         m_player_actions = new PlayerInputActionMap();
-        m_player_actions.PlayerActionMap.Interact.started += InteractIsPressed; 
-        m_player_actions.PlayerActionMap.Interact.canceled += InteractReleased;
-        m_player_actions.PlayerActionMap.Interact.Enable();
+       // m_player_actions.PlayerActionMap.Interact.started += InteractIsPressed; 
+       // m_player_actions.PlayerActionMap.Interact.canceled += InteractReleased;
+       // m_player_actions.PlayerActionMap.Interact.Enable();
     }
+
+
+/// <summary>
+/// Virtual Function for each NPC's Interaction
+/// Dynamic Binding
+/// 
+/// </summary>
+    public virtual void InteractFunc(){
+        Debug.Log("Generic Interacable object IDK");
+       
+    }
+
+
+
+
+
+/*
+*
+*  Rest of this class isnt useful anymore
+*  Functionality moved to PlayerClass Because it makes more sense
+*   Keeping this in case i need to revert bacc
+*
+
 
 /// <summary>
 /// Function for checking if interact button is pressed
@@ -52,16 +75,6 @@ public class EnvirmentObjectSuperClass : MonoBehaviour
         m_interact_pressed = false;
     }
 
-
-/// <summary>
-/// Virtual Function for each NPC's Interaction
-/// Dynamic Binding
-/// 
-/// </summary>
-    public virtual void InteractFunc(){
-        Debug.Log("Generic Interacable object IDK");
-       
-    }
 
 
 /// <summary>
@@ -84,7 +97,7 @@ public class EnvirmentObjectSuperClass : MonoBehaviour
             m_interact_pressed = false;
         }
     }
-
+*/
 
     // Start is called before the first frame update
     void Start()

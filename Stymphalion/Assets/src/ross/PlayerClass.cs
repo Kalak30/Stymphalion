@@ -52,7 +52,7 @@ public class PlayerClass
     private PlayerInputActionMap m_player_actions;
     private GameObject m_player_game_object;
     private Inventory m_player_inventory;
-
+    private bool m_interact_pressed;
     /// <summary>
     /// Contructor
     /// </summary>
@@ -150,6 +150,10 @@ public class PlayerClass
         m_player_actions.PlayerActionMap.Quest.started += OpenQuests;
         m_player_actions.PlayerActionMap.Quest.Enable();
 
+        m_player_actions.PlayerActionMap.Interact.started += InteractIsPressed; 
+        //m_player_actions.PlayerActionMap.Interact.canceled += InteractReleased;
+        m_player_actions.PlayerActionMap.Interact.Enable();
+
         Debug.Log("Enabled");
     }
 
@@ -226,5 +230,33 @@ public class PlayerClass
     private void OpenQuests(InputAction.CallbackContext obj)
     {
         GameObject.Find("QuestUI").GetComponent<QuestUI>().ToggleDisplay();
+    }
+
+    public void OnCollisionStay2D(Collision2D other){
+        EnvirmentObjectSuperClass enviromentObj;
+        enviromentObj = other.gameObject.GetComponent<EnvirmentObjectSuperClass>();
+        if(m_interact_pressed){
+            enviromentObj.InteractFunc();
+        }
+        m_interact_pressed = false;
+    }
+
+    public void OnTriggerStay2D(Collider2D other){
+        EnvirmentObjectSuperClass enviromentObj;
+        enviromentObj = other.gameObject.GetComponent<EnvirmentObjectSuperClass>();
+        if(m_interact_pressed){
+            enviromentObj.InteractFunc();
+        }
+        m_interact_pressed = false;
+    }
+
+
+
+    public void InteractIsPressed(InputAction.CallbackContext obj){
+        m_interact_pressed = true;
+    } 
+
+    public void InteractReleased(InputAction.CallbackContext obj){
+        m_interact_pressed = false;
     }
 }
