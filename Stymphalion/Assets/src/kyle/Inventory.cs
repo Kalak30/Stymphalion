@@ -13,55 +13,33 @@ using UnityEngine;
 public class Inventory
 {
     private List<Item> itemList;
-    public GameObject m_ui_inventory;
-    private int m_tog = 0;
-
-    private void Awake()
-    {
-        
-    }
-
-    public void InventoryManage()
+    public Inventory()
     {
         itemList = new List<Item>();
 
         AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 }, itemList.Count);
-        RemoveItem(new Item { itemType = Item.ItemType.Sword, amount = 1 }, itemList.Count);
+        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 }, itemList.Count);
+        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 }, itemList.Count);
+        Debug.Log(itemList.Count);
+        Debug.Log("inventory");
+    }
+    public void InventoryManager()
+    {
+        itemList = new List<Item>();
+
+        AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 }, itemList.Count);
+        Debug.Log("Manager");
+        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 }, itemList.Count);
+        Debug.Log(itemList.Count);
     }
 
-    /// <summary>
-    /// Adds item to inventory. 
-    /// </summary>
-    /// <param name="item"></param>
-    /// <param name="inventoryCount"></param> 
     public void AddItem(Item item, int inventoryCount)
     {
-        if (inventoryCount < 10)
-        {
-            itemList.Add(item);
-        }
-    }
-    public void RemoveItem(Item item, int inventoryCount)
-    {
-        if (inventoryCount > 0)
-        {
-            itemList.Remove(item);
-        }
+        itemList.Add(item);
     }
 
-    public void ToggleInventory()
+    public List<Item> GetItemList()
     {
-        GameObject temp = GameObject.Find("Inventory_UI");
-        m_ui_inventory = temp.transform.Find("UI_Inventory").gameObject;
-        m_ui_inventory.SetActive(!m_ui_inventory.activeSelf);
-
-        if(m_ui_inventory.activeSelf == true)
-        {
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
+        return itemList;
     }
 }

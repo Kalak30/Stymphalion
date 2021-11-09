@@ -51,6 +51,7 @@ public class PlayerClass
     private Rigidbody2D m_player;
     private PlayerInputActionMap m_player_actions;
     private GameObject m_player_game_object;
+    private UI_Inventory m_ui_inventory;
     private Inventory m_player_inventory;
     private bool m_interact_pressed;
     /// <summary>
@@ -95,7 +96,7 @@ public class PlayerClass
     /// Intialize Everything Important in the program
     /// previously MonoBehavior Awake
     /// </summary>
-    public void InitVariables()
+    public void InitVariables(UI_Inventory uiInventory)
     {
 
         Debug.Log("awake\n");
@@ -104,6 +105,8 @@ public class PlayerClass
         if (m_player_inventory == null)
         {
             m_player_inventory = new Inventory();
+            m_ui_inventory = uiInventory;
+            uiInventory.SetInventory(m_player_inventory);
         }
         m_player_actions = new PlayerInputActionMap();
 
@@ -223,7 +226,7 @@ public class PlayerClass
     {
         Debug.Log("160");
         // Change function to what it's actually supposed to be when Kyle is ready
-        m_player_inventory.ToggleInventory();
+        m_ui_inventory.ToggleInventory();
         //  Debug.Log("Test");
     }
 

@@ -7,10 +7,12 @@ public class PlayerInterface : MonoBehaviour
     // Start is called before the first frame update
     PlayerClass m_player_class;
 
+    [SerializeField] private UI_Inventory uiInventory;
+
     void Awake()
-    {
-         m_player_class = PlayerClass.Instance ;
-        m_player_class.InitVariables();
+    { 
+        m_player_class = PlayerClass.Instance ;
+        m_player_class.InitVariables(uiInventory);
         m_player_class.OnEnable();
 
 
