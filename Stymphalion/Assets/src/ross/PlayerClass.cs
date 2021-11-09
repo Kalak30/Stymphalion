@@ -104,9 +104,12 @@ public class PlayerClass
         // add Inventory Object and Action map
         if (m_player_inventory == null)
         {
+            
             m_player_inventory = new Inventory();
             m_ui_inventory = uiInventory;
+            Debug.Log("inventory == Null");
             uiInventory.SetInventory(m_player_inventory);
+           
         }
         m_player_actions = new PlayerInputActionMap();
 

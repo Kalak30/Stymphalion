@@ -12,10 +12,14 @@ public class PlayerInterface : MonoBehaviour
     void Awake()
     { 
         m_player_class = PlayerClass.Instance ;
+        
+
+
+    }
+
+    void Start(){
         m_player_class.InitVariables(uiInventory);
         m_player_class.OnEnable();
-
-
     }
 
     // Update is called once per frame
