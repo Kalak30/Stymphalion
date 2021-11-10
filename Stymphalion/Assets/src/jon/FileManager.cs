@@ -6,6 +6,9 @@
  * https://github.com/UnityTechnologies/UniteNow20-Persistent-Data/blob/main/FileManager.cs
  *
  * Jon Kopf 10/08/2021
+ *
+ * I added a function to save a string to a text file in the Resources folder.
+ * Jon Kopf 11/09/2021
  */
 
 using System;
@@ -17,33 +20,6 @@ using UnityEngine;
 /// </summary>
 public static class FileManager
 {
-    /// <summary>
-    /// Writes a string to a file at the persistentDataPath. Defaults to a location in AppData/Local
-    /// </summary>
-    /// <param name="a_FileName">Name of file, including extension, in the persistentDataPath</param>
-    /// <param name="a_FileContents">Contents to be written</param>
-    /// <returns>
-    /// <list type="bullet">
-    ///     <item><see langword="true"/> if write is successful </item>
-    ///     <item><see langword="false"/> if write is not successful</item>
-    /// </list>
-    /// </returns>
-    public static bool WriteToFile(string a_FileName, string a_FileContents)
-    {
-        var fullPath = Path.Combine(Application.persistentDataPath, a_FileName);
-
-        try
-        {
-            File.WriteAllText(fullPath, a_FileContents);
-            return true;
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"Failed to write to {fullPath} with exception {e}");
-            return false;
-        }
-    }
-
     /// <summary>
     /// Loads data from a file in the persistentDataPath into a string. Defaults to a location in AppData/Local
     /// </summary>
@@ -68,6 +44,33 @@ public static class FileManager
         {
             Debug.LogError($"Failed to read from {fullPath} with exception {e}");
             result = "";
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Writes a string to a file at the persistentDataPath. Defaults to a location in AppData/Local
+    /// </summary>
+    /// <param name="a_FileName">Name of file, including extension, in the persistentDataPath</param>
+    /// <param name="a_FileContents">Contents to be written</param>
+    /// <returns>
+    /// <list type="bullet">
+    ///     <item><see langword="true"/> if write is successful </item>
+    ///     <item><see langword="false"/> if write is not successful</item>
+    /// </list>
+    /// </returns>
+    public static bool WriteToFile(string a_FileName, string a_FileContents)
+    {
+        var fullPath = Path.Combine(Application.persistentDataPath, a_FileName);
+
+        try
+        {
+            File.WriteAllText(fullPath, a_FileContents);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to write to {fullPath} with exception {e}");
             return false;
         }
     }

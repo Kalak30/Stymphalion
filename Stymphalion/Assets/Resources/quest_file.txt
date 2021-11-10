@@ -1,0 +1,36 @@
+{
+    "m_quests": [
+        {
+            "m_active_step_pos": 0,
+            "m_quest_description": "",
+            "m_quest_name": "Main Quest",
+            "m_quest_status": 0,
+            "m_steps": [
+                {
+                    "m_step_description": "Go into the town on the right side of the map",
+                    "m_step_name": "Go to town"
+                },
+                {
+                    "m_step_description": "Talk to bepp, boopp, and skreep",
+                    "m_step_name": "Talk to peopl"
+                }
+            ]
+        },
+        {
+            "m_active_step_pos": 0,
+            "m_quest_description": "Go up the mountain and kill the hydra",
+            "m_quest_name": "Go Kill the hydra",
+            "m_quest_status": 0,
+            "m_steps": [
+                {
+                    "m_step_description": "GO to the far right of the mountain and slay the hydra",
+                    "m_step_name": "Go up the mountain"
+                },
+                {
+                    "m_step_description": "use a sword or sumthn",
+                    "m_step_name": "kill the hyrda"
+                }
+            ]
+        }
+    ]
+}

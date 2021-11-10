@@ -6,6 +6,10 @@ using UnityEngine;
 //ss
 public class NPCEnviroment : EnvirmentObjectSuperClass
 {
+    public bool m_is_quest;
+    public bool m_is_shop;
+    private NPC standeredNPC;
+
     // Dynamic Binding lets goo
     public override void InteractFunc()
     {
@@ -13,12 +17,17 @@ public class NPCEnviroment : EnvirmentObjectSuperClass
         standeredNPC.TouchingInteractable();
     }
 
-    private NPC standeredNPC;
-
     // Start is called before the first frame update
     private void Start()
     {
-        standeredNPC = gameObject.AddComponent<QuestNPC>() as NPC;
+        if (m_is_shop)
+        {
+            standeredNPC = gameObject.AddComponent<ShopNPC>() as NPC;
+        }
+        else if (m_is_quest)
+        {
+            standeredNPC = gameObject.AddComponent<QuestNPC>() as NPC;
+        }
     }
 
     // Update is called once per frame

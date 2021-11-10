@@ -14,10 +14,18 @@ using UnityEngine;
 public abstract class NPC : MonoBehaviour
 {
 
-    private String m_name;
+    protected Animator m_animator;
+    protected DialogueViewer m_dialogue_handler;
+    protected String m_name;
 
     /// <summary>
     /// Gets called whenever the player interacts with this NPC
     /// </summary>
-    public abstract void TouchingInteractable();
+    public virtual void TouchingInteractable() { }
+
+    private void Start()
+    {
+        m_animator = GetComponent<Animator>();
+        m_dialogue_handler = GameObject.Find("DialogueHandler").GetComponent<DialogueViewer>();
+    }
 }
