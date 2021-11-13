@@ -47,4 +47,9 @@ public class PlayerInterface : MonoBehaviour
 
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        m_player_class.OnTriggerEnter2D(other);
+    }
+
 }
