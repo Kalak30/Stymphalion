@@ -14,6 +14,8 @@ public class DialogueViewer : MonoBehaviour
     private List<TextMeshProUGUI> activeChoices = new List<TextMeshProUGUI>();
     private bool ended;
     private List<TextMeshProUGUI> inactiveChoices = new List<TextMeshProUGUI>();
+    private GameObject canvas;
+    private NPC other_speaker;
 
     public void Choose(int choice)
     {
@@ -34,18 +36,19 @@ public class DialogueViewer : MonoBehaviour
         SetText();
         // End if there is no next message
         if (handler.currentMessageInfo.ID < 0)
+        {
+            EndDialogue();
             ended = true;
+        }
     }
 
-    public void setDialogue(int quest_no)
+    public void SetDialogue(int quest_no, int convo_no, NPC quest_giver)
     {
-        switch (quest_no)
-        {
-            case 1:
-                handler.SetConversation("Quest 1");
-                SetText();
-                break;
-        }
+        other_speaker = quest_giver;
+        string convo_name = $"{quest_no}_{convo_no}";
+        handler.SetConversation(convo_name);
+        SetText();
+        canvas.SetActive(true);
     }
 
     private void ClearChoices()
@@ -108,6 +111,7 @@ public class DialogueViewer : MonoBehaviour
         if (ended)
             return;
 
+
         // Generate choices if a choice, otherwise display the message
         if (handler.currentMessageInfo.Type == QD_NodeType.Message)
         {
@@ -123,14 +127,34 @@ public class DialogueViewer : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Start()
     {
+        canvas = GameObject.Find("DialoguePanel");
+        canvas.SetActive(false);
+    }
+
+
+    public void Update()
+    {
+
         // Don't do anything if the conversation is over
         if (ended)
             return;
+       
 
+        // Ends before it should !!@!@$#!@$#!@#
+
+        
         // Check if the space key is pressed and the current message is not a choice
         if (handler.currentMessageInfo.Type == QD_NodeType.Message && Input.GetKeyUp(KeyCode.Space))
+        {
             Next();
+        }
+    }
+
+    public void EndDialogue()
+    {
+        canvas.SetActive(false);
+        other_speaker.StopTalking();
     }
 }

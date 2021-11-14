@@ -18,7 +18,7 @@ public class NPCEnviroment : EnvirmentObjectSuperClass
     }
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         if (m_is_shop)
         {
