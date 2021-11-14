@@ -544,8 +544,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 858055198}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-=======
 --- !u!1001 &63156185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -615,7 +613,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1db48aa969c69914a8ef801c8ee4f107, type: 3}
->>>>>>> 1615f66f7e912faa6477ee92ae82816635448d00
 --- !u!1001 &100637568
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12084,11 +12081,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1874317252}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
---- !u!1 &611473239
-=======
 --- !u!1 &596392354
->>>>>>> 1615f66f7e912faa6477ee92ae82816635448d00
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12096,49 +12089,21 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 611473240}
-  m_Layer: 5
-  m_Name: Sub Panel
-=======
   - component: {fileID: 596392356}
   - component: {fileID: 596392355}
   m_Layer: 0
   m_Name: ItemAssets
->>>>>>> 1615f66f7e912faa6477ee92ae82816635448d00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!224 &611473240
-RectTransform:
-=======
 --- !u!114 &596392355
 MonoBehaviour:
->>>>>>> 1615f66f7e912faa6477ee92ae82816635448d00
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 611473239}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1009402972}
-  - {fileID: 502469546}
-  m_Father: {fileID: 476846778}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 105, y: 10}
-  m_SizeDelta: {x: -210, y: -20}
-  m_Pivot: {x: 0.5, y: 0.5}
-=======
   m_GameObject: {fileID: 596392354}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -12165,7 +12130,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> 1615f66f7e912faa6477ee92ae82816635448d00
 --- !u!1 &615019486
 GameObject:
   m_ObjectHideFlags: 0
@@ -12231,11 +12195,7 @@ PrefabInstance:
     - target: {fileID: 384858601626653455, guid: e09eb104367219745b8c9c6440859628,
         type: 3}
       propertyPath: m_RootOrder
-<<<<<<< HEAD
-      value: 1
-=======
       value: 17
->>>>>>> 1615f66f7e912faa6477ee92ae82816635448d00
       objectReference: {fileID: 0}
     - target: {fileID: 384858601626653455, guid: e09eb104367219745b8c9c6440859628,
         type: 3}
