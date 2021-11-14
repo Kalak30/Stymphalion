@@ -1,3 +1,6 @@
 {
-	"name": "kyleSrc"
+	"name": "kyleSrc",
+	"references": [ "Unity.TextMeshPro" ],
+	"references": [ "Unity.CodeMonkey" ],
+	"optionalUnityReferences": [ "TestAssemblies" ]
 }

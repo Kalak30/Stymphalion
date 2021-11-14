@@ -122,7 +122,9 @@ public class PlayerClass
         m_player_game_object = GameObject.Find("Player");
         SetPlayerLocation(m_new_scene_player_location.x, m_new_scene_player_location.y);
 
-
+        ItemWorld.SpawnItemWorld(new Vector3(3, 3), new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(0, 3), new Item { itemType = Item.ItemType.Gold, amount = 10 });
+        ItemWorld.SpawnItemWorld(new Vector3(2, 3), new Item { itemType = Item.ItemType.Gold, amount = 1 });
     }
 
     /// <summary>
@@ -227,7 +229,6 @@ public class PlayerClass
     /// <param name="obj"></param>
     private void OpenInventory(InputAction.CallbackContext obj)
     {
-        Debug.Log("160");
         // Change function to what it's actually supposed to be when Kyle is ready
         m_ui_inventory.ToggleInventory();
         //  Debug.Log("Test");
@@ -255,9 +256,18 @@ public class PlayerClass
         }
         m_interact_pressed = false;
     }
-
-
-
+    
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
+        if(itemWorld != null)
+        {
+            // Touching item
+            m_player_inventory.AddItem(itemWorld.GetItem(), 1);
+            itemWorld.DestroySelf();
+        }
+    }
+    
     public void InteractIsPressed(InputAction.CallbackContext obj){
         m_interact_pressed = true;
     } 
