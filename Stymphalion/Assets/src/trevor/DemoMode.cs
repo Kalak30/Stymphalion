@@ -8,7 +8,7 @@
 
 
 
-using System;
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -25,8 +25,9 @@ public class DemoMode : MonoBehaviour
     public int idle_Time = 100;
     public int time = 0;
     public int in_Demo = 0;
-
-    public string path = @"C:\Users\trevo\OneDrive\Documents\GitHub\Stymphalion\Stymphalion\InputRecorderTest";
+    public int player_Inputted = 0;
+    
+    //public static InputEventTrace LoadFrom(string path);
 
     // Start is called before the first frame update
     void Start()
@@ -43,8 +44,12 @@ public class DemoMode : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(Input.anyKey && player_Inputted == 0)
+        {
+            player_Inputted = 1;
+        }
         
-        if (!Input.anyKey && time < idle_Time)
+        if (!Input.anyKey && time < idle_Time & player_Inputted == 0)
         {
             time = time + 1;
         }
@@ -52,16 +57,30 @@ public class DemoMode : MonoBehaviour
         if(time == idle_Time & in_Demo == 0)
         {
             in_Demo++;
-
+            string path = "Assets/Resources/InputRecorderTest.inputtrace";
+            string path2 = "Assets/Resources/InputRecorder2.inputtrace";
+            int random_Int = Random.Range(0, 3);
+            Debug.Log(random_Int);
             //testClass.testFunction();
             //testClass.StartReplay();
-            //testClass.LoadCaptureFromFile(path);
-            //testClass.StartReplay();
+
+            //StreamReader reader = new StreamReader(path);
+            if (random_Int == 1)
+            {
+                testClass.LoadCaptureFromFile(path);
+                testClass.StartReplay();
+            }
+            else if (random_Int == 2)
+            {
+                testClass.LoadCaptureFromFile(path2);
+                testClass.StartReplay();
+            }
         }
 
-        //if (Input.anyKey && in_Demo > 0)
-        //{
-         //   testClass.StopReplay();
-        //}
+        if (Input.anyKey && in_Demo > 0)
+        {
+            testClass.StopReplay();
+            
+        }
     }
 }
