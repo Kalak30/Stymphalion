@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+//using CodeMonkey.Utils;
 
 
 /// <summary>
@@ -20,6 +21,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerClass
 {
+
     public int m_health = 100;
 
     public int m_level = 0;
@@ -79,7 +81,10 @@ public class PlayerClass
         m_player_game_object.transform.position = new Vector2(x, y);
     }
 
-
+    public Vector2 GetLocation()
+    {
+        return m_location;
+    }
     //private PlayerClass m_instance = null;
     /// <summary>
     /// Will be used to properly get the singelton class
@@ -98,19 +103,19 @@ public class PlayerClass
     /// </summary>
     public void InitVariables(UI_Inventory uiInventory)
     {
-
         Debug.Log("awake\n");
 
         // add Inventory Object and Action map
         if (m_player_inventory == null)
         {
             
-            m_player_inventory = new Inventory();
+            m_player_inventory = new Inventory(UseItem);
             m_ui_inventory = uiInventory;
-            Debug.Log("inventory == Null");
+            m_ui_inventory.SetPlayer(this);
             uiInventory.SetInventory(m_player_inventory);
            
         }
+        //m_ui_inventory.SetPlayer(this);
         m_player_actions = new PlayerInputActionMap();
 
         // Get the rigid body from gameObject
@@ -122,9 +127,25 @@ public class PlayerClass
         m_player_game_object = GameObject.Find("Player");
         SetPlayerLocation(m_new_scene_player_location.x, m_new_scene_player_location.y);
 
-        ItemWorld.SpawnItemWorld(new Vector3(3, 3), new Item { itemType = Item.ItemType.Sword, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(0, 3), new Item { itemType = Item.ItemType.Gold, amount = 10 });
+        ItemWorld.SpawnItemWorld(new Vector3(3, 3), new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(0, 3), new Item { itemType = Item.ItemType.Gold, amount = 11 });
         ItemWorld.SpawnItemWorld(new Vector3(2, 3), new Item { itemType = Item.ItemType.Gold, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(1, 3), new Item { itemType = Item.ItemType.Medkit, amount = 1 });
+    }
+
+    private void UseItem(Item item)
+    {
+        switch (item.itemType)
+        {
+            case Item.ItemType.HealthPotion:
+                m_player_inventory.RemoveItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
+                m_health += 10;
+                break;
+            case Item.ItemType.Medkit:
+                m_player_inventory.RemoveItem(new Item { itemType = Item.ItemType.Medkit, amount = 1 });
+                m_health += 100;
+                break;
+        }
     }
 
     /// <summary>

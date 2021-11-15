@@ -1,6 +1,17 @@
 {
-	"name": "kyleSrc",
-	"references": [ "Unity.TextMeshPro" ],
-	"references": [ "Unity.CodeMonkey" ],
-	"optionalUnityReferences": [ "TestAssemblies" ]
+    "name": "kyleSrc",
+    "rootNamespace": "",
+    "references": [
+        "Unity.TextMeshPro",
+        "CodeMonkey"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

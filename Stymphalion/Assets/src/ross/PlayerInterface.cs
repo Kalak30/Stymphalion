@@ -12,9 +12,6 @@ public class PlayerInterface : MonoBehaviour
     void Awake()
     { 
         m_player_class = PlayerClass.Instance ;
-        
-
-
     }
 
     void Start(){
