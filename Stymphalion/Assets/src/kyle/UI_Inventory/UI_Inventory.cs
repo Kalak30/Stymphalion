@@ -47,10 +47,10 @@ public class UI_Inventory : MonoBehaviour
             Destroy(child.gameObject);
         }
         Debug.Log("LOLs");
-        float x = -1.5f;
-        float y = 0.25f; 
+        float x = -14.5f;
+        float y = 3.5f; 
         int x_count = 0;
-        float itemSlotCellSize = 180f;
+        float itemSlotCellSize = 20f;
         foreach (Item item in inventory.GetItemList())
         {
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
@@ -83,12 +83,16 @@ public class UI_Inventory : MonoBehaviour
             }
 
 
-            x++;
+            x += 5.75f;
             x_count++;
-            if ( x_count > 3)
+ 
+            if ( x_count % 6 == 0 )
             {
-                x = -1.5f;
-                y = y - 1f;
+                x = -14.5f;
+                if (x_count % 6 == 0)
+                {
+                    y = y - 6.05f;
+                }
             }
         }
     }
