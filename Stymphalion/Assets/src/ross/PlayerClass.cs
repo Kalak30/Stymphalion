@@ -131,10 +131,16 @@ public class PlayerClass
         m_player_game_object = GameObject.Find("Player");
         SetPlayerLocation(m_new_scene_player_location.x, m_new_scene_player_location.y);
 
-        ItemWorld.SpawnItemWorld(new Vector3(3, 3), new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(4, 3), new Item { itemType = Item.ItemType.HealthPotion, amount = 2 }); 
         ItemWorld.SpawnItemWorld(new Vector3(0, 3), new Item { itemType = Item.ItemType.Gold, amount = 11 });
         ItemWorld.SpawnItemWorld(new Vector3(2, 3), new Item { itemType = Item.ItemType.Gold, amount = 1 });
         ItemWorld.SpawnItemWorld(new Vector3(1, 3), new Item { itemType = Item.ItemType.Medkit, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(0, 4), new Item { itemType = Item.ItemType.Bow, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(0, 5), new Item { itemType = Item.ItemType.Krotola, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(0, 6), new Item { itemType = Item.ItemType.HydraBlood, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(0, 7), new Item { itemType = Item.ItemType.QuestItem, amount = 1 });
+        ItemWorld.SpawnItemWorld(new Vector3(0, 8), new Item { itemType = Item.ItemType.Sword, amount = 1 });
+
     }
 
     private void UseItem(Item item)

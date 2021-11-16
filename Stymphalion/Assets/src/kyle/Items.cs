@@ -8,6 +8,10 @@ public class Item{
         Gold,
         HealthPotion,
         Medkit,
+        Bow,
+        Krotola,
+        QuestItem,
+        HydraBlood,
     }
     public ItemType itemType;
     public int amount;
@@ -21,6 +25,10 @@ public class Item{
             case ItemType.HealthPotion: return ItemAssets.Instance.healthPotionSprite;
             case ItemType.Gold:         return ItemAssets.Instance.goldSprite;
             case ItemType.Medkit:       return ItemAssets.Instance.medkitSprite;
+            case ItemType.Bow:          return ItemAssets.Instance.bowSprite;
+            case ItemType.Krotola:      return ItemAssets.Instance.krotolaSprite;
+            case ItemType.QuestItem:    return ItemAssets.Instance.questItemSprite;
+            case ItemType.HydraBlood:   return ItemAssets.Instance.hydraBloodSprite;
         }
     }
 
@@ -34,6 +42,10 @@ public class Item{
                 return true;
             case ItemType.Sword:
             case ItemType.Medkit:
+            case ItemType.Bow:
+            case ItemType.Krotola:
+            case ItemType.QuestItem:
+            case ItemType.HydraBlood:
                 return false;
         }
     }

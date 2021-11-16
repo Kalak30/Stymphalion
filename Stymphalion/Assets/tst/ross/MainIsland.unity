@@ -12006,6 +12006,10 @@ MonoBehaviour:
   healthPotionSprite: {fileID: 21300000, guid: 28cd643389c25de4eb77f49567812e47, type: 3}
   goldSprite: {fileID: 21300000, guid: cf36dfe8f1a0e82469863e44b6425d50, type: 3}
   medkitSprite: {fileID: 21300000, guid: fbb108ca9ae39704c94c4c6321df3d1a, type: 3}
+  bowSprite: {fileID: 21300000, guid: 80498f90de4a7d7458b8dbe425a92793, type: 3}
+  krotolaSprite: {fileID: 21300000, guid: 8ca87de4b945c47459e072786f379982, type: 3}
+  questItemSprite: {fileID: 21300000, guid: 8648fa115bbcd1d4f8cdc56def6fdb2e, type: 3}
+  hydraBloodSprite: {fileID: 21300000, guid: 56d1d979a2aabfd4e8ba8429c41f9534, type: 3}
 --- !u!4 &596392356
 Transform:
   m_ObjectHideFlags: 0
@@ -67381,7 +67385,7 @@ RectTransform:
   m_GameObject: {fileID: 1311752908}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_Children: []
   m_Father: {fileID: 1791793965}
   m_RootOrder: 1
@@ -67412,7 +67416,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 0634e09ae9c20d34b949cd2f6188173c, type: 3}
-  m_Type: 1
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -67420,7 +67424,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 4
+  m_PixelsPerUnitMultiplier: 5
 --- !u!222 &1311752911
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -68203,7 +68207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.3163, y: 2.6}
+  m_AnchoredPosition: {x: -0.7, y: 2.69}
   m_SizeDelta: {x: 13.1511, y: 12.6704}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1679984757
@@ -68339,7 +68343,7 @@ RectTransform:
   m_GameObject: {fileID: 1791793964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1}
   m_Children:
   - {fileID: 650246446}
   - {fileID: 1311752909}
@@ -99614,6 +99618,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1678182322508521695, guid: beb5fef15b5304044848fe7f70777137,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1678182322508521692, guid: beb5fef15b5304044848fe7f70777137, type: 3}
     - {fileID: 1678182322508521689, guid: beb5fef15b5304044848fe7f70777137, type: 3}
@@ -99766,6 +99775,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InputRecorder
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868138081808616033, guid: 3e9ad7ee9b1dc22479b98c911dd7e2e6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4868138081808616034, guid: 3e9ad7ee9b1dc22479b98c911dd7e2e6,
         type: 3}

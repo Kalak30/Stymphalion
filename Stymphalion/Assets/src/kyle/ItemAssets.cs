@@ -17,4 +17,8 @@ public class ItemAssets : MonoBehaviour
     public Sprite healthPotionSprite;
     public Sprite goldSprite;
     public Sprite medkitSprite;
+    public Sprite bowSprite;
+    public Sprite krotolaSprite;
+    public Sprite questItemSprite;
+    public Sprite hydraBloodSprite;
 }
