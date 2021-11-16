@@ -2,8 +2,8 @@
     "name": "jonQuestEdit",
     "rootNamespace": "",
     "references": [
-        "GUID:ea057000c05dd63469a0c25c4844af40",
-        "GUID:aaeb01cc918a43547a2bced6bac432b9"
+        "GUID:aaeb01cc918a43547a2bced6bac432b9",
+        "GUID:4c07c17f39828dd46b31be1e6cfbab42"
     ],
     "includePlatforms": [
         "Editor"
