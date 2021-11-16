@@ -20,7 +20,7 @@
             "m_active_step_pos": 0,
             "m_quest_description": "Go up the mountain and kill the hydra",
             "m_quest_name": "Go Kill the hydra",
-            "m_quest_status": 0,
+            "m_quest_status": 2,
             "m_steps": [
                 {
                     "m_step_description": "GO to the far right of the mountain and slay the hydra",
@@ -28,7 +28,7 @@
                 },
                 {
                     "m_step_description": "use a sword or sumthn",
-                    "m_step_name": "kill the hyrda"
+                    "m_step_name": "Kill the hydra"
                 }
             ]
         }

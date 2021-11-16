@@ -57,7 +57,6 @@ public class QuestListReader
         if (PlayerPrefs.GetInt("FIRSTTIMEOPENING", 1) == 1 || !File.Exists(Application.persistentDataPath + "/" + file_name + ".txt"))
         {
             Debug.Log("First Time Opening");
-            PlayerPrefs.SetInt("FIRSTTIMEOPENING", 0);
 
             file_contents = m_file.text;
         }
