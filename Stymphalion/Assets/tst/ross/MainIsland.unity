@@ -12006,14 +12006,10 @@ MonoBehaviour:
   healthPotionSprite: {fileID: 21300000, guid: 28cd643389c25de4eb77f49567812e47, type: 3}
   goldSprite: {fileID: 21300000, guid: cf36dfe8f1a0e82469863e44b6425d50, type: 3}
   medkitSprite: {fileID: 21300000, guid: fbb108ca9ae39704c94c4c6321df3d1a, type: 3}
-  bowSprite: {fileID: 2747690628134850419, guid: 9d580c6b467d4bc4a8d64cff330e4622,
-    type: 3}
-  krotolaSprite: {fileID: 3625043607559282579, guid: 3e28339c994b7454dae6f1aad292ef08,
-    type: 3}
-  questItemSprite: {fileID: 7482667652216324306, guid: 2f782e8f3d81fee41b2351e578d93081,
-    type: 3}
-  hydraBloodSprite: {fileID: -5177388603050735206, guid: 13abc8f06f1b6a54da9aeb379f9e216f,
-    type: 3}
+  bowSprite: {fileID: 21300000, guid: 80498f90de4a7d7458b8dbe425a92793, type: 3}
+  krotolaSprite: {fileID: 21300000, guid: 8ca87de4b945c47459e072786f379982, type: 3}
+  questItemSprite: {fileID: 21300000, guid: 8648fa115bbcd1d4f8cdc56def6fdb2e, type: 3}
+  hydraBloodSprite: {fileID: 21300000, guid: 56d1d979a2aabfd4e8ba8429c41f9534, type: 3}
 --- !u!4 &596392356
 Transform:
   m_ObjectHideFlags: 0
