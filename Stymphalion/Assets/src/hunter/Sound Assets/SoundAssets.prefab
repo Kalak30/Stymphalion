@@ -44,15 +44,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoundAudioClipArray:
-  - sound: 0
-    audioClip: {fileID: 8300000, guid: f904fa2cfeb1e014c998de19ec1047ac, type: 3}
-  - sound: 1
-    audioClip: {fileID: 8300000, guid: 1e76f00ba30db824abedced5c8ab3b8b, type: 3}
-  - sound: 2
-    audioClip: {fileID: 8300000, guid: dc38635969e023c4c8661d34fa2b6011, type: 3}
-  - sound: 3
-    audioClip: {fileID: 8300000, guid: fddd36607259ac947889c8112594f36a, type: 3}
-  - sound: 4
-    audioClip: {fileID: 8300000, guid: 95f654292f931184b9c95140c64cef83, type: 3}
-  - sound: 5
-    audioClip: {fileID: 8300000, guid: cc8b775bb1d73e741836e9ddf3e57c41, type: 3}
+  - m_SAC_sound: 0
+    m_SAC_audio_clip: {fileID: 8300000, guid: f904fa2cfeb1e014c998de19ec1047ac, type: 3}
+  - m_SAC_sound: 1
+    m_SAC_audio_clip: {fileID: 8300000, guid: 1e76f00ba30db824abedced5c8ab3b8b, type: 3}
+  - m_SAC_sound: 2
+    m_SAC_audio_clip: {fileID: 8300000, guid: dc38635969e023c4c8661d34fa2b6011, type: 3}
+  - m_SAC_sound: 3
+    m_SAC_audio_clip: {fileID: 8300000, guid: fddd36607259ac947889c8112594f36a, type: 3}
+  - m_SAC_sound: 4
+    m_SAC_audio_clip: {fileID: 8300000, guid: 95f654292f931184b9c95140c64cef83, type: 3}
+  - m_SAC_sound: 5
+    m_SAC_audio_clip: {fileID: 8300000, guid: cc8b775bb1d73e741836e9ddf3e57c41, type: 3}
