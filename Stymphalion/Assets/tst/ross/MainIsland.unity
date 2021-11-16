@@ -99580,6 +99580,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InputRecorder
       objectReference: {fileID: 0}
+    - target: {fileID: 4868138081808616034, guid: 3e9ad7ee9b1dc22479b98c911dd7e2e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4868138081808616035, guid: 3e9ad7ee9b1dc22479b98c911dd7e2e6,
         type: 3}
       propertyPath: m_RootOrder

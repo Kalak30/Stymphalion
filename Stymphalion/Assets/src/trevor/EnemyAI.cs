@@ -12,6 +12,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+    //public Player testPlayer;
     /// <summary>
     /// An attack has 3 values, speed, damage, and a bonus effect
     /// int damage

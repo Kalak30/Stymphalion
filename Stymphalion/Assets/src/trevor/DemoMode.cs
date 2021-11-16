@@ -44,10 +44,10 @@ public class DemoMode : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Input.anyKey && player_Inputted == 0)
+        /*if(Input.anyKey && player_Inputted == 0)
         {
             player_Inputted = 1;
-        }
+        }*/
         
         if (!Input.anyKey && time < idle_Time & player_Inputted == 0)
         {
@@ -79,8 +79,13 @@ public class DemoMode : MonoBehaviour
 
         if (Input.anyKey && in_Demo > 0)
         {
-            testClass.StopReplay();
-            
+            testClass.PauseReplay();
+            //testClass.LoadCaptureFromFile("Assets/Resources/InputRecorderTest.inputtrace");
+            //testClass.SaveCaptureToFile("InputRecorder3.inputtrace");
+            //testClass.LoadCaptureFromFile("InputRecorder3.inputtrace");
+            //testClass.StartReplay();
         }
+
+        
     }
 }
