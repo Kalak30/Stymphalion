@@ -1,7 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Character2DController : MonoBehaviour
 {
+
+
+
     public Animator animator;
     public float MovementSpeed = 1;
     public float JumpForce = 1;
@@ -20,6 +24,14 @@ public class Character2DController : MonoBehaviour
 
         animator.SetFloat("Speed", Mathf.Abs(movement));
 
+        //attack animaton
+
+        if (Input.GetButtonDown("attack"))
+        {
+            animator.SetTrigger("Attack");
+        }
+        
+        
         //flip the character
         Vector3 characterScale = transform.localScale;
         if (movement < 0)
@@ -31,18 +43,16 @@ public class Character2DController : MonoBehaviour
             characterScale.x = 1;
         }
         transform.localScale = characterScale;
-
+/*
         //jump
         if (Input.GetButtonDown("Jump") && Mathf.Abs(_rigidbody.velocity.y) < 0.001f)
         {
-            animator.SetBool("IsJumping", true);
+            //animator.SetBool("isJumping", true);
             _rigidbody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
         
         }
-        if (Input.GetButtonUp("Jump") && Mathf.Abs(_rigidbody.velocity.y) > 0.001f)
-        {
-            animator.SetBool("IsJumping", false);
-        }
+*/    
     }
+
 
 }
