@@ -27,10 +27,10 @@ public class MapColiderStressTest
         yield return new WaitForSeconds(2);
 
         Debug.Log("XXX");
-        
 
-        PlayerClass player = GameObject.Find("Player").GetComponent<PlayerClass>();
-       // Rigidbody2D player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
+
+        PlayerClass player = PlayerClass.Instance;
+        // Rigidbody2D player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
         player.m_movement_speed = 5;
         Debug.Log("Lil WAYNE");
 
