@@ -20,7 +20,7 @@ public class QuestUI : MonoBehaviour
 
     public void AddQuest(Quest q)
     {
-        if (m_displayed_quests.Contains(q)) { return; }
+        if (m_displayed_quests.Contains(q) || q.m_quest_status != QuestStatus.active ) { return; }
 
         GameObject new_text = Instantiate(m_quest_text_prefab);
         new_text.transform.SetParent(m_background.transform);

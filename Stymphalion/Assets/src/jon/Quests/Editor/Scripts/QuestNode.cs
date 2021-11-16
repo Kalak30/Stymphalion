@@ -87,8 +87,8 @@ public class QuestNode : Node
         //UnityEngine.Object questOwner = EditorGUILayout.ObjectField(Data, typeof(Quest_NPC), false);
         questName = EditorGUILayout.TextField(m_data.m_quest_name);
         questDescription = EditorGUILayout.TextArea(m_data.m_quest_description);
-        m_item_type = (Item.ItemType)EditorGUILayout.EnumPopup(m_item_type);
-        m_quest_status = (QuestStatus)EditorGUILayout.EnumPopup(m_quest_status);
+        m_item_type = (Item.ItemType)EditorGUILayout.EnumPopup(m_data.m_quest_reward);
+        m_quest_status = (QuestStatus)EditorGUILayout.EnumPopup(m_data.m_quest_status);
         EditorGUILayout.EndVertical();
 
         EditorGUILayout.Space(20);
@@ -97,7 +97,7 @@ public class QuestNode : Node
 
         m_data.m_quest_name = questName;
         m_data.m_quest_description = questDescription;
-        m_data.m_quest_reward = null; //itemType;
-        m_data.m_quest_status = (int)m_quest_status;
+        m_data.m_quest_reward = m_item_type; //itemType;
+        m_data.m_quest_status = m_quest_status;
     }
 }

@@ -24,7 +24,7 @@ public class UIBoundaryTest
 
         for (int i = 0; i < 2000; i++)
         {
-            quest_ui.AddQuest(new Quest("this is a quest name", "this is a very long quest description", null));
+            quest_ui.AddQuest(new Quest("this is a quest name", "this is a very long quest description", QuestStatus.active, Item.ItemType.Medkit));
         }
 
         TestDelegate test_delegate = () => quest_ui.Test();

@@ -35,7 +35,7 @@ public class QuestListBuilder
 
     private Quest BuildQuest(QuestData q)
     {
-        Quest quest = new Quest(q.m_quest_name, q.m_quest_description, q.m_quest_reward);
+        Quest quest = new Quest(q.m_quest_name, q.m_quest_description, q.m_quest_status, q.m_quest_reward);
         quest.m_steps = BuildSteps(q);
 
         return quest;

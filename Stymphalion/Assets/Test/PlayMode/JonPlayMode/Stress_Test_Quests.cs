@@ -19,7 +19,7 @@ public class Stress_Test_Quests
         {
             for (int i = 0; i < 1000; i++)
             {
-                Quest q = new Quest("i", "i", null);
+                Quest q = new Quest("i", "i", QuestStatus.active, Item.ItemType.HealthPotion);
                 qm.AddQuest(q);
             }
             yield return null;

@@ -65,8 +65,11 @@ public class QuestManager
     {
         foreach (Quest quest in m_quests)
         {
-
-            quest.DisplayQuest();
+            if (quest.m_quest_status == QuestStatus.active)
+            {
+                quest.Complete();
+                quest.DisplayQuest();
+            }
         }
     }
 

@@ -25,8 +25,8 @@ public class QuestData
     public int m_active_step_pos;
     public string m_quest_description;
     public string m_quest_name;
-    public Item m_quest_reward;
-    public int m_quest_status;
+    public Item.ItemType m_quest_reward;
+    public QuestStatus m_quest_status;
     public List<StepData> m_steps;
 }
 
