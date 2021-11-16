@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
 {
     public int m_maxHealth = 100;
     public int m_currentHealth;
+    public Animator animator;
 
 
     ///<summary>  
@@ -63,12 +64,11 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy Died");
 
         //Make Enemy disappear
-        GameObject objectToDisappear = GameObject.Find("Boss");
+        gameObject.SetActive(false);    
+        /*
+        GameObject objectToDisappear = GameObject.Find("Enemy");
         objectToDisappear.GetComponent<Renderer>().enabled = false;
-
-        //Die animation
-
-        //Disable the enemy
+        */
     }
 
 }
