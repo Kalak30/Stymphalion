@@ -1,17 +1,19 @@
-using System.Collections;
+using System.Collections; 
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-//using CodeMonkey;
+using CodeMonkey.Utils;  
 
 
 public class UI_Inventory : MonoBehaviour
 {
     private Inventory inventory;
+    private PlayerClass m_player; 
     private Transform itemSlotContainer;
-    private Transform itemSlotTemplate;
-    public GameObject m_ui_inventory;
+    private Transform itemSlotTemplate; 
+    public GameObject m_ui_inventory; 
+
 
     private void Awake()
     {
@@ -20,12 +22,16 @@ public class UI_Inventory : MonoBehaviour
         itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
         itemSlotContainer.gameObject.SetActive(false);
     }
-
+    public void SetPlayer(PlayerClass m_player)
+    {
+        this.m_player = m_player;
+    }
+    
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
         inventory.OnItemListChanged += Inventory_OnItemListChanged;
-
+        Debug.Log("Comment"); 
         RefreshInventoryItems();
     }
 
@@ -50,7 +56,6 @@ public class UI_Inventory : MonoBehaviour
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
 
-            /*
             itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () => {
                 // Use item
                 inventory.UseItem(item);
@@ -59,9 +64,10 @@ public class UI_Inventory : MonoBehaviour
                 // Drop item
                 Item duplicateItem = new Item { itemType = item.itemType, amount = item.amount };
                 inventory.RemoveItem(item);
-                ItemWorld.DropItem(player.GetPosition(), duplicateItem);
+                //PlayerClass m_player = PlayerClass.Instance; 
+                ItemWorld.DropItem(m_player.GetLocation(), duplicateItem);
             };
-            */
+
             itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, y * itemSlotCellSize);
             Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
             image.sprite = item.GetSprite();
@@ -96,11 +102,11 @@ public class UI_Inventory : MonoBehaviour
 
         if (m_ui_inventory.activeSelf == true)
         {
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
         }
         else
         {
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
         }
     }
 }
