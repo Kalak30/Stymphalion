@@ -60,7 +60,7 @@ namespace QuantumTek.QuantumDialogue
         /// <param name="name">The name of the conversation.</param>
         public void SetConversation(string name)
         {
-            Debug.Log("Got to here: " + name);
+
             currentConversationIndex = dialogue.GetConversationIndex(name);
             if (currentConversationIndex < 0 || currentConversationIndex >= dialogue.Conversations.Count)
                 return;
