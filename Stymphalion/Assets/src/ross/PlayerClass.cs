@@ -12,7 +12,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-//using CodeMonkey.Utils;
 
 
 /// <summary>
@@ -81,6 +80,24 @@ public class PlayerClass
         m_player_inventory.AddItem(item, 1);
     }
 
+    public void RemoveFromInventory(Item item)
+    {
+        m_player_inventory.RemoveItem(item);
+    }
+
+    public int CountGold(Item m_gold)
+    {
+        int m_gold_amount = 0;
+        foreach (Item item in m_player_inventory.GetItemList())
+        {
+            if (m_gold.itemType == item.itemType)
+            {
+                m_gold_amount = item.amount;
+            }
+        }
+        return m_gold_amount;
+    }
+
     public void SetPlayerLocation(float x, float y){
         m_player_game_object.transform.position = new Vector2(x, y);
     }
@@ -107,8 +124,6 @@ public class PlayerClass
     /// </summary>
     public void InitVariables(UI_Inventory uiInventory)
     {
-        Debug.Log("awake\n");
-
         // add Inventory Object and Action map
         if (m_player_inventory == null)
         {
@@ -192,8 +207,6 @@ public class PlayerClass
         m_player_actions.PlayerActionMap.Interact.started += InteractIsPressed; 
         //m_player_actions.PlayerActionMap.Interact.canceled += InteractReleased;
         m_player_actions.PlayerActionMap.Interact.Enable();
-
-        Debug.Log("Enabled");
     }
 
     /// <summary>

@@ -31,7 +31,6 @@ public class UI_Inventory : MonoBehaviour
     {
         this.inventory = inventory;
         inventory.OnItemListChanged += Inventory_OnItemListChanged;
-        Debug.Log("Comment"); 
         RefreshInventoryItems();
     }
 
@@ -46,7 +45,6 @@ public class UI_Inventory : MonoBehaviour
             if (child == itemSlotTemplate) continue;
             Destroy(child.gameObject);
         }
-        Debug.Log("LOLs");
         float x = -14.5f;
         float y = 3.5f; 
         int x_count = 0;
