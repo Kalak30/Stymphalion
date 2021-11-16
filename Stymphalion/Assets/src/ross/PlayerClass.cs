@@ -77,6 +77,10 @@ public class PlayerClass
         LevelCheck();
     }
 
+    public void AddToInventory(Item item){
+        m_player_inventory.AddItem(item, 1);
+    }
+
     public void SetPlayerLocation(float x, float y){
         m_player_game_object.transform.position = new Vector2(x, y);
     }
