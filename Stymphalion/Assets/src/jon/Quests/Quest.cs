@@ -250,6 +250,7 @@ public class Quest
 
     public void Complete()
     {
-     //   GameObject player = GameObject.Find("Player").GetComponent<PlayerClass>();
+        PlayerClass player = GameObject.Find("Player").GetComponent<PlayerClass>().GetPlayerClass();
+        Debug.Log(player.m_health);
     }
 }
