@@ -247,4 +247,9 @@ public class Quest
     {
         m_quest_status = status;
     }
+
+    public void Complete()
+    {
+     //   GameObject player = GameObject.Find("Player").GetComponent<PlayerClass>();
+    }
 }
