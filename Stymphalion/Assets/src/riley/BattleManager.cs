@@ -8,6 +8,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 
 /// <summary>
@@ -18,6 +20,8 @@ using UnityEngine;
 /// </summary>
 public class BattleManager : MonoBehaviour
 {
+
+    PlayerClass player = PlayerClass.Instance;
     private EnemyAI m_enemyAction;
 
     ///<summary>  
@@ -28,6 +32,7 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         m_enemyAction = gameObject.AddComponent<EnemyAI>()as EnemyAI;
+
     }
 
 
@@ -39,7 +44,7 @@ public class BattleManager : MonoBehaviour
     ///<returns> a return type </returns>
     void Update()
     {
-        
+    
     }
 
 
@@ -48,12 +53,19 @@ public class BattleManager : MonoBehaviour
     ///</summary> 
     ///<param name =”name”> a parameter </param> 
     ///<returns> a return type </returns>
-    public void InitializeBattle(){
+    public void InitializeBattle(){  
 
-        Debug.Log("Battle Manager not yet set up");
-        Debug.Log("Battle Manager will call function from AI shown below");
+        player.m_new_scene_player_location = new Vector2(21, 11);
+        SceneManager.LoadScene("HydraBattle");
         m_enemyAction.EnemyMove();
 
+    }
+
+
+    public void EndBattle()
+    {
+            player.m_new_scene_player_location = new Vector2(21, 11);
+            SceneManager.LoadScene("HydraCave");
     }
 
 

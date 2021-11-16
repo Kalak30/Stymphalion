@@ -8,6 +8,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 /// <summary>
@@ -22,7 +23,7 @@ public class Enemy : MonoBehaviour
     public int m_maxHealth = 100;
     public int m_currentHealth;
     public Animator animator;
-
+    PlayerClass player = PlayerClass.Instance;  
 
     ///<summary>  
     ///Start function 
@@ -64,7 +65,11 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy Died");
 
         //Make Enemy disappear
-        gameObject.SetActive(false);    
+        gameObject.SetActive(false);
+
+        //sleep(100);
+        player.m_new_scene_player_location = new Vector2(21, 10);
+        SceneManager.LoadScene("HydraCave");
         /*
         GameObject objectToDisappear = GameObject.Find("Enemy");
         objectToDisappear.GetComponent<Renderer>().enabled = false;
