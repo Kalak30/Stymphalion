@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CharacterMovement2D : MonoBehaviour
+public class BossScenePlayer : MonoBehaviour
 {
 
 
