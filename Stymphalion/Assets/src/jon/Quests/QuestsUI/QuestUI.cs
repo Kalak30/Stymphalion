@@ -22,16 +22,20 @@ public class QuestUI : MonoBehaviour
     {
         if (m_displayed_quests.Contains(q) || q.m_quest_status != QuestStatus.active ) { return; }
 
+
         GameObject new_text = Instantiate(m_quest_text_prefab);
         new_text.transform.SetParent(m_background.transform);
+        new_text.GetComponent<TextMeshProUGUI>().color = Color.red;
+        
 
         new_text.GetComponent<TextMeshProUGUI>().text = q.m_quest_name;
 
         GameObject child = new_text.transform.GetChild(0).gameObject;
         child.GetComponent<TextMeshProUGUI>().text = q.m_quest_description;
 
-        foreach (QuestStep s in q.m_steps)
+        for(int i = 0; i < q.m_steps.Count; i++)
         {
+            QuestStep s = q.m_steps[i];
             AddStep(s.m_step_name, s.m_step_description, new_text.transform);
         }
 
@@ -59,6 +63,7 @@ public class QuestUI : MonoBehaviour
             ScaleText();
         }
     }
+
 
     private void AddStep(string step_name, string step_description, Transform parent)
     {

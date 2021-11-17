@@ -24,11 +24,13 @@ public class QuestNPC : NPC
     /// </summary>
     public override void TouchingInteractable()
     {
+        Time.timeScale = 0f;
         m_animator.SetBool("is_talking", true);
-        m_dialogue_viewer.SetDialogue(1, 1, this);
+        
         StopMoving();
         m_can_move = false;
-;
+        m_dialogue_viewer.SetDialogue(1, 1, this);
+        
     }
 
     public override void MoveTo(Vector2 pos)
@@ -63,7 +65,9 @@ public class QuestNPC : NPC
 
     public override void StopTalking()
     {
+        QuestManager.GetQuestManager().Next(m_npc_quest);
         base.StopTalking();
+        Time.timeScale = 1f;
         m_animator.SetBool("is_talking", false);
     }
 }

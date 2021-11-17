@@ -44,6 +44,13 @@ public class DialogueViewer : MonoBehaviour
 
     public void SetDialogue(int quest_no, int convo_no, NPC quest_giver)
     {
+        // If at the end, don't do anything
+        if (ended)
+        {
+            EndDialogue();
+            return;
+        }
+
         other_speaker = quest_giver;
         string convo_name = $"{quest_no}_{convo_no}";
         handler.SetConversation(convo_name);

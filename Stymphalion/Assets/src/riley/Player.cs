@@ -20,7 +20,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    public int m_maxHealth = 100;
+    public static int m_maxHealth;
     int m_currentHealth;
 
     

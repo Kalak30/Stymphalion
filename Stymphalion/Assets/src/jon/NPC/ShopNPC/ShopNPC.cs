@@ -9,6 +9,19 @@ using UnityEngine;
 /// </summary>
 public class ShopNPC : NPC
 {
+    GameObject shop_ui;
+
+    public void Awake()
+    {
+        shop_ui = GameObject.Find("Shop");
+        shop_ui.SetActive(false);
+    }
+
+    public override void MoveTo(Vector2 pos)
+    {
+
+        // GetComponent<Transform>().position = pos;
+    }
 
     /// <summary>
     /// Handles what happens when player is interacting with this intractable.
@@ -17,6 +30,7 @@ public class ShopNPC : NPC
     public override void TouchingInteractable()
     {
         m_animator.Play("Base Layer.ShopNPCTalkAnim", 0, 0.5f);
-        Debug.Log("Here");
+        shop_ui.SetActive(true);
+        
     }
 }
