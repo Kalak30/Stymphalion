@@ -9,7 +9,7 @@ public class SpawnItems : MonoBehaviour
     {
 
         ItemWorld.SpawnItemWorld(new Vector3(4, 3), new Item { itemType = Item.ItemType.HealthPotion, amount = 2 }); 
-        ItemWorld.SpawnItemWorld(new Vector3(0, 3), new Item { itemType = Item.ItemType.Gold, amount = 11 });
+        ItemWorld.SpawnItemWorld(new Vector3(0, 3), new Item { itemType = Item.ItemType.Gold, amount = 200 });
         ItemWorld.SpawnItemWorld(new Vector3(2, 3), new Item { itemType = Item.ItemType.Gold, amount = 1 });
         ItemWorld.SpawnItemWorld(new Vector3(1, 3), new Item { itemType = Item.ItemType.Medkit, amount = 1 });
         ItemWorld.SpawnItemWorld(new Vector3(0, 4), new Item { itemType = Item.ItemType.Bow, amount = 1 });

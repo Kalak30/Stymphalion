@@ -1,24 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class AddToInventory : MonoBehaviour
 {
     private Inventory inventory;
+    public GameObject m_ui_shop;
+    public GameObject m_shop;
+    public GameObject m_ui;
+    public GameObject m_player_gold;
 
+    private void Awake()
+    {
+        m_ui_shop = GameObject.Find("UI_Shop");
+        m_shop = m_ui_shop.transform.Find("Shop").gameObject;
+        m_ui = m_shop.transform.Find("UI").gameObject;
+        m_player_gold = m_ui.transform.Find("PlayerGold").gameObject;
+    }
     public void HealthPotion()
     {
-        GameObject m_ui_shop;
-        GameObject m_shop;
-        GameObject m_items;
-
-        m_ui_shop = GameObject.Find("UI_Shop");
-        Debug.Log("HERE");
-        m_ui_shop.SetActive(!m_ui_shop.activeSelf);
+        TextMeshProUGUI uiText = m_player_gold.GetComponent<TextMeshProUGUI>();
 
         PlayerClass m_player = PlayerClass.Instance;
         Item reward = new Item { itemType = Item.ItemType.HealthPotion, amount = 1 };
         Item cost = new Item { itemType = Item.ItemType.Gold, amount = 1 };
+        uiText.SetText(m_player.CountGold(cost).ToString());
         int count = m_player.CountGold(cost);
         if (count >= 10)
         {
@@ -28,6 +36,7 @@ public class AddToInventory : MonoBehaviour
                 count = m_player.CountGold(reward);
             }
             m_player.AddToInventory(reward);
+            uiText.SetText(m_player.CountGold(cost).ToString());
         }
         else
         {
@@ -37,11 +46,13 @@ public class AddToInventory : MonoBehaviour
 
     public void Medkit()
     {
+        TextMeshProUGUI uiText = m_player_gold.GetComponent<TextMeshProUGUI>();
+
         PlayerClass m_player = PlayerClass.Instance;
         Item reward = new Item { itemType = Item.ItemType.Medkit, amount = 1 };
         Item cost = new Item { itemType = Item.ItemType.Gold, amount = 1 };
+        uiText.SetText(m_player.CountGold(cost).ToString());
         int count = m_player.CountGold(cost);
-        Debug.Log(count);
         if (count >= 75)
         {
             for (int i = 0; i < 75; i++)
@@ -49,6 +60,7 @@ public class AddToInventory : MonoBehaviour
                 m_player.RemoveFromInventory(cost);
             }
             m_player.AddToInventory(reward);
+            uiText.SetText(m_player.CountGold(cost).ToString());
         }
         else
         {
