@@ -32,67 +32,85 @@ public class Inventory
         */
         }
 
+    public int ItemCount()
+    {
+        int m_count = 0;
+        foreach (Item i in itemList)
+        {
+            m_count++;
+        }
+        return m_count;
+    }
 
     public void AddItem(Item item, int inventoryCount)
     {
-        if (item.IsStackable())
+        int m_count = ItemCount();
+        if (m_count < 18)
         {
-            bool itemAlreadyInInventory = false;
-            foreach (Item inventoryItem in itemList)
+            if (item.IsStackable())
             {
-                if (inventoryItem.itemType == item.itemType)
+                bool itemAlreadyInInventory = false;
+                foreach (Item inventoryItem in itemList)
                 {
-                    inventoryItem.amount += item.amount;
-                    itemAlreadyInInventory = true;
+                    if (inventoryItem.itemType == item.itemType)
+                    {
+                        inventoryItem.amount += item.amount;
+                        itemAlreadyInInventory = true;
+                    }
+                }
+                if (!itemAlreadyInInventory)
+                {
+                    itemList.Add(item);
                 }
             }
-            if (!itemAlreadyInInventory)
+            else
             {
                 itemList.Add(item);
             }
+            OnItemListChanged?.Invoke(this, EventArgs.Empty);
         }
-        else
-        {
-            itemList.Add(item);
-        }
-        OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void RemoveItem(Item item)
     {
-        if (item.IsStackable())
+        int m_count = ItemCount();
+
+        if (m_count > 0)
         {
-            Item itemInInventory = null;
-            foreach (Item inventoryItem in itemList)
+            if (item.IsStackable())
             {
-                if (inventoryItem.itemType == item.itemType)
+                Item itemInInventory = null;
+                foreach (Item inventoryItem in itemList)
                 {
-                    inventoryItem.amount -= item.amount;
-                    itemInInventory = inventoryItem;
+                    if (inventoryItem.itemType == item.itemType)
+                    {
+                        inventoryItem.amount -= item.amount;
+                        itemInInventory = inventoryItem;
+                    }
+                }
+                if (itemInInventory != null && itemInInventory.amount <= 0)
+                {
+                    itemList.Remove(itemInInventory);
                 }
             }
-            if (itemInInventory != null && itemInInventory.amount <= 0)
+            else
             {
-                itemList.Remove(itemInInventory);
-            }
-        }
-        else
-        {
-            Item itemInInventory = null;
-            foreach (Item inventoryItem in itemList)
-            {
-                if (inventoryItem.itemType == item.itemType)
+                Item itemInInventory = null;
+                foreach (Item inventoryItem in itemList)
                 {
-                    inventoryItem.amount -= item.amount;
-                    itemInInventory = inventoryItem;
+                    if (inventoryItem.itemType == item.itemType)
+                    {
+                        inventoryItem.amount -= item.amount;
+                        itemInInventory = inventoryItem;
+                    }
+                }
+                if (itemInInventory != null && itemInInventory.amount <= 0)
+                {
+                    itemList.Remove(itemInInventory);
                 }
             }
-            if (itemInInventory != null && itemInInventory.amount <= 0)
-            {
-                itemList.Remove(itemInInventory);
-            }
+            OnItemListChanged?.Invoke(this, EventArgs.Empty);
         }
-        OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void UseItem(Item item)

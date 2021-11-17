@@ -116,6 +116,15 @@ public class PlayerClass
     }
 
     /// <summary>
+    /// Return total items in Player Inventory
+    /// </summary>
+    /// <returns></returns>
+    public int CountItemsInInventory()
+    {
+        return m_player_inventory.ItemCount();
+    }
+
+    /// <summary>
     /// Set player Location on Load
     /// Not my favorite why of doing it
     /// </summary>
@@ -352,7 +361,10 @@ public class PlayerClass
         {
             // Touching item
             m_player_inventory.AddItem(itemWorld.GetItem(), 1);
-            itemWorld.DestroySelf();
+            if (m_player_inventory.ItemCount() < 18)
+            {
+                itemWorld.DestroySelf();
+            }
         }
     }
     
