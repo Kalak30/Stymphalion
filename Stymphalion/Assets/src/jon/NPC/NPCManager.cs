@@ -52,6 +52,7 @@ public class NPCManager : MonoBehaviour
         
         GameObject npc_obj = GameObject.Instantiate(m_questnpc_prefab);
         QuestNPC npc = npc_obj.GetComponent<QuestNPC>();
+        npc.transform.position = new Vector3(28,-4, 0);
         npc.m_npc_quest = QuestManager.GetQuestManager().GetQuest(quest_no);
         m_npcs.Add(npc);
     }

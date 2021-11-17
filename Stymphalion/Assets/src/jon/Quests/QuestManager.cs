@@ -4,6 +4,7 @@
  * Purpose:
  */
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ public class QuestManager
     private static QuestManager m_quest_manager;
 
     private List<Quest> m_quests;
+
+    private List<GameObject> m_quest_triggers;
 
     /// <summary>
     /// Initialize <see cref="m_quests"/> and make sure the ui is not shown
@@ -82,7 +85,6 @@ public class QuestManager
         {
             if (quest.m_quest_status == QuestStatus.active)
             {
-                quest.Complete();
                 quest.DisplayQuest();
             }
         }
@@ -136,4 +138,52 @@ public class QuestManager
         return save_data;
     }
 
+    public void Trigger(Collider2D collider)
+    {
+       
+        if(collider.gameObject.name == "CaveQuestTrigger")
+        {
+            CaveTrigger();
+        }
+
+        if (collider.gameObject.name == "TownQuestTrigger")
+        {
+            TownTrigger();
+        }
+
+        if (collider.gameObject.name == "MountainQuestTrigger")
+        {
+            MountainTrigger();
+        }
+    }
+
+    private void MountainTrigger()
+    {
+        Quest stym_quest = m_quests[2];
+
+        if (stym_quest.m_active_step_pos == 0)
+        {
+            stym_quest.NextStep();
+        }
+    }
+
+    private void TownTrigger()
+    {
+        Quest town_quest = m_quests[0];
+
+        if (town_quest.m_active_step_pos == 0)
+        {
+            town_quest.NextStep();
+        }
+    }
+
+    private void CaveTrigger()
+    {
+        Quest hydra_quest = m_quests[1];
+        
+        if(hydra_quest.m_active_step_pos == 0)
+        {
+            hydra_quest.NextStep(); 
+        }
+    }
 }

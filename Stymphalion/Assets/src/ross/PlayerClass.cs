@@ -347,6 +347,11 @@ public class PlayerClass
     /// <param name="collider"></param>
     public void OnTriggerEnter2D(Collider2D collider)
     {
+        if(collider.gameObject.tag == "QuestTrigger")
+        {
+            QuestManager.GetQuestManager().Trigger(collider);
+        }
+
         ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
         if(itemWorld != null)
         {

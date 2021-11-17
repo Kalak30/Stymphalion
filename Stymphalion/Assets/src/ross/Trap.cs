@@ -23,7 +23,7 @@ public class Trap : EnvirmentObjectSuperClass
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerStay2D(Collider2D other){
-        Debug.Log("TRIGGERED");
+        //Debug.Log("TRIGGERED");
 
         // damage player
         if(other.name == "Player"){

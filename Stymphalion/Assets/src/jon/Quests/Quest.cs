@@ -180,8 +180,9 @@ public class Quest
     public bool NextStep()
     {
         int next_step = m_active_step_pos + 1;
-        if (next_step > m_steps.Count)
+        if (next_step >= m_steps.Count)
         {
+            Debug.Log("Finished");
             Complete();
             return false;
         }
