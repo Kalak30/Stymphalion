@@ -49,6 +49,21 @@ public class QuestManager
     }
 
     /// <summary>
+    /// Goes to the next phase of the quest
+    /// </summary>
+    /// <param name="quest"></param>
+    public void Next(Quest quest)
+    {
+        if(quest.m_quest_status == QuestStatus.locked)
+        {
+            quest.m_quest_status = QuestStatus.active;
+            return;
+        }
+
+        quest.NextStep();
+    }
+
+    /// <summary>
     /// Add a quest object to <see cref="m_quests"/>
     /// </summary>
     /// <param name="quest"></param>
@@ -121,17 +136,4 @@ public class QuestManager
         return save_data;
     }
 
-    /// <summary>
-    /// Updates the status of a quest once it has been completed.
-    /// </summary>
-    /// <param name="position">Position within <see cref="m_quests"/> list to be updated</param>
-    public void TurnInQuest(int position)
-    {
-        Quest quest = m_quests[position];
-        if (quest.GetStatus() == QuestStatus.completed)
-        {
-            quest.UpdateStatus(QuestStatus.finished);
-            //Give player their reward
-        }
-    }
 }

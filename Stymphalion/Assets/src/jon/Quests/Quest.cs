@@ -174,15 +174,15 @@ public class Quest
     ///
     /// <list type="bullet">
     ///     <item><see langword="true"/> if there is a new step</item>
-    ///     <item><see langword="false"/> if the last step has been reached. Also sets status to finished.</item>
+    ///     <item><see langword="false"/> if the last step has been reached. Also sets status to complete.</item>
     /// </list>
     /// </returns>
     public bool NextStep()
     {
         int next_step = m_active_step_pos + 1;
-        if (next_step > m_max_steps)
+        if (next_step > m_steps.Count)
         {
-            m_quest_status = QuestStatus.completed;
+            Complete();
             return false;
         }
         m_active_step_pos = next_step;
@@ -254,6 +254,6 @@ public class Quest
         PlayerClass player = PlayerClass.Instance;
         Item reward = new Item { itemType = m_quest_reward, amount = 1 };
         player.AddToInventory(reward);
-        Debug.Log($"Quest - {m_quest_name} - has been completed");
+        m_quest_status = QuestStatus.completed;
     }
 }
