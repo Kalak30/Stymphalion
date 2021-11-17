@@ -67,8 +67,7 @@ public class Enemy : MonoBehaviour
         //Make Enemy disappear
         gameObject.SetActive(false);
 
-        //sleep(100);
-        player.m_new_scene_player_location = new Vector2(21, 10);
+        player.m_new_scene_player_location = new Vector2(21, 11);
         SceneManager.LoadScene("HydraCave");
         /*
         GameObject objectToDisappear = GameObject.Find("Enemy");

@@ -9,10 +9,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 
 /// <summary>
+/// Singleton design pattern
 /// Member Variables
 /// <list type = "bullet">
 /// <item>m_enemyAction</item>
@@ -21,9 +23,23 @@ using UnityEngine.SceneManagement;
 public class BattleManager : MonoBehaviour
 {
 
+    public static BattleManager Instance { get; private set; }
     PlayerClass player = PlayerClass.Instance;
     private EnemyAI m_enemyAction;
 
+
+    void Awake()
+    {
+        if (Instance == null ) //if the code is running for the first time
+        {
+            Instance = this; // set it to contain the current instance
+            DontDestroyOnLoad(gameObject);
+        }
+        else //if another instance already exists destroy the previous instances
+        {
+            Destroy(gameObject);
+        }
+    }
     ///<summary>  
     ///A function 
     ///</summary> 
