@@ -5,6 +5,7 @@
  */
 
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class Enemy : MonoBehaviour
 {
+    public static event Action hydraDeath;
     public int m_maxHealth = 100;
     public int m_currentHealth;
     public Animator animator;
@@ -62,6 +64,7 @@ public class Enemy : MonoBehaviour
     ///<returns> void </returns>
     void Die()
     {
+        hydraDeath?.Invoke();
         Debug.Log("Enemy Died");
 
         //Make Enemy disappear
