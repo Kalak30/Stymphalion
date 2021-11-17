@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class Observer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private int hydraDeath = 0;
+
+    public void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        Enemy.hydraDeath += hydraDead;
+    }
+
+    private void OnDisable()
+    {
+        Enemy.hydraDeath -= hydraDead;
+    }
+
+    private void hydraDead()
+    {
+        Debug.Log("Hydra Died");
     }
 }
