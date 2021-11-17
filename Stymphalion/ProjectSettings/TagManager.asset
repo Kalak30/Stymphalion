@@ -7,6 +7,7 @@ TagManager:
   - inv
   - QuestText
   - enviromentObject
+  - QuestTrigger
   layers:
   - Default
   - TransparentFX

@@ -26,6 +26,7 @@ public class NPCManager : MonoBehaviour
     {
         m_npcs = new List<NPC>();
         AddQuestNPC(1);
+        AddShopNPC(null);
     }
 
     public void Update()
@@ -54,6 +55,15 @@ public class NPCManager : MonoBehaviour
         QuestNPC npc = npc_obj.GetComponent<QuestNPC>();
         npc.transform.position = new Vector3(28,-4, 0);
         npc.m_npc_quest = QuestManager.GetQuestManager().GetQuest(quest_no);
+        m_npcs.Add(npc);
+    }
+
+    public void AddShopNPC(List<Item.ItemType> available_items)
+    {
+        GameObject shop_obj = GameObject.Instantiate(m_shopnpc_prefab);
+        ShopNPC npc = shop_obj.GetComponent<ShopNPC>();
+        npc.transform.position = new Vector3(28, -6, 0);
+
         m_npcs.Add(npc);
     }
 }
