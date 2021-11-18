@@ -15,8 +15,11 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Member Variables
 /// <list type = "bullet">
+/// <item>hydraDeath</item>
 /// <item>m_maxHealth</item>
 /// <item>m_currentHealth</item>
+/// <item>animator</item>
+/// <item>player</item>
 /// </list>
 /// </summary>
 public class Enemy : MonoBehaviour
@@ -28,7 +31,7 @@ public class Enemy : MonoBehaviour
     PlayerClass player = PlayerClass.Instance;  
 
     ///<summary>  
-    ///Start function 
+    ///Start function sets current healt to max health 
     ///</summary> 
     ///<returns> void </returns>
     void Start()
@@ -39,15 +42,14 @@ public class Enemy : MonoBehaviour
 
 
     ///<summary>  
-    ///Allows Enemy to take damage
+     ///Allows Enemy to take damage and die when health is at or below zero
+    ///returns true if hydra dies
     ///</summary> 
     ///<param name =”damage”> int </param> 
     ///<returns> bool </returns>
     public bool TakeDamage(int damage)
     {
         m_currentHealth -= damage;
-
-        //Play hurt animation
 
         if (m_currentHealth <= 0)
         {
@@ -58,8 +60,9 @@ public class Enemy : MonoBehaviour
     }
 
 
-    ///<summary>  
-    ///Action when Enemy reeaches zero health
+    ///<summary>
+    ///Sends player back to HydraCave scene
+    ///Triggers event when enemy dies to send to observer
     ///</summary> 
     ///<returns> void </returns>
     void Die()

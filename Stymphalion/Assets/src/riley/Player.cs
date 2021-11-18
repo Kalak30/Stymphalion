@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 
     
     ///<summary>  
-    ///Start function
+    ///set current health to max health on start
     ///</summary> 
     ///<returns> void </returns>
     void Start()
@@ -78,15 +78,12 @@ public class Player : MonoBehaviour
     ///<returns> void </returns>
     void Die()
     {
-        Debug.Log("Enemy Died");
+        Debug.Log("Player Died");
 
         //Make Enemy disappear
         GameObject objectToDisappear = GameObject.Find("Player");
         objectToDisappear.GetComponent<Renderer>().enabled = false;
 
-        //Die animation
-
-        //Disable the enemy
     }
 
 
