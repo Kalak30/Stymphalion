@@ -13260,14 +13260,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfItemWorld: {fileID: 3946475577087199964, guid: b0ac8d2ff96321b439cdbb754971f322,
     type: 3}
-  swordSprite: {fileID: 21300000, guid: 0567c05197d0d374ca05f1aed297c2e4, type: 3}
-  healthPotionSprite: {fileID: 21300000, guid: 28cd643389c25de4eb77f49567812e47, type: 3}
-  goldSprite: {fileID: 21300000, guid: cf36dfe8f1a0e82469863e44b6425d50, type: 3}
-  medkitSprite: {fileID: 21300000, guid: 57df97b3f76701345932552ad863288e, type: 3}
-  bowSprite: {fileID: 21300000, guid: 80498f90de4a7d7458b8dbe425a92793, type: 3}
-  krotolaSprite: {fileID: 21300000, guid: 8ca87de4b945c47459e072786f379982, type: 3}
-  questItemSprite: {fileID: 21300000, guid: 8648fa115bbcd1d4f8cdc56def6fdb2e, type: 3}
-  hydraBloodSprite: {fileID: 21300000, guid: 56d1d979a2aabfd4e8ba8429c41f9534, type: 3}
+  m_sword_sprite: {fileID: 21300000, guid: 0567c05197d0d374ca05f1aed297c2e4, type: 3}
+  m_health_potion_sprite: {fileID: 21300000, guid: 28cd643389c25de4eb77f49567812e47,
+    type: 3}
+  m_gold_sprite: {fileID: 21300000, guid: cf36dfe8f1a0e82469863e44b6425d50, type: 3}
+  m_medkit_sprite: {fileID: 21300000, guid: aedf761132018c54fb903f8d7f8519ae, type: 3}
+  m_bow_sprite: {fileID: 21300000, guid: 80498f90de4a7d7458b8dbe425a92793, type: 3}
+  m_krotola_sprite: {fileID: 21300000, guid: 8ca87de4b945c47459e072786f379982, type: 3}
+  m_quest_item_sprite: {fileID: 21300000, guid: 8648fa115bbcd1d4f8cdc56def6fdb2e,
+    type: 3}
+  m_hydra_blood_sprite: {fileID: 21300000, guid: 56d1d979a2aabfd4e8ba8429c41f9534,
+    type: 3}
 --- !u!4 &596392356
 Transform:
   m_ObjectHideFlags: 0

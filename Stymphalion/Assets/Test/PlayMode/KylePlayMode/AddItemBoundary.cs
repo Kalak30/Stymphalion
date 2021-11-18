@@ -15,8 +15,8 @@ public class AddItemBoundary
         yield return new WaitForSeconds(2);
 
         PlayerClass m_player = PlayerClass.Instance;
-        GameObject temp = GameObject.Find("UI_Inventory");
-        GameObject m_ui_inventory = temp.transform.Find("Inventory").gameObject;
+        GameObject m_temp = GameObject.Find("UI_Inventory");
+        GameObject m_ui_inventory = m_temp.transform.Find("Inventory").gameObject;
         //m_ui_inventory.SetActive(true);
 
         Item item = new Item { itemType = Item.ItemType.Sword, amount = 1 };
