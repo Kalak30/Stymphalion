@@ -12,7 +12,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-//using CodeMonkey.Utils;
 
 
 /// <summary>
@@ -22,19 +21,19 @@ using UnityEngine.InputSystem;
 public class PlayerClass
 {
 
+    // Public Variables
     public int m_health = 100;
-
     public int m_level = 0;
-
     public Vector2 m_location;
     public Vector2 m_new_scene_player_location = new Vector2(1.66f, 4.57f);
-
-
-    // public variables
     public float m_movement_speed = 5;
-
     public bool m_on_fire = false;
     public int m_xp = 0;
+    public bool m_is_inventory_open = false;
+    public bool m_is_quest_open = false;
+
+
+
 
     /// <summary>
     /// Return or create Singleton instance
@@ -42,12 +41,10 @@ public class PlayerClass
     /// </summary>
     private static readonly Lazy<PlayerClass> lazy = new Lazy<PlayerClass>(() => new PlayerClass());
 
+
+
     //Private Variables //
     private bool m_facing_right = false;
-    public void SetRight(){
-        m_facing_right = false;
-    }
-
     private Animator m_main_animator;
     private InputAction m_movement;
     private Rigidbody2D m_player;
@@ -56,6 +53,7 @@ public class PlayerClass
     private UI_Inventory m_ui_inventory;
     private Inventory m_player_inventory;
     private bool m_interact_pressed;
+
     /// <summary>
     /// Contructor
     /// </summary>
@@ -77,15 +75,75 @@ public class PlayerClass
         LevelCheck();
     }
 
+    /// <summary>
+    /// Set Player Location to right
+    /// </summary>
+    public void SetRight(){
+        m_facing_right = false;
+    }
+
+    /// <summary>
+    /// Add item to Player's Inventory
+    /// </summary>
+    /// <param name="item"></param>
+    public void AddToInventory(Item item){
+        m_player_inventory.AddItem(item, 1);
+    }
+
+    /// <summary>
+    /// Remove an Item From Player's Inventory
+    /// </summary>
+    /// <param name="item"></param>
+    public void RemoveFromInventory(Item item)
+    {
+        m_player_inventory.RemoveItem(item);
+    }
+
+    /// <summary>
+    /// Return ammount of gold in Player Inventory
+    /// </summary>
+    /// <param name="m_gold"></param>
+    /// <returns></returns>
+    public int CountGold(Item m_gold)
+    {
+        int m_gold_amount = 0;
+        foreach (Item item in m_player_inventory.GetItemList())
+        {
+            if (m_gold.itemType == item.itemType)
+            {
+                m_gold_amount = item.amount;
+            }
+        }
+        return m_gold_amount;
+    }
+    /// <summary>
+    /// Return total items in Player Inventory
+    /// </summary>
+    /// <returns></returns>
+    public int CountItemsInInventory()
+    {
+        return m_player_inventory.ItemCount();
+    }
+
+    /// <summary>
+    /// Set player Location on Load
+    /// Not my favorite why of doing it
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     public void SetPlayerLocation(float x, float y){
         m_player_game_object.transform.position = new Vector2(x, y);
     }
 
+    /// <summary>
+    /// Return Player Location
+    /// </summary>
+    /// <returns></returns>
     public Vector2 GetLocation()
     {
-        return m_location;
+        return m_player.position;
     }
-    //private PlayerClass m_instance = null;
+
     /// <summary>
     /// Will be used to properly get the singelton class
     /// Work In progress
@@ -103,8 +161,6 @@ public class PlayerClass
     /// </summary>
     public void InitVariables(UI_Inventory uiInventory)
     {
-        Debug.Log("awake\n");
-
         // add Inventory Object and Action map
         if (m_player_inventory == null)
         {
@@ -127,12 +183,13 @@ public class PlayerClass
         m_player_game_object = GameObject.Find("Player");
         SetPlayerLocation(m_new_scene_player_location.x, m_new_scene_player_location.y);
 
-        ItemWorld.SpawnItemWorld(new Vector3(3, 3), new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(0, 3), new Item { itemType = Item.ItemType.Gold, amount = 11 });
-        ItemWorld.SpawnItemWorld(new Vector3(2, 3), new Item { itemType = Item.ItemType.Gold, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(1, 3), new Item { itemType = Item.ItemType.Medkit, amount = 1 });
+     
     }
 
+    /// <summary>
+    /// Do affect when Item is used
+    /// </summary>
+    /// <param name="item"></param>
     private void UseItem(Item item)
     {
         switch (item.itemType)
@@ -182,8 +239,6 @@ public class PlayerClass
         m_player_actions.PlayerActionMap.Interact.started += InteractIsPressed; 
         //m_player_actions.PlayerActionMap.Interact.canceled += InteractReleased;
         m_player_actions.PlayerActionMap.Interact.Enable();
-
-        Debug.Log("Enabled");
     }
 
     /// <summary>
@@ -202,6 +257,9 @@ public class PlayerClass
         }
     }
 
+    /// <summary>
+    /// Flip The Player Model when direction Changes
+    /// </summary>
     private void Flip()
     {
         Vector3 flipper = m_player_game_object.transform.localScale;
@@ -250,16 +308,45 @@ public class PlayerClass
     /// <param name="obj"></param>
     private void OpenInventory(InputAction.CallbackContext obj)
     {
-        // Change function to what it's actually supposed to be when Kyle is ready
         m_ui_inventory.ToggleInventory();
-        //  Debug.Log("Test");
+        if (m_is_inventory_open == false)
+        {
+            m_movement.Disable();
+            m_is_inventory_open = true;
+        }
+        else
+        {
+            m_movement.Enable();
+            m_is_inventory_open = false;
+        }
+        
     }
 
+    /// <summary>
+    /// Turn on the quest menu
+    /// </summary>
+    /// <param name="obj"></param>
     private void OpenQuests(InputAction.CallbackContext obj)
     {
+        
         GameObject.Find("QuestUI").GetComponent<QuestUI>().ToggleDisplay();
+        if (m_is_quest_open == false)
+        {
+            m_movement.Disable();
+            m_is_quest_open = true;
+        }
+        else
+        {
+            m_movement.Enable();
+            m_is_quest_open = false;
+        }
     }
 
+    /// <summary>
+    /// Allow Interaction with Enviroment objects
+    /// Dynamic Binding lets goo
+    /// </summary>
+    /// <param name="other"></param>
     public void OnCollisionStay2D(Collision2D other){
         EnvirmentObjectSuperClass enviromentObj;
         enviromentObj = other.gameObject.GetComponent<EnvirmentObjectSuperClass>();
@@ -269,6 +356,11 @@ public class PlayerClass
         m_interact_pressed = false;
     }
 
+    /// <summary>
+    /// Allow Interaction with Enviroment Objects
+    /// Dynamic Binding lets gooo
+    /// </summary>
+    /// <param name="other"></param>
     public void OnTriggerStay2D(Collider2D other){
         EnvirmentObjectSuperClass enviromentObj;
         enviromentObj = other.gameObject.GetComponent<EnvirmentObjectSuperClass>();
@@ -278,21 +370,42 @@ public class PlayerClass
         m_interact_pressed = false;
     }
     
+
+    /// <summary>
+    /// Add Item to Inventory
+    /// </summary>
+    /// <param name="collider"></param>
     public void OnTriggerEnter2D(Collider2D collider)
     {
+        if(collider.gameObject.tag == "QuestTrigger")
+        {
+            QuestManager.GetQuestManager().Trigger(collider);
+        }
+
         ItemWorld itemWorld = collider.GetComponent<ItemWorld>();
         if(itemWorld != null)
         {
             // Touching item
             m_player_inventory.AddItem(itemWorld.GetItem(), 1);
-            itemWorld.DestroySelf();
+            if (m_player_inventory.ItemCount() < 18)
+            {
+                itemWorld.DestroySelf();
+            }
         }
     }
     
+    /// <summary>
+    /// Make the interact button work
+    /// </summary>
+    /// <param name="obj"></param>
     public void InteractIsPressed(InputAction.CallbackContext obj){
         m_interact_pressed = true;
     } 
 
+    /// <summary>
+    /// Make the ineract button work
+    /// </summary>
+    /// <param name="obj"></param>
     public void InteractReleased(InputAction.CallbackContext obj){
         m_interact_pressed = false;
     }

@@ -16,7 +16,7 @@ public class HealthBoundTest
 
         yield return new WaitForSeconds(2);
 
-        PlayerClass player = GameObject.Find("Player").GetComponent<PlayerClass>();
+        PlayerClass player = PlayerClass.Instance;
 
         player.m_health = 99;
         
@@ -33,7 +33,7 @@ public class HealthBoundTest
 
         yield return new WaitForSeconds(2);
 
-        PlayerClass player = GameObject.Find("Player").GetComponent<PlayerClass>();
+        PlayerClass player = PlayerClass.Instance;
 
         player.m_health = 1;
         

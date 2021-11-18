@@ -60,7 +60,7 @@ public class Quest
     public int m_active_step_pos;
     public string m_quest_description;
     public string m_quest_name;
-    public Item m_quest_reward;
+    public Item.ItemType m_quest_reward;
     public QuestStatus m_quest_status;
     public List<QuestStep> m_steps;
 
@@ -72,9 +72,10 @@ public class Quest
     /// <param name="quest_name">Name of the new Quest. Should be no more than 5 words</param>
     /// <param name="quest_description">Description of the quest.</param>
     /// <param name="quest_reward">Item the player will receive upon quest completion.</param>
-    public Quest(string quest_name, string quest_description, Item quest_reward)
+    public Quest(string quest_name, string quest_description, QuestStatus status, Item.ItemType quest_reward)
     {
         m_steps = new List<QuestStep>();
+        m_quest_status = status;
         m_quest_name = quest_name;
         m_quest_description = quest_description;
         m_quest_reward = quest_reward;
@@ -173,15 +174,16 @@ public class Quest
     ///
     /// <list type="bullet">
     ///     <item><see langword="true"/> if there is a new step</item>
-    ///     <item><see langword="false"/> if the last step has been reached. Also sets status to finished.</item>
+    ///     <item><see langword="false"/> if the last step has been reached. Also sets status to complete.</item>
     /// </list>
     /// </returns>
     public bool NextStep()
     {
         int next_step = m_active_step_pos + 1;
-        if (next_step > m_max_steps)
+        if (next_step >= m_steps.Count)
         {
-            m_quest_status = QuestStatus.completed;
+            Debug.Log("Finished");
+            Complete();
             return false;
         }
         m_active_step_pos = next_step;
@@ -225,7 +227,7 @@ public class Quest
         save_quest.m_quest_name = m_quest_name;
         save_quest.m_quest_description = m_quest_description;
         save_quest.m_quest_reward = m_quest_reward;
-        save_quest.m_quest_status = (int)m_quest_status;
+        save_quest.m_quest_status = m_quest_status;
         save_quest.m_active_step_pos = m_active_step_pos;
 
         //Get save data for each step
@@ -250,6 +252,9 @@ public class Quest
 
     public void Complete()
     {
-     //   GameObject player = GameObject.Find("Player").GetComponent<PlayerClass>();
+        PlayerClass player = PlayerClass.Instance;
+        Item reward = new Item { itemType = m_quest_reward, amount = 1 };
+        player.AddToInventory(reward);
+        m_quest_status = QuestStatus.completed;
     }
 }

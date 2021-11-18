@@ -1,0 +1,5 @@
+Spike Trap Prefab-
+
+    A trap that will do damgage to a player
+    Intended for a 2D game
+    Place a whole lot of them!

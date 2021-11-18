@@ -15,7 +15,7 @@ public class TrapTest
         yield return new WaitForSeconds(2);
 
         GameObject player = GameObject.Find("Player");
-        PlayerClass playerclass = player.GetComponent<PlayerClass>();
+        PlayerClass playerclass = PlayerClass.Instance;
         playerclass.m_health = 100;
         GameObject trap = GameObject.Find("Trap");
 

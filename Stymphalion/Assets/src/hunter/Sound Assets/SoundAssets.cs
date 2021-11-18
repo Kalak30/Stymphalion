@@ -20,14 +20,15 @@ public class SoundAssets : MonoBehaviour
 {
     public SoundAudioClip[] SoundAudioClipArray;
 
-    private static SoundAssets m_psi; //psi = private sound instance
+    private static SoundAssets m_psi; //psi = private instance
 
     //si = (public) sound instance
     public static SoundAssets m_si
     {
         get
         {
-            if (m_psi == null) m_psi = (Instantiate(Resources.Load("SoundAssets")) as GameObject).GetComponent<SoundAssets>();
+            //The following line ensures that only one instance of our sound prefab (and therefore, our sound manager) can exist (singleton pattern).
+            if (m_psi == null) m_psi = (Instantiate(Resources.Load("SoundAssets")) as GameObject).GetComponent<SoundAssets>(); 
             return m_psi;
         }
     }

@@ -15,16 +15,16 @@ public class Stress_Test_Quests
     [UnityTest]
     public IEnumerator Stress_Test_QuestManager()
     {
-        while ((1.0f / Time.smoothDeltaTime) > 30)
+        while ((1 / Time.smoothDeltaTime) > 30)
         {
             for (int i = 0; i < 1000; i++)
             {
-                Quest q = new Quest("i", "i", null);
+                Quest q = new Quest("i", "i", QuestStatus.active, Item.ItemType.HealthPotion);
                 qm.AddQuest(q);
             }
             yield return null;
         }
-        Debug.Log(qm.QuestsLength());
+        Debug.Log($"Quests created before frames dropped below 30: {qm.QuestsLength()}");
         Assert.IsTrue((1.0f / Time.smoothDeltaTime) < 30);
         //Assert
         yield return null;

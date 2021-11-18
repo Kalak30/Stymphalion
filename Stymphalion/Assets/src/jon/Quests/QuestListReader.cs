@@ -1,7 +1,7 @@
 /*
  * Filename: JSONQuestIO.cs
  * Developer: Jon Kopf
- * Purpose: The purpose of this file is to give the Quest Manager a way to save and load data about quests.
+ * Purpose: The purpose of this file is to allow for reading quest data from the file
  */
 
 using System.IO;
@@ -21,11 +21,10 @@ public class QuestListReader
 {
 
     public TextAsset m_file;
-    private string m_file_contents;
     private QuestListBuilder m_quest_builder;
 
     /// <summary>
-    ///
+    /// 
     /// </summary>
     /// <param name="quest_builder">QuestBuilder registered with this QuestReader object</param>
     public QuestListReader(QuestListBuilder quest_builder)
@@ -33,12 +32,21 @@ public class QuestListReader
         m_quest_builder = quest_builder;
     }
 
+    /// <summary>
+    /// Uses the registered builder to create quest objects
+    /// </summary>
+    /// <param name="file_name">Name of json file. No extension</param>
     public void Construct(string file_name)
     {
         QuestsListData quest_list = ConstructData(file_name);
         m_quest_builder.BuildQuests(quest_list);
     }
 
+    /// <summary>
+    /// Creates data objects from read quest json
+    /// </summary>
+    /// <param name="file_name">Name of json file. No extension</param>
+    /// <returns></returns>
     public QuestsListData ConstructData(string file_name)
     {
         string file_contents = ReadFile(file_name);
@@ -56,8 +64,8 @@ public class QuestListReader
         // Load the default quest data
         if (PlayerPrefs.GetInt("FIRSTTIMEOPENING", 1) == 1 || !File.Exists(Application.persistentDataPath + "/" + file_name + ".txt"))
         {
-            Debug.Log("First Time Opening");
-            PlayerPrefs.SetInt("FIRSTTIMEOPENING", 0);
+            m_file = (TextAsset)Resources.Load(file_name);
+
 
             file_contents = m_file.text;
         }

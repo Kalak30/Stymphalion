@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 public class Cave : EnvirmentObjectSuperClass
 {
  
+    /// <summary>
+    /// Interact Func for cave object
+    /// </summary>
     public override void InteractFunc()
     {
         Scene CurrentScence = SceneManager.GetActiveScene();
@@ -27,7 +30,7 @@ public class Cave : EnvirmentObjectSuperClass
         player.SetRight();
         //player.m_location
 
-        Debug.Log("Baby your a firework");
+       // Debug.Log("Baby your a firework");
     }
 
 }

@@ -1,0 +1,9 @@
+﻿extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+/*
+ * Filename: %FileName%
+ * Developer: Jon Kopf
+ * Purpose: 
+ */
+
+

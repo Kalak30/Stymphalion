@@ -22,7 +22,7 @@ public class Boundary_Test_Quest
 
         for (int i = 0; i < num; i++)
         {
-            Quest q = new Quest("name", "desc", null);
+            Quest q = new Quest("name", "desc", QuestStatus.active, Item.ItemType.Gold);
             quest_man.AddQuest(q);
         }
 
@@ -45,7 +45,7 @@ public class Boundary_Test_Quest
     [Test]
     public void Boundary_Test_QuestUpper()
     {
-        Quest q = new Quest("Quest", "Go Questing", null);
+        Quest q = new Quest("Quest", "Go Questing", QuestStatus.active, Item.ItemType.Sword);
 
         //Above upper bound
         for (int i = 0; i < 60; i++)

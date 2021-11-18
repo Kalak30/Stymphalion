@@ -1,9 +1,10 @@
 /*
  * Filename: QuestManager.cs
  * Developer: Jon Kopf
- * Purpose:
+ * Purpose: Manage all aspects of the list of quests. Saving, loading, updating, displaying
  */
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ public class QuestManager
     private static QuestManager m_quest_manager;
 
     private List<Quest> m_quests;
+
+    private List<GameObject> m_quest_triggers;
 
     /// <summary>
     /// Initialize <see cref="m_quests"/> and make sure the ui is not shown
@@ -49,6 +52,21 @@ public class QuestManager
     }
 
     /// <summary>
+    /// Goes to the next phase of the quest
+    /// </summary>
+    /// <param name="quest"></param>
+    public void Next(Quest quest)
+    {
+        if(quest.m_quest_status == QuestStatus.locked)
+        {
+            quest.m_quest_status = QuestStatus.active;
+            return;
+        }
+
+        quest.NextStep();
+    }
+
+    /// <summary>
     /// Add a quest object to <see cref="m_quests"/>
     /// </summary>
     /// <param name="quest"></param>
@@ -65,8 +83,10 @@ public class QuestManager
     {
         foreach (Quest quest in m_quests)
         {
-
-            quest.DisplayQuest();
+            if (quest.m_quest_status == QuestStatus.active)
+            {
+                quest.DisplayQuest();
+            }
         }
     }
 
@@ -83,6 +103,9 @@ public class QuestManager
         return m_quests[position];
     }
 
+    /// <summary>
+    /// Build new quests from loaded json data
+    /// </summary>
     public void Load()
     {
         QuestListBuilder quest_builder = new QuestListBuilder();
@@ -119,16 +142,65 @@ public class QuestManager
     }
 
     /// <summary>
-    /// Updates the status of a quest once it has been completed.
+    /// Affect different quest based on different triggers. This is absolutely the wrong way to do this, but I don't
+    /// Have time to do it a better way
     /// </summary>
-    /// <param name="position">Position within <see cref="m_quests"/> list to be updated</param>
-    public void TurnInQuest(int position)
+    /// <param name="collider"></param>
+    public void Trigger(Collider2D collider)
     {
-        Quest quest = m_quests[position];
-        if (quest.GetStatus() == QuestStatus.completed)
+       
+        if(collider.gameObject.name == "CaveQuestTrigger")
         {
-            quest.UpdateStatus(QuestStatus.finished);
-            //Give player their reward
+            CaveTrigger();
+        }
+
+        if (collider.gameObject.name == "TownQuestTrigger")
+        {
+            TownTrigger();
+        }
+
+        if (collider.gameObject.name == "MountainQuestTrigger")
+        {
+            MountainTrigger();
+        }
+    }
+
+    /// <summary>
+    /// go to the next step in the mountain quest
+    /// </summary>
+    private void MountainTrigger()
+    {
+        Quest stym_quest = m_quests[2];
+
+        if (stym_quest.m_active_step_pos == 0)
+        {
+            stym_quest.NextStep();
+        }
+    }
+
+    /// <summary>
+    /// Go to the next step in the town quest
+    /// </summary>
+    private void TownTrigger()
+    {
+        Quest town_quest = m_quests[0];
+
+        if (town_quest.m_active_step_pos == 0)
+        {
+            town_quest.NextStep();
+        }
+    }
+
+    /// <summary>
+    /// Go to the next step in the cave quest
+    /// </summary>
+    private void CaveTrigger()
+    {
+        Quest hydra_quest = m_quests[1];
+        
+        if(hydra_quest.m_active_step_pos == 0)
+        {
+            hydra_quest.NextStep(); 
         }
     }
 }

@@ -308,13 +308,11 @@ public class QuestEditor : EditorWindow
     {
         if (n.m_type == NodeType.Quest)
         {
-            Debug.Log("There is a root Quest: " + n);
             return (QuestNode)n;
         }
         List<Connection> connections = GetConnections(n.m_in_points[0]);
         foreach (Connection c in connections)
         {
-            Debug.Log($"ConnectionInType: {c.m_in_point.m_type}   ConnectionOutType: {c.m_out_point.m_type}");
             return GetRootQuest(c.m_out_point.m_node);
         }
 
@@ -403,8 +401,8 @@ public class QuestEditor : EditorWindow
         QuestData qd = new QuestData();
         qd.m_quest_name = "";
         qd.m_quest_description = "";
-        qd.m_quest_reward = null;
-        qd.m_quest_status = (int)QuestStatus.locked;
+        qd.m_quest_reward = Item.ItemType.Gold;
+        qd.m_quest_status = QuestStatus.locked;
         qd.m_active_step_pos = 0;
         qd.m_steps = new List<StepData>();
         m_quests_lists_data.m_quests.Add(qd);

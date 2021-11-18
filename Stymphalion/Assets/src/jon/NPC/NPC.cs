@@ -24,7 +24,10 @@ public abstract class NPC : MonoBehaviour
     /// <summary>
     /// Gets called whenever the player interacts with this NPC
     /// </summary>
-    public virtual void TouchingInteractable() { }
+    public virtual void TouchingInteractable() {
+        AudioSource noise = gameObject.GetComponent<AudioSource>();
+        noise.Play();
+    }
 
     
     /// <summary>

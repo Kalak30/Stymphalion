@@ -9,61 +9,84 @@ using UnityEngine;
 using System;
 
 /// <summary>
-/// 
+/// Inventory Super Class
+/// Add items, remove items, count items, use items on action, 
+///  get item list
 /// </summary>
 public class Inventory
 {
-    public event EventHandler OnItemListChanged;
+    public event EventHandler m_on_item_list_changed;
 
-    private List<Item> itemList;
+    private List<Item> m_item_list;
     private Action<Item> useItemAction;
+
+    /// <summary>
+    /// Constructor for Inventory class
+    /// </summary>
+    /// <param name="useItemAction"></param>
     public Inventory(Action<Item> useItemAction)
     {
         this.useItemAction = useItemAction;
-        itemList = new List<Item>();
-        /*
-        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 }, itemList.Count);
-        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 }, itemList.Count);
-        AddItem(new Item { itemType = Item.ItemType.Medkit, amount = 1 }, itemList.Count);
-        AddItem(new Item { itemType = Item.ItemType.Gold, amount = 1 }, itemList.Count);
-        AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 }, itemList.Count);
-        Debug.Log(itemList.Count);
-        Debug.Log("inventory");
-        */
-        }
-
-
-    public void AddItem(Item item, int inventoryCount)
+        m_item_list = new List<Item>();
+    }
+    /// <summary>
+    /// Returns number of items in list
+    /// </summary>
+    /// <returns></returns>
+    public int ItemCount()
     {
-        if (item.IsStackable())
+        int m_count = 0;
+        foreach (Item i in m_item_list)
         {
-            bool itemAlreadyInInventory = false;
-            foreach (Item inventoryItem in itemList)
-            {
-                if (inventoryItem.itemType == item.itemType)
-                {
-                    inventoryItem.amount += item.amount;
-                    itemAlreadyInInventory = true;
-                }
-            }
-            if (!itemAlreadyInInventory)
-            {
-                itemList.Add(item);
-            }
+            m_count++;
         }
-        else
-        {
-            itemList.Add(item);
-        }
-        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+        return m_count;
     }
 
+    /// <summary>
+    /// Adds item to inventory
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="inventoryCount"></param>
+    public void AddItem(Item item, int inventoryCount)
+    {
+        int m_count = ItemCount();
+        if (m_count < 18 && item.amount < 2000)
+        {
+            if (item.IsStackable())
+            {
+                bool itemAlreadyInInventory = false;
+                foreach (Item inventoryItem in m_item_list)
+                {
+                    if (inventoryItem.itemType == item.itemType)
+                    {
+                        inventoryItem.amount += item.amount;
+                        itemAlreadyInInventory = true;
+                    }
+                }
+                if (!itemAlreadyInInventory)
+                {
+                    m_item_list.Add(item);
+                }
+            }
+            else
+            {
+                m_item_list.Add(item);
+            }
+            m_on_item_list_changed?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    /// <summary>
+    /// Removed item from inventory
+    /// </summary>
+    /// <param name="item"></param>
     public void RemoveItem(Item item)
     {
         if (item.IsStackable())
         {
             Item itemInInventory = null;
-            foreach (Item inventoryItem in itemList)
+            foreach (Item inventoryItem in m_item_list)
             {
                 if (inventoryItem.itemType == item.itemType)
                 {
@@ -73,35 +96,35 @@ public class Inventory
             }
             if (itemInInventory != null && itemInInventory.amount <= 0)
             {
-                itemList.Remove(itemInInventory);
+                m_item_list.Remove(item);
+                m_item_list.Remove(itemInInventory);
             }
         }
         else
         {
-            Item itemInInventory = null;
-            foreach (Item inventoryItem in itemList)
+            if (m_item_list != null)
             {
-                if (inventoryItem.itemType == item.itemType)
-                {
-                    inventoryItem.amount -= item.amount;
-                    itemInInventory = inventoryItem;
-                }
-            }
-            if (itemInInventory != null && itemInInventory.amount <= 0)
-            {
-                itemList.Remove(itemInInventory);
+                m_item_list.Remove(item);
             }
         }
-        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+        m_on_item_list_changed?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <summary>
+    /// Use action. Used when clicking
+    /// </summary>
+    /// <param name="item"></param>
     public void UseItem(Item item)
     {
         useItemAction(item);
     }
 
+    /// <summary>
+    /// Counts items in list
+    /// </summary>
+    /// <returns></returns>
     public List<Item> GetItemList()
     {
-        return itemList;
+        return m_item_list;
     }
 }
