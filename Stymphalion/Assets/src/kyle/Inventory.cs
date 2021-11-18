@@ -36,7 +36,7 @@ public class Inventory
     public void AddItem(Item item, int inventoryCount)
     {
         int m_count = ItemCount();
-        if (m_count < 18)
+        if (m_count < 18 && item.amount < 2000)
         {
             if (item.IsStackable())
             {
@@ -83,7 +83,7 @@ public class Inventory
         }
         else
         {
-            if (item != null && item.amount <= 0)
+            if (itemList != null)
             {
                 itemList.Remove(item);
             }

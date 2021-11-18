@@ -115,6 +115,14 @@ public class PlayerClass
         }
         return m_gold_amount;
     }
+    /// <summary>
+    /// Return total items in Player Inventory
+    /// </summary>
+    /// <returns></returns>
+    public int CountItemsInInventory()
+    {
+        return m_player_inventory.ItemCount();
+    }
 
     /// <summary>
     /// Set player Location on Load
@@ -367,7 +375,10 @@ public class PlayerClass
         {
             // Touching item
             m_player_inventory.AddItem(itemWorld.GetItem(), 1);
-            itemWorld.DestroySelf();
+            if (m_player_inventory.ItemCount() < 18)
+            {
+                itemWorld.DestroySelf();
+            }
         }
     }
     
