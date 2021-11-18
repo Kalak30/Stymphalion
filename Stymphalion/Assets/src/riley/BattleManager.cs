@@ -71,7 +71,7 @@ public class BattleManager : MonoBehaviour
     ///<returns> a return type </returns>
     public void InitializeBattle(){  
 
-        player.m_new_scene_player_location = new Vector2(21, 11);
+        player.m_new_scene_player_location = new Vector2(22, 3);
         SceneManager.LoadScene("HydraBattle");
         m_enemyAction.EnemyMove();
 
@@ -80,7 +80,7 @@ public class BattleManager : MonoBehaviour
 
     public void EndBattle()
     {
-            player.m_new_scene_player_location = new Vector2(21, 11);
+            player.m_new_scene_player_location = new Vector2(22, 3);
             SceneManager.LoadScene("HydraCave");
     }
 
