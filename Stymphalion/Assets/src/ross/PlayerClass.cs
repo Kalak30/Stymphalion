@@ -29,6 +29,7 @@ public class PlayerClass
     public float m_movement_speed = 5;
     public bool m_on_fire = false;
     public int m_xp = 0;
+    public bool m_is_inventory_open = false;
 
 
 
@@ -113,15 +114,6 @@ public class PlayerClass
             }
         }
         return m_gold_amount;
-    }
-
-    /// <summary>
-    /// Return total items in Player Inventory
-    /// </summary>
-    /// <returns></returns>
-    public int CountItemsInInventory()
-    {
-        return m_player_inventory.ItemCount();
     }
 
     /// <summary>
@@ -307,9 +299,18 @@ public class PlayerClass
     /// <param name="obj"></param>
     private void OpenInventory(InputAction.CallbackContext obj)
     {
-        // Change function to what it's actually supposed to be when Kyle is ready
         m_ui_inventory.ToggleInventory();
-        //  Debug.Log("Test");
+        if (m_is_inventory_open == false)
+        {
+            m_movement.Disable();
+            m_is_inventory_open = true;
+        }
+        else
+        {
+            m_movement.Enable();
+            m_is_inventory_open = false;
+        }
+        
     }
 
     /// <summary>
@@ -366,10 +367,7 @@ public class PlayerClass
         {
             // Touching item
             m_player_inventory.AddItem(itemWorld.GetItem(), 1);
-            if (m_player_inventory.ItemCount() < 18)
-            {
-                itemWorld.DestroySelf();
-            }
+            itemWorld.DestroySelf();
         }
     }
     

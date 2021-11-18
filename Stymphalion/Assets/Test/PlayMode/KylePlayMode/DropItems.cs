@@ -12,18 +12,20 @@ public class DropItems
     public IEnumerator DropItem()
     {
         SceneManager.LoadScene("Mainisland");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
 
         PlayerClass m_player = PlayerClass.Instance;
         Item item = new Item { itemType = Item.ItemType.HealthPotion, amount = 1 };
         int m_count_items = 0;
         int x = 0;
-        while(x == 0)
+        while(m_count_items < 200)
         {
             ItemWorld.DropItem(m_player.GetLocation(), item);
             m_count_items++;
-            yield return new WaitForSeconds(0.01f);
-            if((1/Time.deltaTime) < 30f)
+            Debug.Log("1");
+            yield return new WaitForSeconds(2);
+            Debug.Log("2");
+            if ((1/Time.deltaTime) < 30f)
             {
                 x = 1;
             }

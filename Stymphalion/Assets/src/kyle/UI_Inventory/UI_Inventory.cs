@@ -62,7 +62,6 @@ public class UI_Inventory : MonoBehaviour
                 // Drop item
                 Item duplicateItem = new Item { itemType = item.itemType, amount = item.amount };
                 inventory.RemoveItem(item);
-                //PlayerClass m_player = PlayerClass.Instance; 
                 ItemWorld.DropItem(m_player.GetLocation(), duplicateItem);
             };
 
@@ -101,14 +100,6 @@ public class UI_Inventory : MonoBehaviour
         m_ui_inventory.SetActive(!m_ui_inventory.activeSelf);
 
         itemSlotContainer.gameObject.SetActive(!itemSlotContainer.gameObject.activeSelf);
-
-        if (m_ui_inventory.activeSelf == true)
-        {
-            //Time.timeScale = 0;
-        }
-        else
-        {
-            //Time.timeScale = 1;
-        }
+        
     }
 }
