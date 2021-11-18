@@ -1,0 +1,26 @@
+Documentation for QuestNPC prefab
+Jon Kopf
+
+Overview:
+The QuestNPC prefab is built to allow for the creation of new quest giving npcs at runtime.
+
+Components:
+
+-Transform
+	Stores information about object position, scale, and rotation
+-Sprite Renderer
+	Needed to be able to see the object
+
+-Box Collider 2D
+	Allows for collision detection. Needed for TouchingInteractable()
+
+-NPC Environment Script
+	Script allowing for the player to interact with an NPC in the environment. Has the is_quest bool checked,
+	meaning the TouchingInteractable() function within the NPC environment script will be bound to the
+	QuestNPC class.
+
+-Animator
+	Handles sprite animation for the player between the walking and idle states.
+
+-Audio Source
+	Allows for audio to be played when the QuestNPC is interacted with

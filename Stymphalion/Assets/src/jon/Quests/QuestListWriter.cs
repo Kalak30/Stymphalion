@@ -1,3 +1,11 @@
+/*
+ * Filename: QuestListWriter.cs
+ * Developer: Jon Kopf
+ * Purpose: Write quest data to the persistent data path
+ */
+
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

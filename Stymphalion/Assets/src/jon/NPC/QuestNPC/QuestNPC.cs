@@ -14,6 +14,10 @@ public class QuestNPC : NPC
 
     public Quest m_npc_quest;
     
+    /// <summary>
+    /// Sets the quest for this npc
+    /// </summary>
+    /// <param name="quest_no"></param>
     public QuestNPC(int quest_no)
     {
         m_npc_quest = QuestManager.GetQuestManager().GetQuest(quest_no);
@@ -24,7 +28,7 @@ public class QuestNPC : NPC
     /// </summary>
     public override void TouchingInteractable()
     {
-
+        base.TouchingInteractable();
         m_animator.SetBool("is_talking", true);
         
         StopMoving();
@@ -33,12 +37,12 @@ public class QuestNPC : NPC
         
     }
 
+    /// <summary>
+    /// Sets moving to true and sets the target
+    /// </summary>
+    /// <param name="pos"></param>
     public override void MoveTo(Vector2 pos)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, 0.0f);
-
-        if (colliders.Length > 0)
-            return;
 
         m_moving = true;
         m_animator.SetBool("is_moving", true);
@@ -46,14 +50,25 @@ public class QuestNPC : NPC
     }
 
     /// <summary>
-    /// Moves to the target position on 30% ish of each time called
+    /// Moves to the target position on 30% ish of each time called. If next frame would be colliding with something,
+    /// Dont move instead.
     /// </summary>
     public override void MoveFrame()
     {
+
         int r = Random.Range(0, 10);
         if (r > 7)
         {
             Vector2 temp_pos = Vector2.MoveTowards(GetComponent<Transform>().position, m_target, 0.01f);
+
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(temp_pos, 0.0f);
+
+            if (colliders.Length > 0)
+            {
+                StopMoving();
+                return;
+            }
+
             GetComponent<Transform>().position = temp_pos;
 
             if (Vector2.Distance(temp_pos, m_target) < 1)
@@ -63,6 +78,9 @@ public class QuestNPC : NPC
         }
     }
 
+    /// <summary>
+    /// Called when the player stops interacting with the player.
+    /// </summary>
     public override void StopTalking()
     {
         QuestManager.GetQuestManager().Next(m_npc_quest);

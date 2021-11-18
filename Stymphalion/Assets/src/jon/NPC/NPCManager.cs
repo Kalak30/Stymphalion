@@ -1,3 +1,11 @@
+/*
+ * Filename: NPCManager.cs
+ * Developer: Jon Kopf
+ * Purpose: Allow instantiation and control of npcs at runtime
+ */
+
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,22 +14,30 @@ public class NPCManager : MonoBehaviour
 {
 
     private List<NPC> m_npcs;    
-    private NPCManager m_manager;
+    private static NPCManager m_manager;
     public GameObject m_questnpc_prefab;
     public GameObject m_shopnpc_prefab;
     
 
-
-    public NPCManager GetSingleton()
+    /// <summary>
+    /// Returns the singleton 
+    /// </summary>
+    /// <returns></returns>
+    public static NPCManager GetSingleton()
     {
         if (m_manager == null)
         {
-            return new NPCManager();
+            return GameObject.Find("Handlers").GetComponent<NPCManager>();
         }
 
         return m_manager;
     }
 
+    private NPCManager() { }
+
+    /// <summary>
+    /// Create the initial NPCs 
+    /// </summary>
     public void Start()
     {
         m_npcs = new List<NPC>();
@@ -29,6 +45,9 @@ public class NPCManager : MonoBehaviour
         AddShopNPC(null);
     }
 
+    /// <summary>
+    /// Everyframe, have the possibility of moving an npc by a random amount
+    /// </summary>
     public void Update()
     {
         foreach (NPC npc in m_npcs)
@@ -48,6 +67,10 @@ public class NPCManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Adds a new quest npc with a specific quest
+    /// </summary>
+    /// <param name="quest_no"></param>
     public void AddQuestNPC(int quest_no)
     {
         
@@ -58,6 +81,10 @@ public class NPCManager : MonoBehaviour
         m_npcs.Add(npc);
     }
 
+    /// <summary>
+    /// Adds a new shop npc
+    /// </summary>
+    /// <param name="available_items"></param>
     public void AddShopNPC(List<Item.ItemType> available_items)
     {
         GameObject shop_obj = GameObject.Instantiate(m_shopnpc_prefab);

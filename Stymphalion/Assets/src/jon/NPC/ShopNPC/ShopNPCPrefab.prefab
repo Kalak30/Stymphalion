@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 384858599798699879}
   - component: {fileID: -1283522218171892821}
   m_Layer: 0
-  m_Name: ShopNPC
+  m_Name: ShopNPCPrefab
   m_TagString: enviromentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

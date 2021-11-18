@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4394431501208556522}
   - component: {fileID: 1187211679730560857}
   m_Layer: 0
-  m_Name: QuestNPC
+  m_Name: QuestNPCPrefab
   m_TagString: enviromentObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

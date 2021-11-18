@@ -18,6 +18,10 @@ public class QuestUI : MonoBehaviour
     private Rect m_prev_screen_size;
     private List<GameObject> m_quest_text_list;
 
+    /// <summary>
+    /// Adds a quest to the quest ui if it has not alreay been added.
+    /// </summary>
+    /// <param name="q"></param>
     public void AddQuest(Quest q)
     {
         if (m_displayed_quests.Contains(q) || q.m_quest_status != QuestStatus.active ) { return; }
@@ -44,11 +48,17 @@ public class QuestUI : MonoBehaviour
         m_displayed_quests.Add(q);
     }
 
+    /// <summary>
+    /// Used only for testing purposes. ScaleUI() is private. This is quite useless
+    /// </summary>
     public void Test()
     {
         ScaleUI();
     }
 
+    /// <summary>
+    /// Toggles the display of the quest, and scales text if necessary
+    /// </summary>
     public void ToggleDisplay()
     {
 
@@ -60,11 +70,16 @@ public class QuestUI : MonoBehaviour
         {
             QuestManager.GetQuestManager().AddToUI();
             m_background.SetActive(true);
-            ScaleText();
+            PlaceText();
         }
     }
 
-
+    /// <summary>
+    /// Adds a new step to the text object list
+    /// </summary>
+    /// <param name="step_name"></param>
+    /// <param name="step_description"></param>
+    /// <param name="parent"></param>
     private void AddStep(string step_name, string step_description, Transform parent)
     {
         GameObject new_text = Instantiate(m_step_text_prefab);
@@ -76,6 +91,12 @@ public class QuestUI : MonoBehaviour
         child.GetComponent<TextMeshProUGUI>().text = step_description;
     }
 
+    /// <summary>
+    /// Places the text of a step in relation to other text objects
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="local_height"></param>
+    /// <returns></returns>
     private float PlaceStepText(GameObject obj, float local_height)
     {
         for (int i = 1; i < obj.transform.childCount; i++)
@@ -106,6 +127,10 @@ public class QuestUI : MonoBehaviour
         return local_height;
     }
 
+    /// <summary>
+    /// Scales the background in relation to the screen size. Has a minimum height and width 
+    /// </summary>
+    /// <param name="screen_size"></param>
     private void ScaleBackground(Rect screen_size)
     {
         int MIN_WIDTH = 800;
@@ -130,7 +155,10 @@ public class QuestUI : MonoBehaviour
         background_trans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, new_height);
     }
 
-    private void ScaleText()
+    /// <summary>
+    /// Places the text on the screen based on the screen size
+    /// </summary>
+    private void PlaceText()
     {
         RectTransform background_trans = m_background.GetComponent<RectTransform>();
 
@@ -183,6 +211,9 @@ public class QuestUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Scales the entire UI
+    /// </summary>
     private void ScaleUI()
     {
         // No need to scale if there has not been a screen size update
@@ -195,9 +226,12 @@ public class QuestUI : MonoBehaviour
         m_initial_scale = 0;
 
         ScaleBackground(screen_size);
-        ScaleText();
+        PlaceText();
     }
 
+    /// <summary>
+    /// On startup, initialize a few variables
+    /// </summary>
     private void Start()
     {
         m_quest_text_list = new List<GameObject>(GameObject.FindGameObjectsWithTag("QuestText"));

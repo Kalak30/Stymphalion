@@ -1,7 +1,7 @@
 /*
  * Filename: QuestManager.cs
  * Developer: Jon Kopf
- * Purpose:
+ * Purpose: Manage all aspects of the list of quests. Saving, loading, updating, displaying
  */
 
 using System;
@@ -103,6 +103,9 @@ public class QuestManager
         return m_quests[position];
     }
 
+    /// <summary>
+    /// Build new quests from loaded json data
+    /// </summary>
     public void Load()
     {
         QuestListBuilder quest_builder = new QuestListBuilder();
@@ -138,6 +141,11 @@ public class QuestManager
         return save_data;
     }
 
+    /// <summary>
+    /// Affect different quest based on different triggers. This is absolutely the wrong way to do this, but I don't
+    /// Have time to do it a better way
+    /// </summary>
+    /// <param name="collider"></param>
     public void Trigger(Collider2D collider)
     {
        
@@ -157,6 +165,9 @@ public class QuestManager
         }
     }
 
+    /// <summary>
+    /// go to the next step in the mountain quest
+    /// </summary>
     private void MountainTrigger()
     {
         Quest stym_quest = m_quests[2];
@@ -167,6 +178,9 @@ public class QuestManager
         }
     }
 
+    /// <summary>
+    /// Go to the next step in the town quest
+    /// </summary>
     private void TownTrigger()
     {
         Quest town_quest = m_quests[0];
@@ -177,6 +191,9 @@ public class QuestManager
         }
     }
 
+    /// <summary>
+    /// Go to the next step in the cave quest
+    /// </summary>
     private void CaveTrigger()
     {
         Quest hydra_quest = m_quests[1];
