@@ -17,17 +17,22 @@ using UnityEngine.UI;
 /// Singleton design pattern
 /// Member Variables
 /// <list type = "bullet">
+/// <item>Instance</item>
 /// <item>m_enemyAction</item>
+/// <item>m_player</item>
 /// </list>
 /// </summary>
 public class BattleManager : MonoBehaviour
 {
 
     public static BattleManager Instance { get; private set; }
-    PlayerClass player = PlayerClass.Instance;
+    PlayerClass m_player = PlayerClass.Instance;
     private EnemyAI m_enemyAction;
 
 
+    /// <summary>
+    /// Awake function checks if this is the only instance of the battle manager object
+    /// </summary>
     void Awake()
     {
         if (Instance == null ) //if the code is running for the first time
@@ -41,7 +46,8 @@ public class BattleManager : MonoBehaviour
         }
     }
     ///<summary>  
-    ///A function 
+    ////Start function controls enemy actions
+    ///Not part of my feature
     ///</summary> 
     ///<param name =”name”> a parameter </param> 
     ///<returns> a return type </returns> 
@@ -54,7 +60,7 @@ public class BattleManager : MonoBehaviour
 
     
     ///<summary>  
-    ///A function 
+    ///Function used in the HydraCav scene to switch to HydraBattle scene 
     ///</summary> 
     ///<param name =”name”> a parameter </param> 
     ///<returns> a return type </returns>
@@ -65,22 +71,24 @@ public class BattleManager : MonoBehaviour
 
 
     ///<summary>  
-    ///A function 
+    ///Function used in the HydraCav scene to switch to HydraBattle scene 
     ///</summary> 
     ///<param name =”name”> a parameter </param> 
     ///<returns> a return type </returns>
     public void InitializeBattle(){  
 
-        player.m_new_scene_player_location = new Vector2(22, 3);
+        m_player.m_new_scene_player_location = new Vector2(22, 3);
         SceneManager.LoadScene("HydraBattle");
         m_enemyAction.EnemyMove();
 
     }
 
-
+    /// <summary>
+    /// Function called on the death of the hydra to return to the HydraCave
+    /// </summary>
     public void EndBattle()
     {
-            player.m_new_scene_player_location = new Vector2(22, 3);
+            m_player.m_new_scene_player_location = new Vector2(22, 3);
             SceneManager.LoadScene("HydraCave");
     }
 
