@@ -6,22 +6,23 @@ public class NPCManager : MonoBehaviour
 {
 
     private List<NPC> m_npcs;    
-    private NPCManager m_manager;
+    private static NPCManager m_manager;
     public GameObject m_questnpc_prefab;
     public GameObject m_shopnpc_prefab;
     
 
 
-    public NPCManager GetSingleton()
+    public static NPCManager GetSingleton()
     {
         if (m_manager == null)
         {
-            return new NPCManager();
+            return GameObject.Find("Handlers").GetComponent<NPCManager>();
         }
 
         return m_manager;
     }
 
+    private NPCManager() { }
     public void Start()
     {
         m_npcs = new List<NPC>();
