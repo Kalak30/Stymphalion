@@ -3,6 +3,7 @@
  * Developer: Jon Kopf
  * Purpose: Provides abstraction for a ShopNPC
  */
+using TMPro;
 using UnityEngine;
 /// <summary>
 /// Provides an abstraction for a ShopNPC
@@ -10,6 +11,7 @@ using UnityEngine;
 public class ShopNPC : NPC
 {
     GameObject shop_ui;
+    bool open_shop = false;
 
     public void Awake()
     {
@@ -29,9 +31,25 @@ public class ShopNPC : NPC
     /// </summary>
     public override void TouchingInteractable()
     {
+
         base.TouchingInteractable();
         //m_animator.Play("Base Layer.ShopNPCTalkAnim", 0, 0.5f);
-        shop_ui.SetActive(true);
-        
+        if (open_shop)
+        {
+            PlayerClass.Instance.OnEnable();
+            open_shop = false;
+            shop_ui.SetActive(false);
+        }
+        else
+        {
+            PlayerClass.Instance.OnDisable();
+            open_shop = true;
+            shop_ui.SetActive(true);
+            GameObject m_ui = shop_ui.transform.Find("UI").gameObject;
+            TextMeshProUGUI m_player_gold = m_ui.transform.Find("PlayerGold").GetComponent<TextMeshProUGUI>();
+
+            m_player_gold.SetText(PlayerClass.Instance.CountGold(new Item { itemType = Item.ItemType.Gold, amount = 1 }).ToString());
+        }
+
     }
 }

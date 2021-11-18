@@ -30,6 +30,7 @@ public class PlayerClass
     public bool m_on_fire = false;
     public int m_xp = 0;
     public bool m_is_inventory_open = false;
+    public bool m_is_quest_open = false;
 
 
 
@@ -327,7 +328,18 @@ public class PlayerClass
     /// <param name="obj"></param>
     private void OpenQuests(InputAction.CallbackContext obj)
     {
+        
         GameObject.Find("QuestUI").GetComponent<QuestUI>().ToggleDisplay();
+        if (m_is_quest_open == false)
+        {
+            m_movement.Disable();
+            m_is_quest_open = true;
+        }
+        else
+        {
+            m_movement.Enable();
+            m_is_quest_open = false;
+        }
     }
 
     /// <summary>
