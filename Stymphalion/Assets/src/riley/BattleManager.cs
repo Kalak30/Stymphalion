@@ -17,22 +17,17 @@ using UnityEngine.UI;
 /// Singleton design pattern
 /// Member Variables
 /// <list type = "bullet">
-/// <item>Instance</item>
 /// <item>m_enemyAction</item>
-/// <item>m_player</item>
 /// </list>
 /// </summary>
 public class BattleManager : MonoBehaviour
 {
 
     public static BattleManager Instance { get; private set; }
-    PlayerClass m_player = PlayerClass.Instance;
+    PlayerClass player = PlayerClass.Instance;
     private EnemyAI m_enemyAction;
 
 
-    /// <summary>
-    /// Awake function checks if this is the only instance of the battle manager object
-    /// </summary>
     void Awake()
     {
         if (Instance == null ) //if the code is running for the first time
@@ -46,8 +41,7 @@ public class BattleManager : MonoBehaviour
         }
     }
     ///<summary>  
-    ///Start function controls enemy actions
-    ///Not part of my feature
+    ///A function 
     ///</summary> 
     ///<param name =”name”> a parameter </param> 
     ///<returns> a return type </returns> 
@@ -71,33 +65,22 @@ public class BattleManager : MonoBehaviour
 
 
     ///<summary>  
-    ///Function used in the HydraCav scene to switch to HydraBattle scene 
+    ///A function 
     ///</summary> 
     ///<param name =”name”> a parameter </param> 
     ///<returns> a return type </returns>
     public void InitializeBattle(){  
 
-<<<<<<< Updated upstream
         player.m_new_scene_player_location = new Vector2(22, 3);
-=======
-        m_player.m_new_scene_player_location = new Vector2(21, 11);
->>>>>>> Stashed changes
         SceneManager.LoadScene("HydraBattle");
         m_enemyAction.EnemyMove();
 
     }
 
 
-    /// <summary>
-    /// Function called on the death of the hydra to return to the HydraCave
-    /// </summary>
     public void EndBattle()
     {
-<<<<<<< Updated upstream
             player.m_new_scene_player_location = new Vector2(22, 3);
-=======
-            m_player.m_new_scene_player_location = new Vector2(21, 11);
->>>>>>> Stashed changes
             SceneManager.LoadScene("HydraCave");
     }
 
