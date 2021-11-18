@@ -29,7 +29,8 @@ public class ShopNPC : NPC
     /// </summary>
     public override void TouchingInteractable()
     {
-        m_animator.Play("Base Layer.ShopNPCTalkAnim", 0, 0.5f);
+        base.TouchingInteractable();
+        //m_animator.Play("Base Layer.ShopNPCTalkAnim", 0, 0.5f);
         shop_ui.SetActive(true);
         
     }

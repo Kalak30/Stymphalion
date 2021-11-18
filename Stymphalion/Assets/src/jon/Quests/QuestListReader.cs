@@ -56,7 +56,8 @@ public class QuestListReader
         // Load the default quest data
         if (PlayerPrefs.GetInt("FIRSTTIMEOPENING", 1) == 1 || !File.Exists(Application.persistentDataPath + "/" + file_name + ".txt"))
         {
-            Debug.Log("First Time Opening");
+            m_file = (TextAsset)Resources.Load(file_name);
+
 
             file_contents = m_file.text;
         }
