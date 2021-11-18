@@ -4,14 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Code for setting the button actions in shop UI
+/// </summary>
 public class AddToInventory : MonoBehaviour
 {
-    private Inventory inventory;
+    private Inventory m_inventory;
     public GameObject m_ui_shop;
     public GameObject m_shop;
     public GameObject m_ui;
     public GameObject m_player_gold;
 
+    /// <summary>
+    /// Finds the text GameObject so player's gold can be updated
+    /// </summary>
     private void Awake()
     {
         m_ui_shop = GameObject.Find("UI_Shop");
@@ -19,6 +25,13 @@ public class AddToInventory : MonoBehaviour
         m_ui = m_shop.transform.Find("UI").gameObject;
         m_player_gold = m_ui.transform.Find("PlayerGold").gameObject;
     }
+
+    /// <summary>
+    /// Activated when button is pressed over health potion in shop
+    ///     Changes the player's gold
+    ///     Subtracts 10 gold from player
+    ///     Will not update inventory with item if player doesn't have enough gold
+    /// </summary>
     public void HealthPotion()
     {
         TextMeshProUGUI uiText = m_player_gold.GetComponent<TextMeshProUGUI>();
@@ -44,6 +57,12 @@ public class AddToInventory : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Button function for when medkit is clicked in the shop
+    ///     Find's player's gold
+    ///     Changes UI for player's gold when purchased
+    ///     Won't be purchased if player doesn't have enough gold
+    /// </summary>
     public void Medkit()
     {
         TextMeshProUGUI uiText = m_player_gold.GetComponent<TextMeshProUGUI>();
