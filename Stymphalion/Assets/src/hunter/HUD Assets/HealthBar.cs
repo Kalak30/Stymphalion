@@ -1,7 +1,7 @@
 /*
 * Filename: HealthBar.cs
 * Developer: Hunter Leppek
-* Purpose: This file implements a health bar for the main character, referred to here as "mc."
+* Purpose: This file implements a health bar for the main character, referred to here as "mc." 
 */
 using System.Collections;
 using System.Collections.Generic;
@@ -11,17 +11,21 @@ using UnityEngine.UI;
 
 /// <summary>
 /// A healthbar class for the mc
+/// Two other classes: HealthBorder.cs and HealthColor.cs help implement the healthbar using a decorator pattern.
 /// Member Variables
 /// <list type = "bullet">
 /// <item>m_health_slider</item>
+/// <item>m_fill</item>
+/// <item>m_health_sprite</item>
 /// <item>m_mc</item>
 /// </list>
 /// </summary>
 public class HealthBar : MonoBehaviour
 {
     public Slider m_health_slider;
+    public Image m_fill;
+    public Image m_health_sprite;
     PlayerClass m_mc;
-
 
     /// <summary>
     /// Initializes the player health to 100
