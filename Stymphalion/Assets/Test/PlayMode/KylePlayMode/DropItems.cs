@@ -18,13 +18,11 @@ public class DropItems
         Item item = new Item { itemType = Item.ItemType.HealthPotion, amount = 1 };
         int m_count_items = 0;
         int x = 0;
-        while(m_count_items < 200)
+        while(x == 0)
         {
             ItemWorld.DropItem(m_player.GetLocation(), item);
             m_count_items++;
-            Debug.Log("1");
             yield return new WaitForSeconds(2);
-            Debug.Log("2");
             if ((1/Time.deltaTime) < 30f)
             {
                 x = 1;

@@ -23,30 +23,43 @@ public class Inventory
         itemList = new List<Item>();
     }
 
+    public int ItemCount()
+    {
+        int m_count = 0;
+        foreach (Item i in itemList)
+        {
+            m_count++;
+        }
+        return m_count;
+    }
 
     public void AddItem(Item item, int inventoryCount)
     {
-        if (item.IsStackable())
+        int m_count = ItemCount();
+        if (m_count < 18)
         {
-            bool itemAlreadyInInventory = false;
-            foreach (Item inventoryItem in itemList)
+            if (item.IsStackable())
             {
-                if (inventoryItem.itemType == item.itemType)
+                bool itemAlreadyInInventory = false;
+                foreach (Item inventoryItem in itemList)
                 {
-                    inventoryItem.amount += item.amount;
-                    itemAlreadyInInventory = true;
+                    if (inventoryItem.itemType == item.itemType)
+                    {
+                        inventoryItem.amount += item.amount;
+                        itemAlreadyInInventory = true;
+                    }
+                }
+                if (!itemAlreadyInInventory)
+                {
+                    itemList.Add(item);
                 }
             }
-            if (!itemAlreadyInInventory)
+            else
             {
                 itemList.Add(item);
             }
+            OnItemListChanged?.Invoke(this, EventArgs.Empty);
         }
-        else
-        {
-            itemList.Add(item);
-        }
-        OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void RemoveItem(Item item)
@@ -64,27 +77,15 @@ public class Inventory
             }
             if (itemInInventory != null && itemInInventory.amount <= 0)
             {
-<<<<<<< HEAD
                 itemList.Remove(item);
-=======
                 itemList.Remove(itemInInventory);
             }
         }
         else
         {
-            Item itemInInventory = null;
-            foreach (Item inventoryItem in itemList)
+            if (item != null && item.amount <= 0)
             {
-                if (inventoryItem.itemType == item.itemType)
-                {
-                    inventoryItem.amount -= item.amount;
-                    itemInInventory = inventoryItem;
-                }
->>>>>>> parent of 606cc3f1 (Testing)
-            }
-            if (itemInInventory != null && itemInInventory.amount <= 0)
-            {
-                itemList.Remove(itemInInventory);
+                itemList.Remove(item);
             }
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
