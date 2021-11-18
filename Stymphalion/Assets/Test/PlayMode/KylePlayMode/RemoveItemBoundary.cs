@@ -3,23 +3,40 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class RemoveItemBoundary
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void RemoveItemBoundarySimplePasses()
+    [UnityTest]
+    public IEnumerator InventoryMin()
     {
-        // Use the Assert class to test conditions
+        SceneManager.LoadScene("Mainisland");
+        yield return new WaitForSeconds(2);
+
+        PlayerClass m_player = PlayerClass.Instance;
+        GameObject temp = GameObject.Find("UI_Inventory");
+        GameObject m_ui_inventory = temp.transform.Find("Inventory").gameObject;
+        //m_ui_inventory.SetActive(true);
+
+        Item item = new Item { itemType = Item.ItemType.Sword, amount = 1 };
+        int x = 0;
+        int y = 0;
+        while(y < 10)
+        {
+            m_player.AddToInventory(item);
+            //yield return new WaitForSeconds(0.01f);
+            y++;
+        }
+        while (x < 30)
+        {
+            //ItemWorld.SpawnItemWorld(m_player.GetLocation(), item);
+            m_player.RemoveFromInventory(item);
+            yield return new WaitForSeconds(0.1f);
+            x++;
+        }
+        int a = m_player.CountItemsInInventory();
+        Assert.AreEqual(0, a);
     }
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator RemoveItemBoundaryWithEnumeratorPasses()
-    {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
-    }
 }
