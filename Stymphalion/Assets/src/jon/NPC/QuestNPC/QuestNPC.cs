@@ -24,7 +24,7 @@ public class QuestNPC : NPC
     /// </summary>
     public override void TouchingInteractable()
     {
-        base.TouchingInteractable();
+
         m_animator.SetBool("is_talking", true);
         
         StopMoving();

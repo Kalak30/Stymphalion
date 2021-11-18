@@ -10,13 +10,13 @@ using UnityEngine;
 /// </summary>
 public class ShopNPC : NPC
 {
-    GameObject m_shop_ui;
-    bool m_open_shop = false;
+    GameObject shop_ui;
+    bool open_shop = false;
 
     public void Awake()
     {
-        m_shop_ui = GameObject.Find("Shop");
-        m_shop_ui.SetActive(false);
+        shop_ui = GameObject.Find("Shop");
+        shop_ui.SetActive(false);
     }
 
     public override void MoveTo(Vector2 pos)
@@ -34,18 +34,18 @@ public class ShopNPC : NPC
 
         base.TouchingInteractable();
         //m_animator.Play("Base Layer.ShopNPCTalkAnim", 0, 0.5f);
-        if (m_open_shop)
+        if (open_shop)
         {
             PlayerClass.Instance.OnEnable();
-            m_open_shop = false;
-            m_shop_ui.SetActive(false);
+            open_shop = false;
+            shop_ui.SetActive(false);
         }
         else
         {
             PlayerClass.Instance.OnDisable();
-            m_open_shop = true;
-            m_shop_ui.SetActive(true);
-            GameObject m_ui = m_shop_ui.transform.Find("UI").gameObject;
+            open_shop = true;
+            shop_ui.SetActive(true);
+            GameObject m_ui = shop_ui.transform.Find("UI").gameObject;
             TextMeshProUGUI m_player_gold = m_ui.transform.Find("PlayerGold").GetComponent<TextMeshProUGUI>();
 
             m_player_gold.SetText(PlayerClass.Instance.CountGold(new Item { itemType = Item.ItemType.Gold, amount = 1 }).ToString());
