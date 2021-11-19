@@ -32,7 +32,7 @@ public class HealthBorder : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (m_mc.m_health < 0)
+        if (m_mc.m_health <= 0)
         {
             m_health_sprite.enabled = false;
             m_death_sprite.enabled = true;
