@@ -1,3 +1,4 @@
 Prefab: SoundAssets
 Purpose: To allow the sound manager to play sounds
 Interactions: This prefab is not visible in the game. However, interactions with the world such as player movement will trigger this prefab to play the appropriate sound.
+This prefab is implemented using the SoundAssets.cs script with a singleton pattern.
