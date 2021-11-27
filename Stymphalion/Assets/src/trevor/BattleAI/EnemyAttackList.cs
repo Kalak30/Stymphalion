@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class for attack data. An attack has a damage value, speed value, and a bonus value that determines if it has special properties.
+/// </summary>
 public class EnemyAttackList : MonoBehaviour
 {
     //public EnemyAI enemyTest;
@@ -19,7 +22,10 @@ public class EnemyAttackList : MonoBehaviour
     public Attack mid_Attack = new Attack();
     public Attack bonus_Attack = new Attack();
     public Attack block = new Attack();
-    
+
+    public int damage;
+    public int speed;
+    public int bonus;
 
 
 

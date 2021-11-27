@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/src/riley/HydraBattle.unity
     guid: 02fbcf8f2bbf7fc448615bc71dfec392
+  - enabled: 1
+    path: Assets/src/trevor/CombatSceneDemo.unity
+    guid: 754e7b5b2ca32b94eb700145ac47e92c
   m_configObjects: {}

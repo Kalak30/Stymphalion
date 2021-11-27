@@ -1,5 +1,4 @@
 /*
- * 
  * Filename: DemoMode.CS 
  * Developer: Trevor McGeary
  * Purpose: Put the player character into the demo mode
@@ -16,9 +15,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
-
+//Singleton Pattern
 public class DemoMode : MonoBehaviour
 {
+
+    private static DemoMode _instance;
+
+    protected DemoMode() { }
+
+    public static DemoMode Instance { get { return _instance; } }
 
     public InputRecorder testClass;
 
@@ -42,12 +47,31 @@ public class DemoMode : MonoBehaviour
         
     }
 
+    private void Awake()
+    {
+        if(_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+        DontDestroyOnLoad(this.gameObject);
+
+    }
+
+    /// <summary>
+    /// Main function. Checks if player has made any key inputs for 10 seconds, and if not, loads
+    /// 1 of 2 replays (failure and success), then plays the replay. If the player makes any key input, 
+    /// stop the replay.
+    /// </summary>
     void FixedUpdate()
     {
-        /*if(Input.anyKey && player_Inputted == 0)
+        if(Input.anyKeyDown && !(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) && player_Inputted == 0)
         {
             player_Inputted = 1;
-        }*/
+        }
         
         if (!Input.anyKey && time < idle_Time & player_Inputted == 0)
         {
@@ -56,15 +80,12 @@ public class DemoMode : MonoBehaviour
 
         if(time == idle_Time & in_Demo == 0)
         {
-            in_Demo++;
-            string path = "Assets/Resources/InputRecorderTest.inputtrace";
+            in_Demo = 1;
+            string path = "Assets/Resources/InputRecorder1.inputtrace";
             string path2 = "Assets/Resources/InputRecorder2.inputtrace";
-            int random_Int = Random.Range(0, 3);
-            Debug.Log(random_Int);
-            //testClass.testFunction();
-            //testClass.StartReplay();
+            int random_Int = Random.Range(1, 3);
+            Debug.Log("Playing path "+random_Int);
 
-            //StreamReader reader = new StreamReader(path);
             if (random_Int == 1)
             {
                 testClass.LoadCaptureFromFile(path);
@@ -77,13 +98,10 @@ public class DemoMode : MonoBehaviour
             }
         }
 
-        if (Input.anyKey && in_Demo > 0)
+        if(Input.anyKey && !(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) && in_Demo > 0)
         {
             testClass.PauseReplay();
-            //testClass.LoadCaptureFromFile("Assets/Resources/InputRecorderTest.inputtrace");
-            //testClass.SaveCaptureToFile("InputRecorder3.inputtrace");
-            //testClass.LoadCaptureFromFile("InputRecorder3.inputtrace");
-            //testClass.StartReplay();
+            testClass.ClearCapture();
         }
 
         

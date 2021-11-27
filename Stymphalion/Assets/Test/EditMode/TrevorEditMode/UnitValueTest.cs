@@ -1,25 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
-    
-public class BattleSystem : MonoBehaviour
+public class UnitValueTest : MonoBehaviour
 {
-
-    public PlayerAI playerData;
-    public EnemyAIDemo enemyData;
-    private UnitDataClass testData;
-
+    public UnitDataClass[] tester;
     // Start is called before the first frame update
     void Start()
     {
         
-        enemyData.GetPlayerData();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //enemyData.GetPlayerData();
+        
+    }
+    [Test]
+    public void UnitTest()
+    {
+
     }
 }
