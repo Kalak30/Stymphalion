@@ -48,7 +48,7 @@ public class PlayerClass
     private Animator m_main_animator;
     private InputAction m_movement;
     private Rigidbody2D m_player;
-    private PlayerInputActionMap m_player_actions;
+    public PlayerInputActionMap m_player_actions;
     private GameObject m_player_game_object;
     private UI_Inventory m_ui_inventory;
     private Inventory m_player_inventory;
@@ -350,7 +350,7 @@ public class PlayerClass
     public void OnCollisionStay2D(Collision2D other){
         EnvirmentObjectSuperClass enviromentObj;
         enviromentObj = other.gameObject.GetComponent<EnvirmentObjectSuperClass>();
-        if(m_interact_pressed){
+        if (m_interact_pressed){
             enviromentObj.InteractFunc();
         }
         m_interact_pressed = false;
@@ -364,6 +364,7 @@ public class PlayerClass
     public void OnTriggerStay2D(Collider2D other){
         EnvirmentObjectSuperClass enviromentObj;
         enviromentObj = other.gameObject.GetComponent<EnvirmentObjectSuperClass>();
+        Debug.Log("Trigger Stay");
         if(m_interact_pressed){
             enviromentObj.InteractFunc();
         }
@@ -377,7 +378,8 @@ public class PlayerClass
     /// <param name="collider"></param>
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.tag == "QuestTrigger")
+        Debug.Log("Trigger Enter");
+        if (collider.gameObject.tag == "QuestTrigger")
         {
             QuestManager.GetQuestManager().Trigger(collider);
         }
@@ -399,7 +401,9 @@ public class PlayerClass
     /// </summary>
     /// <param name="obj"></param>
     public void InteractIsPressed(InputAction.CallbackContext obj){
+        Debug.Log("Pressed");
         m_interact_pressed = true;
+
     } 
 
     /// <summary>
@@ -407,6 +411,7 @@ public class PlayerClass
     /// </summary>
     /// <param name="obj"></param>
     public void InteractReleased(InputAction.CallbackContext obj){
+        
         m_interact_pressed = false;
     }
 }

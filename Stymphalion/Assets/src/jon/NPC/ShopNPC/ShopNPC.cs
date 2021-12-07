@@ -5,6 +5,7 @@
  */
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 /// <summary>
 /// Provides an abstraction for a ShopNPC
 /// </summary>
@@ -12,12 +13,14 @@ public class ShopNPC : NPC
 {
     GameObject m_shop_ui;
     bool m_open_shop = false;
+    private PlayerInputActionMap m_input_actions;
 
     /// <summary>
     /// Find the shop ui and close it
     /// </summary>
     public void Awake()
     {
+        m_input_actions = PlayerClass.Instance.m_player_actions;
         m_shop_ui = GameObject.Find("Shop");
         m_shop_ui.SetActive(false);
     }
@@ -33,6 +36,23 @@ public class ShopNPC : NPC
     }
 
     /// <summary>
+    /// Make the interact button work
+    /// </summary>
+    /// <param name="obj"></param>
+    public void InteractIsPressed(InputAction.CallbackContext obj)
+    {
+        
+        if (m_open_shop)
+        {
+            PlayerClass.Instance.OnEnable();
+            m_open_shop = false;
+            m_shop_ui.SetActive(false);
+
+        }
+
+    }
+
+    /// <summary>
     /// Handles what happens when player is interacting with this intractable.
     /// Is automatically called
     /// </summary>
@@ -43,12 +63,15 @@ public class ShopNPC : NPC
         //m_animator.Play("Base Layer.ShopNPCTalkAnim", 0, 0.5f);
         if (m_open_shop)
         {
+            Debug.LogError("Close Shop");
             PlayerClass.Instance.OnEnable();
             m_open_shop = false;
             m_shop_ui.SetActive(false);
         }
         else
         {
+            Debug.LogError("Open shop");
+
             PlayerClass.Instance.OnDisable();
             m_open_shop = true;
             m_shop_ui.SetActive(true);
