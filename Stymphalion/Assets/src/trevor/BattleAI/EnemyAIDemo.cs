@@ -20,7 +20,7 @@ public class EnemyAIDemo : MonoBehaviour
     /// </summary>
     public abstract class State
     {
-        public UnitDataClass test_Data;
+        //public UnitDataClass test_Data;
 
         protected Enemy enemy;
         protected float current_Health_State;
