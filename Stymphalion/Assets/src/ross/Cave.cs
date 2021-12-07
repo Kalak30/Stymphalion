@@ -22,7 +22,24 @@ public class Cave : EnvirmentObjectSuperClass
         }
         else{
             player.m_new_scene_player_location = new Vector2(21, 11);
+            GameObject hydra = GameObject.Find("Hydra");
+            GameObject ply = GameObject.Find("Player");
+            GameObject UI = GameObject.Find("UI");
+            //
+            /*            
+                        Scene dontdes = SceneManager.GetSceneAt(1);
+                        var x = dontdes.GetRootGameObjects();
+                        foreach (var obj in x){
+                            if(obj.name == "UI"){
+                                Destroy(obj);
+                            }
+                        }
+            */
+            Destroy(UI);
+            Destroy(hydra);
+            Destroy(ply);
             SceneManager.LoadScene("MainIsland");
+            
             
         }
 
