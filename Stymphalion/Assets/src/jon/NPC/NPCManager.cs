@@ -17,7 +17,6 @@ public class NPCManager : MonoBehaviour
     private static NPCManager m_manager;
     public GameObject m_questnpc_prefab;
     public GameObject m_shopnpc_prefab;
-    
 
     /// <summary>
     /// Returns the singleton 
