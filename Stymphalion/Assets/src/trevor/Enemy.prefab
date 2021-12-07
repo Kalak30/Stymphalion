@@ -99,7 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_Health: 0
   current_Health: 0
+  health_Percentage: 0
+  behavior: 0
+  enemy_Type: 0
   player_Health: 0
   player_Health_Percentage: 0
-  playerData: {fileID: -3220216914750495443, guid: 5d95e5507e129da428101f299ccad84f,
-    type: 3}

@@ -103,3 +103,5 @@ MonoBehaviour:
   enemy_Health_Percentage: 0
   enemyData: {fileID: -6206537675343048455, guid: 5eac8af6e24394f4a98488fa73512d73,
     type: 3}
+  battleSystem: {fileID: 7438645209860538952, guid: 85e2412ac84eeee4d9f54235587e3f9c,
+    type: 3}
