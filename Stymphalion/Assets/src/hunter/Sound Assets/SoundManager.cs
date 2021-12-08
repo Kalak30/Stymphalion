@@ -44,9 +44,13 @@ public static class SoundManager
     /// <param name="sound"></param>
     public static void PlaySound(m_sound sound) 
     {
-        GameObject sound_game_object = new GameObject("Sound");
-        AudioSource audio_source = sound_game_object.AddComponent<AudioSource>();
-        audio_source.PlayOneShot(GetAudioClip(sound));
+        if (CanPlaySound(sound))
+        {
+            GameObject sound_game_object = new GameObject("Sound");
+            AudioSource audio_source = sound_game_object.AddComponent<AudioSource>();
+            audio_source.PlayOneShot(GetAudioClip(sound));
+        }
+
     }
 
     /// <summary>
