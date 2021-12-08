@@ -51,6 +51,7 @@ public class HealthBar : MonoBehaviour
         }
         
         SetHealth(m_mc.m_health);
+
     }
 
     /// <summary>
