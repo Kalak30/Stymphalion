@@ -56,8 +56,13 @@ public class BossScenePlayer : MonoBehaviour
         {
             animator.SetTrigger("Attack");
         }
-        
-        
+
+        if (Input.GetButtonDown("dodge"))
+        {
+            animator.SetTrigger("Dodge");
+        }
+
+
         //flip the character
         Vector3 characterScale = transform.localScale;
         if (movement < 0)
