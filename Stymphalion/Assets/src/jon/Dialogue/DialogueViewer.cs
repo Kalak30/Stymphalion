@@ -3,6 +3,7 @@ using UnityEngine;
 using QuantumTek.QuantumDialogue;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class DialogueViewer : MonoBehaviour
 {
@@ -153,7 +154,7 @@ public class DialogueViewer : MonoBehaviour
 
         
         // Check if the space key is pressed and the current message is not a choice
-        if (handler.currentMessageInfo.Type == QD_NodeType.Message && Input.GetKeyUp(KeyCode.Space))
+        if (handler.currentMessageInfo.Type == QD_NodeType.Message && Input.GetKeyUp(KeyCode.Space) || handler.currentMessageInfo.Type == QD_NodeType.Message && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             Next();
         }
