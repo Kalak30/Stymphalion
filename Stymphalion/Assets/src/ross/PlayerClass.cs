@@ -196,7 +196,7 @@ public class PlayerClass
         {
             case Item.ItemType.HealthPotion:
                 m_player_inventory.RemoveItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
-                m_health += 10;
+                m_health += 30;
                 break;
             case Item.ItemType.Medkit:
                 m_player_inventory.RemoveItem(new Item { itemType = Item.ItemType.Medkit, amount = 1 });

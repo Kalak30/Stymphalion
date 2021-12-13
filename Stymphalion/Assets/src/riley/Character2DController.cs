@@ -55,8 +55,12 @@ public class CharacterMovement2D : MonoBehaviour
         {
             animator.SetTrigger("Attack");
         }
-        
-        
+
+        if (Input.GetButtonDown("dodge"))
+        {
+            animator.SetTrigger("Dodge");
+        }
+
         //flip the character when switching horizontal direction
         Vector3 characterScale = transform.localScale;
         if (movement < 0)

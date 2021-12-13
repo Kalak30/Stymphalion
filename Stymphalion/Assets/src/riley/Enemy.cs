@@ -28,7 +28,10 @@ public class Enemy : MonoBehaviour
     public int m_maxHealth = 100;
     public int m_currentHealth;
     public Animator animator;
-    PlayerClass player = PlayerClass.Instance;  
+   //layerClass player = PlayerClass.Instance;
+    public Transform player;
+
+    public bool isFlipped = false;
 
     ///<summary>  
     ///Start function sets current healt to max health 
@@ -73,12 +76,31 @@ public class Enemy : MonoBehaviour
         //Make Enemy disappear
         gameObject.SetActive(false);
 
-        player.m_new_scene_player_location = new Vector2(22, 3);
+       //layer.m_new_scene_player_location = new Vector2(22, 3);
         SceneManager.LoadScene("HydraCave");
         /*
         GameObject objectToDisappear = GameObject.Find("Enemy");
         objectToDisappear.GetComponent<Renderer>().enabled = false;
         */
+    }
+
+    public void LookAtPlayer()
+    {
+        Vector3 flipped = transform.localScale;
+        flipped.z *= -1f;
+
+        if (transform.position.x > player.position.x && isFlipped)
+        {
+            transform.localScale = flipped;
+            transform.Rotate(0f, 180f, 0f);
+            isFlipped = false;
+        }
+        else if (transform.position.x < player.position.x && !isFlipped)
+        {
+            transform.localScale = flipped;
+            transform.Rotate(0f, 180f, 0f);
+            isFlipped = true;
+        }
     }
 
 }

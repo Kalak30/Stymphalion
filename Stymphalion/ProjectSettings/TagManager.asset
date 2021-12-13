@@ -8,6 +8,7 @@ TagManager:
   - QuestText
   - enviromentObject
   - QuestTrigger
+  - DontDestory
   layers:
   - Default
   - TransparentFX
